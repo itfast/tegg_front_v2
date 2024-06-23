@@ -1,0 +1,37 @@
+.consumption_chart_selects {
+	display: flex;
+	justify-content: center;
+	gap: 5px;
+	margin-top: 20px;
+	flex-wrap: wrap;
+	padding: 20px;
+}
+
+.big_consumption_container {
+	display: flex;
+	flex-direction: column;
+	overflow-x: scroll;
+}
+
+.small_consumption_container {
+	padding: 20px;
+	/* width: 1300px; */
+	display: flex;
+	justify-content: space-between;
+	/* align-items: center; */
+}
+
+@media (max-width: 1450px) {
+	.small_consumption_container {
+		width: 900px;
+		flex-direction: column;
+		align-items: center;
+		gap: 20px;
+	}
+}
+
+/* @media (max-width: 1050px) {
+	.small_consumption_container {
+		width: 600px;
+	}
+} */

@@ -1,0 +1,17 @@
+.loading {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 15px;
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
+
+@media (max-width: 410px) {
+	.rccs__card {
+		width: 60vw;
+		height: 10vh;
+		margin-left: 0;
+	}
+}
+

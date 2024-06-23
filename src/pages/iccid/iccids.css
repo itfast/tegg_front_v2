@@ -1,0 +1,60 @@
+.btn_container {
+	display: flex;
+	gap: 15px;
+}
+
+.title-container {
+	margin-top: 30px;
+	margin-bottom: 20px;
+	display: flex;
+	gap: 15px;
+	align-items: center;
+}
+
+.checkbox {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 25;
+}
+
+.flex {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+}
+
+.end {
+	justify-content: flex-end;
+	margin-top: 10px;
+}
+
+.center {
+	justify-content: center;
+	margin-top: 10px;
+}
+
+.mt-30 {
+	margin-top: 30px;
+}
+
+.mt-50 {
+	margin-top: 50px;
+}
+
+@media (max-width: 580px) {
+	.title-container {
+		flex-direction: column;
+		align-items: flex-start;
+	}
+}
+
+@media (max-width: 400px) {
+	.btn_container {
+		flex-direction: column;
+	}
+
+	.btn_invert {
+		flex-direction: column-reverse;
+	}
+}

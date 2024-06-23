@@ -1,0 +1,78 @@
+.ScannerApp {
+    font-family: sans-serif;
+    text-align: center;
+    height: 100vh;
+    width: 100vw;
+    /* height: 99vh;
+    width: 99vw; */
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    
+  }
+  
+  .Scannercontainer {
+    position: relative;
+  }
+  
+  .Scannercontainer,
+  #interactive.viewport {
+    width: 100vw;
+    height:100vh;
+  }
+  
+  #interactive.viewport canvas,
+  video {
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+  
+  #interactive.viewport canvas.drawingBuffer,
+  video.drawingBuffer {
+    width: 100vw;
+    height: 100vh;
+  }
+
+  @media only screen and (min-width: 768px) {
+    .ScannerApp {
+        font-family: sans-serif;
+        text-align: center;
+        height: 300px;
+        width: 400px;
+        /* height: 99vh;
+        width: 99vw; */
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        
+      }
+      
+      .Scannercontainer {
+        position: relative;
+      }
+      
+      .Scannercontainer,
+      #interactive.viewport {
+        height: 300px;
+        width: 400px;
+      }
+      
+      #interactive.viewport canvas,
+      video {
+        height: 300px;
+        width: 400px;
+        position: absolute;
+        top: 0;
+        left: 0;
+      }
+      
+      #interactive.viewport canvas.drawingBuffer,
+      video.drawingBuffer {
+        height: 300px;
+        width: 400px;
+      }
+  }
+ 
