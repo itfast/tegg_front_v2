@@ -1,4 +1,4 @@
-import { Button, PageLayout } from "../../../globalStyles";
+import { Button, ContainerMobile, ContainerWeb, PageLayout } from "../../../globalStyles";
 
 import {
   // Checkbox,
@@ -27,7 +27,8 @@ import api from "../../services/api";
 import AsyncSelect from "react-select/async";
 import { toast } from "react-toastify";
 // import { StreamingManagementTable } from "./StreamingManagementTable";
-import { StreamingManagementTableHomolog } from "./StreamingManagementTableHomolog";
+import { StreamingManagementMobile } from "./StreamingManagementMobile";
+import {StreamingManagementTableHomolog} from "./StreamingManagementTableHomolog";
 // import _ from "lodash";
 import { useTranslation } from "react-i18next";
 
@@ -192,18 +193,6 @@ export const StreamingManagement = () => {
                         await api.streaming.addPlan(user, `P${qtdFinal}`);
                       }
                     }
-                    // for (let x = 0; x < planOptAdd.length; x++) {
-                    //   try {
-                    //     if (planOptAdd[x].selected) {
-                    //       await api.streaming.addPlan(
-                    //         user,
-                    //         planOptAdd[x].label
-                    //       );
-                    //     }
-                    //   } catch (err) {
-                    //     translateError(err);
-                    //   }
-                    // }
                     toast.success(t("StreamingManager.msgAddNewProducts"));
                     setOpen(false);
                     setUser();
@@ -288,6 +277,7 @@ export const StreamingManagement = () => {
             onChange={(e) => setSearch(e.target.value)}
           />
         </div>
+        <ContainerWeb>
         {streamers.length > 0 ? (
           <TableItens style={{ marginTop: "1rem" }}>
             <thead>
@@ -327,6 +317,18 @@ export const StreamingManagement = () => {
             </h2>
           </div>
         )}
+        </ContainerWeb>
+        <ContainerMobile style={{ width: "100%", height: "100%" }}>
+              {streamers.map((stream, index) => (
+                <StreamingManagementMobile
+                key={index}
+                stream={stream}
+                setLoading={setLoading}
+                setMsg={setMsg}
+                search={searchStreamers}
+                />
+              ))}
+            </ContainerMobile>
         {/* <div style={{ display: "flex", justifyContent: "center", marginTop: '1rem' }}>
             <Stack
               spacing={2}
@@ -398,7 +400,7 @@ export const StreamingManagement = () => {
                 }
               }}
             />
-            <div style={{ width: "100%", display: "flex", gap: 10 }}>
+            <div style={{ width: "100%", display: window.innerWidth > 768 && 'flex', gap: 10 }}>
               <div style={{ width: "100%" }}>
                 <h5>{t("StreamingManager.userInput")}</h5>
                 <InputData
@@ -418,7 +420,7 @@ export const StreamingManagement = () => {
               </div>
             </div>
 
-            <div style={{ width: "100%", display: "flex", gap: 10 }}>
+            <div style={{ width: "100%", display: window.innerWidth > 768 && 'flex', gap: 10 }}>
               <div style={{ width: "100%" }}>
                 <h5>{t("StreamingManager.passwordInput")}</h5>
                 <InputPassSignUp style={{ margin: "0px" }}>
@@ -485,7 +487,7 @@ export const StreamingManagement = () => {
               </div>
             </div>
 
-            <div style={{ width: "100%", display: "flex", gap: 10 }}>
+            <div style={{ width: "100%", display: window.innerWidth > 768 && 'flex', gap: 10 }}>
               <div style={{ width: "100%" }}>
                 <h5>{t("StreamingManager.quantityStandard")}</h5>
                 <InputData

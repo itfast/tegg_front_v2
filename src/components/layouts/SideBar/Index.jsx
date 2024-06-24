@@ -104,7 +104,7 @@ export function SideBar({ open }) {
             >
               <a href="#" onClick={() => navigate("/management/streaming")}>
                 <i className="bx bx-tv"></i>
-                <span className="link_name">{t("Menu.playHub")}</span>
+                <span className="link_name">Tegg TV</span>
               </a>
               <ul className="sub-menu blank">
                 <li>
@@ -113,7 +113,7 @@ export function SideBar({ open }) {
                     href="#"
                     onClick={() => navigate("/management/streaming")}
                   >
-                    {t("Menu.playHub")}
+                    Tegg TV
                   </a>
                 </li>
               </ul>

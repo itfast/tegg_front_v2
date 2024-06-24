@@ -96,6 +96,33 @@ export const SideBarMobile = ({ open, setHas, setOpen }) => {
                   </div>
                 </a>
               </li>
+              <PermissionView role="TEGG">
+                <li className={open ? "animate" : ""}>
+                  <a>
+                    <div
+                      style={{
+                        position: "relative",
+                        display: "flex",
+                        width: "100%",
+                        justifyContent: "center",
+                        alignItems: "center",
+                        zIndex: open ? 999 : 0,
+                      }}
+                      onClick={() => {
+                        navigate("/management/streaming");
+                        setOpen(false);
+                        setExpand({
+                          order: false,
+                          line: false,
+                          profile: false,
+                        });
+                      }}
+                    >
+                      <span className="link_name">Tegg TV</span>
+                    </div>
+                  </a>
+                </li>
+              </PermissionView>
               <PermissionView role="CLIENT,AGENT">
                 <li className={open ? "animate" : ""}>
                   <a>
