@@ -85,7 +85,7 @@ export const ClientData = ({
       10,
       search
     );
-    const hasMore = response.data.meta.total > vlr;
+    const hasMore = response.data.meta.total > vlr && response.data.meta.total > 10;
     const finalClients = await response.data.finalClients;
     const array = [];
     for (const f of finalClients) {

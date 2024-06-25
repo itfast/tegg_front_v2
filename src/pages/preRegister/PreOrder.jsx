@@ -111,7 +111,7 @@ export const PreOrder = () => {
       });
     });
 
-    const hasMore = response.data.meta.total > vlr;
+    const hasMore = response.data.meta.total > vlr && response.data.meta.total > 10;
     return {
       options: list,
       hasMore,
@@ -136,7 +136,7 @@ export const PreOrder = () => {
       });
     });
 
-    const hasMore = response.data.meta.total > vlr;
+    const hasMore = response.data.meta.total > vlr && response.data.meta.total > 10;
     return {
       options: list,
       hasMore,

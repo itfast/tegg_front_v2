@@ -716,7 +716,7 @@ export const translateChipStatus = (str) => {
     case "GRACE3":
       return "Recarga atrasada 75 dias";
     case "EX":
-      return "Cancelado";
+      return "EX";
     case "PORTOUT":
       return "Portado";
     case "INVALID":
@@ -736,7 +736,8 @@ export const optChipStatus = [
   { label: "Recarga atrasada 5 dias", value: "GRACE1" },
   { label: "Recarga atrasada 45 dias", value: "GRACE2" },
   { label: "Recarga atrasada 75 dias", value: "GRACE3" },
-  { label: "Cancelado", value: "EX" },
+  { label: "Cancelado", value: "CANCELED" },
+  { label: "EX", value: "EX" },
   { label: "Portado", value: "PORTOUT" },
   { label: "Inválido", value: "INVALID" },
   // {label: 'Disponível para venda', value: 'AVAILABLE'},

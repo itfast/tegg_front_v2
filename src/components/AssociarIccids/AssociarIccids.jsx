@@ -101,7 +101,7 @@ export const AssociarIccids = ({ showModal, setShowModal }) => {
       "simcard",
       "AVAILABLE"
     );
-    const hasMore = response.data.meta.total > vlr;
+    const hasMore = response.data.meta.total > vlr && response.data.meta.total > 10;
     const ids = await response.data.iccids;
     const array = [];
     for (const id of ids) {
@@ -125,7 +125,7 @@ export const AssociarIccids = ({ showModal, setShowModal }) => {
       "esim",
       "AVAILABLE"
     );
-    const hasMore = response.data.meta.total > vlr;
+    const hasMore = response.data.meta.total > vlr && response.data.meta.total > 10;
     const ids = await response.data.iccids;
     const array = [];
     for (const id of ids) {

@@ -537,6 +537,22 @@ export const SideBarMobile = ({ open, setHas, setOpen }) => {
                       >
                         {t("Menu.portin")}
                       </span>
+                      <PermissionView role="CLIENT,AGENT">
+                        <span
+                          className="link_name"
+                          onClick={() => {
+                            navigate("/bringnumber");
+                            setOpen(false);
+                            setExpand({
+                              order: false,
+                              line: false,
+                              profile: false,
+                            });
+                          }}
+                        >
+                          Trazer meu número
+                        </span>
+                      </PermissionView>
                       <span
                         className="link_name"
                         onClick={() => {

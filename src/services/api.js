@@ -1,10 +1,10 @@
 /* eslint-disable no-undef */
-import axios from "axios";
+import axios from 'axios';
 // import moment from 'moment/moment'
-import axiosConfig from "../config/axios/axiosConfig";
-import { decodeToken } from "react-jwt";
-import apiRoutes from "../routes/routing";
-import storage from "./storage";
+import axiosConfig from '../config/axios/axiosConfig';
+import { decodeToken } from 'react-jwt';
+import apiRoutes from '../routes/routing';
+import storage from './storage';
 
 // import {deserializeApiError, ApiInternalServerError} from '../error';
 
@@ -24,7 +24,7 @@ function getDataFromSession(token) {
 }
 
 const cleanNumber = (value) => {
-  const tmp = value.replace(/[/().\s-]+/g, "");
+  const tmp = value.replace(/[/().\s-]+/g, '');
   return tmp;
 };
 
@@ -94,7 +94,7 @@ function throwFormattedError(error) {
     //   throw error
     // }
   }
-  if (error.message === "Network Error") {
+  if (error.message === 'Network Error') {
     throw error;
   }
   throw error;
@@ -112,10 +112,10 @@ function throwFormattedError(error) {
 // }
 class Api {
   constructor() {
-    this.myIp = "127.0.0.1";
+    this.myIp = '127.0.0.1';
     const myIp = async () => {
       try {
-        const res = await axios.get("https://api.ipify.org/?format=json");
+        const res = await axios.get('https://api.ipify.org/?format=json');
         this.myIp = res?.data?.ip;
       } catch (e) {
         console.error(e);
@@ -130,7 +130,7 @@ class Api {
 
     this.currentAuthorizationHeader = this.currentSession
       ? `${this.currentSession}`
-      : "";
+      : '';
 
     this.config = {
       headers: { Authorization: `Bearer ${this.currentAuthorizationHeader}` },
@@ -140,8 +140,8 @@ class Api {
       if (this.currentSession) {
         request.headers.Authorization = `Bearer ${this.currentAuthorizationHeader}`;
       }
-      request.headers["content-language"] =
-        localStorage.getItem("language") || "pt";
+      request.headers['content-language'] =
+        localStorage.getItem('language') || 'pt';
       return request;
     });
 
@@ -174,7 +174,7 @@ class Api {
       set: async (token) => {
         try {
           setSession(token);
-          return "ok";
+          return 'ok';
         } catch (e) {
           return throwFormattedError(e);
         }
@@ -190,7 +190,7 @@ class Api {
 
     this.plans = {
       get: async (option) => {
-        const query = option ? `?DealerId=${option}` : "";
+        const query = option ? `?DealerId=${option}` : '';
         try {
           const response = await this.axios.get(`${apiRoutes.plan}${query}`);
           return response;
@@ -199,7 +199,7 @@ class Api {
         }
       },
       getByRecharge: async () => {
-        const query = "?Type=RECHARGE";
+        const query = '?Type=RECHARGE';
         try {
           const response = await this.axios.get(`${apiRoutes.plan}${query}`);
           return response;
@@ -209,8 +209,8 @@ class Api {
       },
       getByBuy: async (buyer, dealer) => {
         const query =
-          buyer === "client" ? "&FinalClientCanBuy=true" : "&DealerCanBuy=true";
-        const queryCan = dealer ? `&DealerId=${dealer}` : "";
+          buyer === 'client' ? '&FinalClientCanBuy=true' : '&DealerCanBuy=true';
+        const queryCan = dealer ? `&DealerId=${dealer}` : '';
         try {
           const response = await this.axios.get(
             `${apiRoutes.plan}?Type=BUY${query}${queryCan}`
@@ -291,7 +291,7 @@ class Api {
         try {
           const response = await this.axios.get(
             `${apiRoutes.iccid}/getlpaqrcode/${iccid} `,
-            { responseType: "blob" }
+            { responseType: 'blob' }
           );
           return response;
         } catch (e) {
@@ -313,11 +313,11 @@ class Api {
         pageSize,
         status,
         iccid,
-        type = "",
-        stoke = ""
+        type = '',
+        stoke = ''
       ) => {
-        const queryStoke = stoke === "" ? "" : `&stock=${stoke}`;
-        const queryType = type === "" ? "" : `&type=${type}`;
+        const queryStoke = stoke === '' ? '' : `&stock=${stoke}`;
+        const queryType = type === '' ? '' : `&type=${type}`;
         try {
           const response = await this.axios.get(
             `${apiRoutes.iccid}?limit=${pageSize}&page=${pageNum}&status=${status}&Iccid=${iccid}${queryStoke}${queryType}`
@@ -360,7 +360,7 @@ class Api {
 
       getSome1: async (pageNum, pageSize, iccid, type, status) => {
         try {
-          let query = "";
+          let query = '';
           if (type) {
             query = `&type=${type}`;
           }
@@ -484,7 +484,7 @@ class Api {
           const response = await this.axios.post(
             `${apiRoutes.iccid}/blockUnblock/${iccid}`,
             {
-              chip: "bloquear",
+              chip: 'bloquear',
             }
           );
           return response;
@@ -498,7 +498,7 @@ class Api {
           const response = await this.axios.post(
             `${apiRoutes.iccid}/blockUnblock/${iccid}`,
             {
-              chip: "desbloquear",
+              chip: 'desbloquear',
             }
           );
           return response;
@@ -532,7 +532,7 @@ class Api {
       getXls: async () => {
         try {
           const response = await this.axios.get(`${apiRoutes.iccid}/xls`, {
-            responseType: "blob",
+            responseType: 'blob',
           });
           return response;
         } catch (e) {
@@ -545,7 +545,7 @@ class Api {
           const response = await this.axios.get(
             `${apiRoutes.iccid}/xls?status=${status}`,
             {
-              responseType: "blob",
+              responseType: 'blob',
             }
           );
           return response;
@@ -775,7 +775,7 @@ class Api {
     };
     this.streaming = {
       addPlan: async (Username, ProductId) => {
-        console.log("addplan");
+        console.log('addplan');
         try {
           const response = await this.axios.post(
             `${apiRoutes.playHub}/subscription`,
@@ -852,7 +852,7 @@ class Api {
       getAll: async (search, page, limit) => {
         try {
           // ${api.currentUser.Email}
-          const query = search === "" ? "" : `&search=${search}`;
+          const query = search === '' ? '' : `&search=${search}`;
           const response = await this.axios.get(
             `${apiRoutes.playHub}/customer?limit=${limit}&page${page}${query}`
           );
@@ -1010,11 +1010,11 @@ class Api {
 
         try {
           const response = await this.axios.post(`${apiRoutes.client}`, {
-            Cnpj: type === "PESSOA JURÍDICA" ? cleanNumber(client.cnpj) : null,
-            Ie: type === "PESSOA JURÍDICA" ? client.ie : null,
+            Cnpj: type === 'PESSOA JURÍDICA' ? cleanNumber(client.cnpj) : null,
+            Ie: type === 'PESSOA JURÍDICA' ? client.ie : null,
             Name: client.name,
-            Cpf: type === "PESSOA FISICA" ? cleanNumber(client.cpf) : null,
-            Rg: type === "PESSOA FISICA" ? client.rg : null,
+            Cpf: type === 'PESSOA FISICA' ? cleanNumber(client.cpf) : null,
+            Rg: type === 'PESSOA FISICA' ? client.rg : null,
             Birthday: client.date,
             Email: client.email,
             SecondEmail: client.secondEmail,
@@ -1027,10 +1027,10 @@ class Api {
             District: address.district,
             Number: address.number,
             Complement: address.complement,
-            Type: type === "PESSOA FISICA" ? "PF" : "PJ",
+            Type: type === 'PESSOA FISICA' ? 'PF' : 'PJ',
             ICMSContributor: client.icmsContributor ? 1 : 0,
             DealerId:
-              api.currentUser.AccessTypes[0] === "TEGG"
+              api.currentUser.AccessTypes[0] === 'TEGG'
                 ? dealer?.value
                 : api.currentUser.DealerId,
             IdLegacySystem: userLegacy?.value ? userLegacy?.value : null,
@@ -1073,7 +1073,7 @@ class Api {
                 ? company?.cnpj && cleanNumber(company?.cnpj)
                 : client?.cnpj && cleanNumber(client?.cnpj),
               Ie: company?.ie || client?.ie,
-              Im: "",
+              Im: '',
               ICMSContributor: 1,
               CompanyEmail: company?.email,
               CompanyMobile: company?.phone && cleanNumber(company?.phone),
@@ -1165,14 +1165,14 @@ class Api {
         }
       },
       edit: async (client, type, dealer, address, userLegacy) => {
-        console.log("vamos editar");
+        console.log('vamos editar');
         try {
           console.log({
-            Cnpj: type === "PESSOA JURÍDICA" ? cleanNumber(client.cnpj) : null,
-            Ie: type === "PESSOA JURÍDICA" ? client.ie : null,
+            Cnpj: type === 'PESSOA JURÍDICA' ? cleanNumber(client.cnpj) : null,
+            Ie: type === 'PESSOA JURÍDICA' ? client.ie : null,
             Name: client.name,
-            Cpf: type === "PESSOA FISICA" ? cleanNumber(client.cpf) : null,
-            Rg: type === "PESSOA FISICA" ? client.rg : null,
+            Cpf: type === 'PESSOA FISICA' ? cleanNumber(client.cpf) : null,
+            Rg: type === 'PESSOA FISICA' ? client.rg : null,
             Birthday: client.date,
             Email: client.email,
             SecondEmail: client.secondEmail,
@@ -1185,10 +1185,10 @@ class Api {
             District: address.district,
             Number: address.number,
             Complement: address.complement,
-            Type: type === "PESSOA FISICA" ? "PF" : "PJ",
+            Type: type === 'PESSOA FISICA' ? 'PF' : 'PJ',
             ICMSContributor: client.icmsContributor ? 1 : 0,
             DealerId:
-              api.currentUser.AccessTypes[0] === "TEGG"
+              api.currentUser.AccessTypes[0] === 'TEGG'
                 ? dealer?.value
                 : api.currentUser.DealerId,
             IdLegacySystem: userLegacy?.value ? userLegacy?.value : null,
@@ -1198,11 +1198,11 @@ class Api {
             `${apiRoutes.client}/${client.id}`,
             {
               Cnpj:
-                type === "PESSOA JURÍDICA" ? cleanNumber(client.cnpj) : null,
-              Ie: type === "PESSOA JURÍDICA" ? client.ie : null,
+                type === 'PESSOA JURÍDICA' ? cleanNumber(client.cnpj) : null,
+              Ie: type === 'PESSOA JURÍDICA' ? client.ie : null,
               Name: client.name,
-              Cpf: type === "PESSOA FISICA" ? cleanNumber(client.cpf) : null,
-              Rg: type === "PESSOA FISICA" ? client.rg : null,
+              Cpf: type === 'PESSOA FISICA' ? cleanNumber(client.cpf) : null,
+              Rg: type === 'PESSOA FISICA' ? client.rg : null,
               Birthday: client.date,
               Email: client.email,
               SecondEmail: client.secondEmail,
@@ -1215,10 +1215,10 @@ class Api {
               District: address.district,
               Number: address.number,
               Complement: address.complement,
-              Type: type === "PESSOA FISICA" ? "PF" : "PJ",
+              Type: type === 'PESSOA FISICA' ? 'PF' : 'PJ',
               ICMSContributor: client.icmsContributor ? 1 : 0,
               DealerId:
-                api.currentUser.AccessTypes[0] === "TEGG"
+                api.currentUser.AccessTypes[0] === 'TEGG'
                   ? dealer?.value
                   : api.currentUser.DealerId,
               IdLegacySystem: userLegacy?.value ? userLegacy?.value : null,
@@ -1233,9 +1233,9 @@ class Api {
     };
     this.order = {
       getAll: async (pageNum, pageSize, search, status, mfreight) => {
-        const query = status === "" ? "" : `&status=${status}`;
-        const freight = mfreight === "" ? "" : `&freight=${mfreight}`;
-        const searchh = search === "" ? "" : `&search=${search}`;
+        const query = status === '' ? '' : `&status=${status}`;
+        const freight = mfreight === '' ? '' : `&freight=${mfreight}`;
+        const searchh = search === '' ? '' : `&search=${search}`;
         try {
           const response = await this.axios.get(
             `${apiRoutes.order}?page=${pageNum}&limit=${pageSize}${searchh}${query}${freight}`
@@ -1253,9 +1253,9 @@ class Api {
         mfreight,
         FinalClientId
       ) => {
-        const query = status === "" ? "" : `&status=${status}`;
-        const freight = mfreight === "" ? "" : `&freight=${mfreight}`;
-        const searchh = search === "" ? "" : `&search=${search}`;
+        const query = status === '' ? '' : `&status=${status}`;
+        const freight = mfreight === '' ? '' : `&freight=${mfreight}`;
+        const searchh = search === '' ? '' : `&search=${search}`;
         try {
           const response = await this.axios.get(
             `${apiRoutes.order}/root/${FinalClientId}?page=${pageNum}&limit=${pageSize}${searchh}${query}${freight}`
@@ -1427,15 +1427,15 @@ class Api {
             HaveFreight: HaveFreight,
             FreightAmount: FreightAmount,
             FreightStreetName:
-              Address?.address !== "" ? Address?.address : null,
-            FreightState: Address?.uf !== "" ? Address?.uf : null,
-            FreightCity: Address?.city !== "" ? Address?.city : null,
+              Address?.address !== '' ? Address?.address : null,
+            FreightState: Address?.uf !== '' ? Address?.uf : null,
+            FreightCity: Address?.city !== '' ? Address?.city : null,
             FreightDistrict:
-              Address?.district !== "" ? Address?.district : null,
-            FreightNumber: Address?.number !== "" ? Address?.number : null,
+              Address?.district !== '' ? Address?.district : null,
+            FreightNumber: Address?.number !== '' ? Address?.number : null,
             FreightComplement:
-              Address?.complement !== "" ? Address?.complement : null,
-            FreightPostalCode: Address?.cep !== "" ? Address?.cep : null,
+              Address?.complement !== '' ? Address?.complement : null,
+            FreightPostalCode: Address?.cep !== '' ? Address?.cep : null,
             Automatic,
           });
           return response;
@@ -1445,8 +1445,8 @@ class Api {
       },
       sendReceipt: async (file, orderId) => {
         const formData = new FormData();
-        formData.append("doc", file);
-        formData.append("PurchaseOrderId", orderId);
+        formData.append('doc', file);
+        formData.append('PurchaseOrderId', orderId);
         try {
           const response = await this.axios.post(
             `${apiRoutes.purchaseorder}/sendreceipt`,
@@ -1460,8 +1460,8 @@ class Api {
 
       sendReceiptOrder: async (file, orderId) => {
         const formData = new FormData();
-        formData.append("doc", file);
-        formData.append("OrderId", orderId);
+        formData.append('doc', file);
+        formData.append('OrderId', orderId);
         try {
           const response = await this.axios.post(
             `${apiRoutes.order}/sendreceipt`,
@@ -1506,7 +1506,7 @@ class Api {
             {
               headers: {
                 Authorization:
-                  "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJOYW1lIjoiRmVsaXBlIE1hY2hhZG8iLCJVc2VySWQiOiJkYjgzYTY2Ny1iNTU0LTQyMzUtOTkzOC1hYTU0NjQyMWEwODgiLCJUeXBlIjoiVEVHRyIsIkRlYWxlcklkIjpudWxsLCJFbWFpbCI6ImZlbGlwZUBpdGZhc3QuY29tLmJyIiwiQ3JlYXRlZEF0IjoiMjAyMy0xMS0yNFQyMToxMDowMS45NjNaIiwiTGFzdFNpZ24iOiIyMDI0LTAxLTE5VDEzOjMzOjUyLjgwNloiLCJBY2Nlc3NUeXBlcyI6WyJURUdHIl0sIklkTGVnYWN5U3lzdGVtIjo0NzUzLCJpYXQiOjE3MDU2NzEyMzJ9.QQva_UQcCCA1U_TgX08LBRjvBLygs1Zzy5D-xB4FRrc",
+                  'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJOYW1lIjoiRmVsaXBlIE1hY2hhZG8iLCJVc2VySWQiOiJkYjgzYTY2Ny1iNTU0LTQyMzUtOTkzOC1hYTU0NjQyMWEwODgiLCJUeXBlIjoiVEVHRyIsIkRlYWxlcklkIjpudWxsLCJFbWFpbCI6ImZlbGlwZUBpdGZhc3QuY29tLmJyIiwiQ3JlYXRlZEF0IjoiMjAyMy0xMS0yNFQyMToxMDowMS45NjNaIiwiTGFzdFNpZ24iOiIyMDI0LTAxLTE5VDEzOjMzOjUyLjgwNloiLCJBY2Nlc3NUeXBlcyI6WyJURUdHIl0sIklkTGVnYWN5U3lzdGVtIjo0NzUzLCJpYXQiOjE3MDU2NzEyMzJ9.QQva_UQcCCA1U_TgX08LBRjvBLygs1Zzy5D-xB4FRrc',
               },
             }
           );
@@ -1582,8 +1582,8 @@ class Api {
       },
       addPlan: async (OrderId, doc) => {
         const formData = new FormData();
-        formData.append("OrderId", OrderId);
-        formData.append("doc", doc);
+        formData.append('OrderId', OrderId);
+        formData.append('doc', doc);
         try {
           const response = await this.axios.post(
             `${apiRoutes.order}/file`,
@@ -1698,7 +1698,7 @@ class Api {
         try {
           const response = await this.axios.post(`${apiRoutes.order}/pay`, {
             OrderId: id,
-            PaymentType: "CREDITO",
+            PaymentType: 'CREDITO',
             Amount: amount,
             ClientIp: this.myIp,
             CreditCard,
@@ -1714,7 +1714,7 @@ class Api {
         try {
           const response = await this.axios.post(`${apiRoutes.order}/pay`, {
             OrderId: id,
-            PaymentType: "PIX",
+            PaymentType: 'PIX',
             Amount: amount,
           });
           return response;
@@ -1726,7 +1726,7 @@ class Api {
         try {
           const response = await this.axios.post(`${apiRoutes.order}/pay`, {
             OrderId: id,
-            PaymentType: "BOLETO",
+            PaymentType: 'BOLETO',
             Amount: amount,
           });
           return response;
@@ -1822,7 +1822,7 @@ class Api {
     };
     this.purchaseorder = {
       create: async (FinalClientId, DealerId, address) => {
-        console.log("create order", FinalClientId, DealerId, address);
+        console.log('create order', FinalClientId, DealerId, address);
         try {
           const response = await this.axios.post(`${apiRoutes.purchaseorder}`, {
             FinalClientId,
@@ -2001,7 +2001,7 @@ class Api {
             SurfId: product.SurfId || null,
             PlayHubId: product.PlayHubId || null,
             CFOP: product.CFOP,
-            EAN: product.EAN || "SEM GTIN",
+            EAN: product.EAN || 'SEM GTIN',
             NCM: product.NCM,
             CEST: product.CEST,
             ICMSCst: product.ICMSCst,
@@ -2020,7 +2020,7 @@ class Api {
         }
       },
       update: async (product, id) => {
-        console.log("Atualizar produto");
+        console.log('Atualizar produto');
         console.log({
           Name: product.Name,
           Description: product.Description,
@@ -2030,7 +2030,7 @@ class Api {
           SurfId: product.SurfId || null,
           PlayHubId: product.PlayHubId || null,
           CFOP: product.CFOP,
-          EAN: product.EAN || "SEM GTIN",
+          EAN: product.EAN || 'SEM GTIN',
           NCM: product.NCM,
           CEST: product.CEST,
           ICMSCst: product.ICMSCst,
@@ -2055,7 +2055,7 @@ class Api {
               SurfId: product.SurfId || null,
               PlayHubId: product.PlayHubId || null,
               CFOP: product.CFOP,
-              EAN: product.EAN || "SEM GTIN",
+              EAN: product.EAN || 'SEM GTIN',
               NCM: product.NCM,
               CEST: product.CEST,
               ICMSCst: product.ICMSCst,
@@ -2088,10 +2088,10 @@ class Api {
     this.language = {
       set: async (language) => {
         // storage.auth.language = language;
-        localStorage.setItem("language", language);
-        return "ok";
+        localStorage.setItem('language', language);
+        return 'ok';
       },
-      get: async () => localStorage.getItem("language"),
+      get: async () => localStorage.getItem('language'),
     };
 
     this.preOrder = {
@@ -2215,7 +2215,7 @@ class Api {
       },
       logout: async () => {
         storage.auth.token = null;
-        return "ok";
+        return 'ok';
       },
       updatePassword: async (Email, Password) => {
         try {
@@ -2226,6 +2226,20 @@ class Api {
               Password: Password,
             }
           );
+          return response;
+        } catch (e) {
+          throwFormattedError(e);
+        }
+      },
+      updateProfile: async (Id, Profile) => {
+        try {
+          const response = await this.axios.patch(
+            `${apiRoutes.user}/${Id}/type`,
+            {
+              Type: Profile,
+            }
+          );
+          setSession(response.data.AccessToken);
           return response;
         } catch (e) {
           throwFormattedError(e);
@@ -2368,7 +2382,7 @@ class Api {
             Number: user.number,
             Complement: user.complement,
             CompanyEmail:
-              company.email !== "" ? company.email : user?.companyEmail,
+              company.email !== '' ? company.email : user?.companyEmail,
             CompanyMobile: company.phone,
             CompanyPostalCode: company.cep,
             CompanyStreetName: company.address,
@@ -2448,7 +2462,6 @@ class Api {
           const response = await this.axios.get(
             `${apiRoutes.iccid}/myLines?limit=${pageSize}&page=${pageNum}`
           );
-          console.log(response);
           return response;
         } catch (e) {
           throwFormattedError(e);
@@ -2471,8 +2484,8 @@ class Api {
         }
       },
       getLines: async (pageNum, pageSize, dealer, line, status, searchType) => {
-        const findLine = searchType ? `&${searchType}=${line}` : "";
-        const findStatus = status ? `&Status=${status}` : "";
+        const findLine = searchType ? `&${searchType}=${line}` : '';
+        const findStatus = status ? `&Status=${status}` : '';
         try {
           const response = await this.axios.get(
             `${apiRoutes.iccid}/getLines?limit=${pageSize}&page=${pageNum}&Dealer=${dealer}${findLine}${findStatus}`
@@ -2793,7 +2806,7 @@ class Api {
         }
       },
       getAll: async (pageNum, pageSize, statusCode) => {
-        const query = statusCode ? `&statusCode=${statusCode}` : "";
+        const query = statusCode ? `&statusCode=${statusCode}` : '';
         try {
           console.log(
             `${apiRoutes.nfe}?limit=${pageSize}&page=${pageNum}${query}`

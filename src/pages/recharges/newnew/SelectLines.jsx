@@ -68,13 +68,6 @@ export const SelectLines = ({
           <div className='input_row_2'>
             <div className='input'>
               <label>LINHA</label>
-              {/* <Select
-                id='line'
-                options={optLines}
-                placeholder='Selecionar...'
-                value={selectedLine}
-                onChange={setSelectedLine}
-              /> */}
               <AsyncPaginate
                 defaultOptions
                 // cacheUniqs={selectedSinCard}

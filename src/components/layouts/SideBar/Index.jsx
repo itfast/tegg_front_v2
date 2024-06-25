@@ -219,6 +219,7 @@ export function SideBar({ open }) {
                     local.pathname === "/salesforce/" ||
                     local.pathname === "/salesforce/new" ||
                     local.pathname === "/salesforce/edit" ||
+                    local.pathname === "/clients/pending" ||
                     local.pathname === "/salesforce/details"
                       ? "#00D959"
                       : "",
@@ -259,6 +260,18 @@ export function SideBar({ open }) {
                         : t("Menu.resale")}
                     </a>
                   </li>
+                  <PermissionView role="TEGG">
+                    <li>
+                      <a
+                        href="#"
+                        onClick={() => {
+                          navigate("/clients/pending");
+                        }}
+                      >
+                        {t("Menu.pendings")}
+                      </a>
+                    </li>
+                  </PermissionView>
                 </ul>
               </li>
             </PermissionView>
@@ -301,7 +314,6 @@ export function SideBar({ open }) {
                   backgroundColor:
                     local.pathname === "/clients" ||
                     local.pathname === "/clients/" ||
-                    local.pathname === "/clients/pending" ||
                     local.pathname === "/clients/new" ||
                     local.pathname === "/clients/edit"
                       ? "#00D959"
@@ -331,18 +343,6 @@ export function SideBar({ open }) {
                       {t("Menu.clients")}
                     </a>
                   </li>
-                  <PermissionView role="TEGG">
-                    <li>
-                      <a
-                        href="#"
-                        onClick={() => {
-                          navigate("/clients/pending");
-                        }}
-                      >
-                        {t("Menu.pendings")}
-                      </a>
-                    </li>
-                  </PermissionView>
                 </ul>
               </li>
             </PermissionView>
@@ -555,6 +555,18 @@ export function SideBar({ open }) {
                      {t("Menu.portin")}
                   </a>
                 </li>
+                <PermissionView role="CLIENT,AGENT">
+                  <li>
+                    <a
+                      href="#"
+                      onClick={() => {
+                        navigate("/bringnumber");
+                      }}
+                    >
+                      Trazer meu número
+                    </a>
+                  </li>
+                </PermissionView>
                 <li>
                   <a
                     href="#"

@@ -52,7 +52,7 @@ export const NewRechargeClient = () => {
         10
       );
       console.log(response);
-      const hasMore = response.data.meta.total > vlr;
+      const hasMore = response.data.meta.total > vlr && response.data.meta.total > 10;
       const lines = await response.data.iccids;
       const array = [];
       for (const line of lines) {
@@ -77,7 +77,7 @@ export const NewRechargeClient = () => {
         '',
         'Line'
       );
-      const hasMore = response.data.meta.total > vlr;
+      const hasMore = response.data.meta.total > vlr && response.data.meta.total > 10;
       const lines = await response.data.iccids;
       const array = [];
       for (const line of lines) {

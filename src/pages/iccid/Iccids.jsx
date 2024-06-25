@@ -89,6 +89,10 @@ export const Iccids = () => {
     },
     {
       value: 'EX',
+      label: 'EX',
+    },
+    {
+      value: 'CANCELED',
       label: t('Status.canceled'),
     },
     {
