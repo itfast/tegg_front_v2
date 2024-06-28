@@ -12,6 +12,7 @@ import {
   phoneFormat,
   translateChipStatus,
   translateError,
+  translateTypeClient,
 } from '../../services/util';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
@@ -137,7 +138,7 @@ export const ActionsTable = ({ line, setLoading, setMsg }) => {
             </div>
           </div>
         </td>
-        {/* <td>{client.Cnpj || client.Cpf}</td> */}
+        <td>{line?.FinalClient?.User?.Type && translateTypeClient(line?.FinalClient?.User?.Type)}</td>
         <td>
           {(line?.FinalClient?.Type === 'PJ' &&
             documentFormat(line?.FinalClient?.Cnpj)) ||

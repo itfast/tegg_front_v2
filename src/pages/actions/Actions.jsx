@@ -175,6 +175,7 @@ export const Actions = () => {
             <tr>
               <th>Revenda</th>
               <th>Nome</th>
+              <th>Tipo</th>
               <th>CNPJ/CPF</th>
               <th>ICCID</th>
               {/* <th>Email</th> */}

@@ -15,6 +15,7 @@ import {
   phoneFormat,
   translateError,
   translateStatus,
+  translateTypeClient,
 } from "../../services/util";
 import { IoMdMore } from "react-icons/io";
 import { useState } from "react";
@@ -186,6 +187,7 @@ export const ClientCardMobile = ({
         <h4 style={{ padding: "0.2rem", fontWeight: "bold" }}>
           {client.CompanyName || client.Name}
         </h4>
+        <h5>{translateTypeClient(client?.User?.Type)}</h5>
         <h5>{translateStatus(client?.Status)}</h5>
         <h5>
           {client.Cnpj

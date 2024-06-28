@@ -924,7 +924,7 @@ export const OrderItens = ({
                 )}
 
                 {tmpItem?.qtdItens > 1 && <Tooltip id="check-portin" />}
-                {(isSimcard || isESim) && (
+                {/* {(isSimcard || isESim) && (
                   <FormGroup>
                     <FormControlLabel
                       control={
@@ -951,7 +951,7 @@ export const OrderItens = ({
                       label={t('Order.new.itens.portIn')}
                     />
                   </FormGroup>
-                )}
+                )} */}
                 {isPortIn && (
                   <>
                     <div>

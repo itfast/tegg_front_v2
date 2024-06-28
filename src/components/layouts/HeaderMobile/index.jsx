@@ -2,13 +2,33 @@
 import { SessionComponent } from './styles';
 import { AiOutlineMenuUnfold } from 'react-icons/ai';
 import { IoIosClose } from 'react-icons/io';
+import { TbReplace } from 'react-icons/tb';
 import { GiExitDoor } from 'react-icons/gi';
 import api from '../../../services/api';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify'
+import { translateError } from '../../../services/util'
+import {Loading} from '../../../components/loading/Loading'
+import { useState } from 'react'
+import { Dialog, DialogTitle, Menu } from '@mui/material'
+import { ChangeProfile } from '../../changeProfile/ChangeProfile'
 
 // eslint-disable-next-line react/prop-types
 export const HeaderMobile = ({ setOpen, open, has }) => {
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false)
+  const [showEditProfile, setShowEditProfile] = useState(false)
+
+  const [anchorEl, setAnchorEl] = useState(null);
+  const openMenu = Boolean(anchorEl);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+    console.log(Boolean(anchorEl));
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
   const sideAction = () => {
     const action = document.getElementById('sideContainer');
     const headerAction = document.getElementById('headerContainer');
@@ -33,7 +53,9 @@ export const HeaderMobile = ({ setOpen, open, has }) => {
   };
 
   return (
+    <>
     <SessionComponent>
+      <Loading open={loading} msg={'Mudando de perfil...'} />
       <section
         id='headerContainer'
         className='home-section close'
@@ -80,6 +102,32 @@ export const HeaderMobile = ({ setOpen, open, has }) => {
                     : 'Tegg'}
                 </h5>
               </div>
+              {(api.currentUser.Type !== 'TEGG') && (
+                <div style={{ marginLeft: 10 }}>
+                  <TbReplace
+                    data-tooltip-id='inf-tooltip'
+                    data-tooltip-content='Mudar perfil'
+                    data-tooltip-place='left'
+                    size={25}
+                    style={{ cursor: 'pointer' }}
+                    onClick={handleClick}
+                  />
+                  <Menu
+                      id='basic-menu'
+                      anchorEl={anchorEl}
+                      open={openMenu}
+                      onClose={handleClose}
+                      MenuListProps={{
+                        'aria-labelledby': 'basic-button',
+                      }}
+                    >
+                      <ChangeProfile
+                        setShowEditProfile={handleClose}
+                        setLoading={setLoading}
+                      />
+                    </Menu>
+                </div>
+              )}
               <div style={{ marginLeft: 10 }}>
                 <GiExitDoor
                   size={25}
@@ -92,5 +140,6 @@ export const HeaderMobile = ({ setOpen, open, has }) => {
         )}
       </section>
     </SessionComponent>
+    </>
   );
 };

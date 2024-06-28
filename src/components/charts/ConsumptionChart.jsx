@@ -7,9 +7,12 @@ import { Line, Pie } from "react-chartjs-2";
 import ChartDataLabels from "chartjs-plugin-datalabels";
 import ReactLoading from "react-loading";
 import Select from "react-select";
+// eslint-disable-next-line no-unused-vars
 import { Chart as ChartJS } from "chart.js/auto";
+import prettyBytes from 'pretty-bytes';
 
 import "./consumption_chart.css";
+import moment from 'moment'
 
 const formatBalance = (str) => {
   if (str !== undefined) {
@@ -111,6 +114,7 @@ export const ConsumptionChart = ({ lineMetrics }) => {
   const [callData, setCallData] = useState([]);
 
   const [dataTotal, setDataTotal] = useState([]);
+  // const [dataRefer, setDataRefer] = useState([]);
   const [smsTotal, setSmsTotal] = useState([]);
   const [callTotal, setCallTotal] = useState([]);
 
@@ -132,7 +136,6 @@ export const ConsumptionChart = ({ lineMetrics }) => {
   };
 
   const setMonths = () => {
-    const d = new Date();
     let array = [...monthOptions];
     for (let i = 0; i < date.Month; i++) {
       array[i].disabled = false;
@@ -155,23 +158,9 @@ export const ConsumptionChart = ({ lineMetrics }) => {
     setLabels(array);
   };
 
-  function bytesToSize(bytes) {
-    const sizes = ["Bytes", "KB", "MB", "GB", "TB"];
-    if (bytes === 0) return 0;
-    const i = parseInt(Math.floor(Math.log(bytes) / Math.log(1024)), 10);
-    if (i === 0) return `${bytes} ${sizes[i]}`;
-    // return `${(bytes / (1024 ** i)).toFixed(1)} ${sizes[i]}`
-    return `${(bytes / 1024 ** i).toFixed(1)}`;
-  }
+  
 
-  function bytesToSizeLabel(bytes) {
-    const sizes = ["Bytes", "KB", "MB", "GB", "TB"];
-    if (bytes === 0) return 0;
-    const i = parseInt(Math.floor(Math.log(bytes) / Math.log(1024)), 10);
-    if (i === 0) return `${bytes} ${sizes[i]}`;
-    return `${(bytes / 1024 ** i).toFixed(1)} ${sizes[i]}`;
-    // return `${(bytes / (1024 ** i)).toFixed(1)}`
-  }
+
 
   const getDataConsumption = () => {
     if (
@@ -204,9 +193,11 @@ export const ConsumptionChart = ({ lineMetrics }) => {
               uArray[day] = item.qtUsadoUpload / (1024 * 1024);
               dArray[day] = item.qtUsadoDownload / (1024 * 1024);
             }
+            
             setUploadData(uArray);
             setDownloadData(dArray);
-            setDataTotal([total, Number(bytesToSize(sum) * 1000)]);
+            const veryLargeNumber = 1.0e+06
+            setDataTotal([((total * veryLargeNumber)-sum), sum]);
             setBalance(res.data?.balance?.resultado?.qtDadoRestante);
           }
         })
@@ -302,6 +293,7 @@ export const ConsumptionChart = ({ lineMetrics }) => {
               value: line.IccidHistoric[0]?.SurfMsisdn,
               plan: line.IccidHistoric[0]?.SurfNuPlano,
               Iccid: line.IccidHistoric[0]?.Iccid,
+              expiry: line.IccidHistoric[0]?.SurfDtPlanoExpira,
             });
           }
         }
@@ -342,7 +334,7 @@ export const ConsumptionChart = ({ lineMetrics }) => {
     }
   }, [labels]);
 
-  let customLabels = labels.map((label, index) => `${label}: MB`);
+  // let customLabels = labels.map((label, index) => `${label}: MB`);
 
   return (
     <div className="card2" style={{ minHeight: 50, margin: "1rem" }}>
@@ -427,6 +419,9 @@ export const ConsumptionChart = ({ lineMetrics }) => {
             </div>
           </>
         )}
+      </div>
+      <div style={{marginLeft: 30}}>
+        {selectedLine?.expiry &&<h5 style={{color: 'red'}}>Vencimento: {moment(selectedLine?.expiry).format('DD/MM/YYYY')}</h5>}
       </div>
       {!gettingData ? (
         // <div className='big_consumption_container'>
@@ -578,9 +573,15 @@ export const ConsumptionChart = ({ lineMetrics }) => {
                           // },
                           // Math.round(value*100)
                           formatter: function (value, context) {
-                            return value > 10
-                              ? (value / 1000)?.toFixed(2) + "GB"
-                              : "";
+                            if(value){
+                              if(context.dataIndex === 0){
+                                return prettyBytes(value) +' - Disponível'
+                              }else{
+                                return prettyBytes(value) + ' - Consumidos'
+                              }
+                            }else{
+                              return ''
+                            }
                           },
                           labels: {
                             title: {

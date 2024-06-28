@@ -545,6 +545,7 @@ export function SideBar({ open }) {
                     </a>
                   </li>
                 </PermissionView>
+                <PermissionView role="TEGG">
                 <li>
                   <a
                     href="#"
@@ -555,15 +556,17 @@ export function SideBar({ open }) {
                      {t("Menu.portin")}
                   </a>
                 </li>
+                </PermissionView>
                 <PermissionView role="CLIENT,AGENT">
                   <li>
                     <a
                       href="#"
                       onClick={() => {
-                        navigate("/bringnumber");
+                        navigate("/portRequests");
+                        // navigate("/bringnumber");
                       }}
                     >
-                      Trazer meu número
+                      Portabilidade
                     </a>
                   </li>
                 </PermissionView>

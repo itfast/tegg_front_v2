@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Button, PageLayout } from '../../../globalStyles';
 import { TeggMetrics } from '../../components/TeggMetrics/TeggMetrics';
 import { ConsumptionChart } from '../../components/charts/ConsumptionChart';
@@ -7,6 +8,7 @@ import { MapsData } from '../../components/myMaps/MapsData';
 import api from '../../services/api';
 import { translateError } from '../../services/util';
 import { useTranslation } from 'react-i18next';
+// import { toast } from 'react-toastify';
 
 const UFS = [
   { lati: '-13.071338', longi: '-55.510218', uf: 'MT', qtd: '10' },
@@ -45,6 +47,8 @@ export const DashBoard = ({ installApp }) => {
   const [totalCreated, setTotalCreated] = useState(0);
   const [totalActive, setTotalActive] = useState(0);
   const [markers, setMarkers] = useState([]);
+  const navigate = useNavigate();
+  // const location = useLocation();
   // const [hasSearch, setHasSearch] = useState(false);
 
   const [totalDealers, setTotalDealers] = useState(0);
@@ -168,7 +172,7 @@ export const DashBoard = ({ installApp }) => {
               ? res.data.meta.total
               : 0
           );
-          if (!hasSearch && res?.data?.meta?.total === 0) {
+          if (!hasSearch) {
             console.log('Syncar');
             syncMyLines();
           } else {
@@ -257,7 +261,44 @@ export const DashBoard = ({ installApp }) => {
     }
   };
 
+  // const changeClientProfile = (profile) => {
+  //   api.user
+  //     .updateProfile(api.currentUser.UserId, profile)
+  //     .then(async (res) => {
+  //       toast.success(
+  //         `${res.data.Message}. A página será recarregada para aplicar o novo perfil.`
+  //       );
+  //       await new Promise((r) => setTimeout(r, 3000));
+
+  //       window.location.reload();
+  //     })
+  //     .catch((err) => {
+  //       translateError(err);
+  //     })
+  // };
+
+  // const reloadPage = async (AccessToken, profile) => {
+  //   api.mySession.set(AccessToken).then(async () => {
+  //     window.history.replaceState({}, '')
+  //     if (profile === 'DEALER') {
+  //         window.location.reload();
+  //     } else {
+  //       changeClientProfile(profile);
+  //     }
+  //   });
+  //   // toast.success(
+  //   //   `Usuário atualizado com sucesso. A página será recarregada para aplicar o novo perfil.`
+  //   // );
+  //   // await new Promise((r) => setTimeout(r, 3000));
+  //   // console.log('recarregar');
+  //   // window.location.reload();
+  // };
+
   useEffect(() => {
+    // if (location?.state?.mustReload) {
+    //   console.log('precisa recarregar')
+    //   reloadPage(location?.state?.AccessToken, location?.state?.profile);
+    // }
     getCLients();
     getDealers();
     getMetrics();
@@ -272,6 +313,32 @@ export const DashBoard = ({ installApp }) => {
   return (
     <PageLayout style={{ padding: window.innerWidth < 768 && 0 }}>
       <>
+        {(api.currentUser.Type === 'CLIENT' ||
+          api.currentUser.Type === 'AGENT') && (
+          <div
+            style={{
+              margin:
+                window.innerWidth < 768 ? '1rem 1rem 0 1rem' : '0 0 0 1rem',
+              gap: 10,
+              display: 'flex',
+              justifyContent:
+                window.innerWidth < 768 ? 'space-around' : 'start',
+            }}
+          >
+            <Button
+              style={{ minWidth: 153 }}
+              onClick={() => navigate('/activation/client/manual')}
+            >
+              Ativar nova linha
+            </Button>
+            <Button
+              style={{ minWidth: 153 }}
+              onClick={() => navigate('/recharge')}
+            >
+              Recargas
+            </Button>
+          </div>
+        )}
         <TeggMetrics
           totalClients={totalClients}
           totalCreated={totalCreated}

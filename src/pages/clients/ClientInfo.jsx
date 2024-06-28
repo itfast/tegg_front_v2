@@ -15,6 +15,7 @@ import {
   phoneFormat,
   translateError,
   translateStatus,
+  translateTypeClient,
 } from "../../services/util";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
@@ -162,6 +163,7 @@ export const ClientInfo = ({ client, setLoading, setMsg, getClients }) => {
       {/* <tbody> */}
       <tr>
         <td>{client.CompanyName || client.Name}</td>
+        <td>{translateTypeClient(client?.User?.Type)}</td>
         <td>{translateStatus(client.Status)}</td>
         {/* <td>{client.Cnpj || client.Cpf}</td> */}
         <td>

@@ -908,13 +908,19 @@ class Api {
       },
     };
     this.client = {
-      getAll: async (pageNum, pageSize, search, dealer) => {
+      getAll: async (pageNum, pageSize, search, dealer, type) => {
         // console.log(
         //   `${apiRoutes.client}?page=${pageNum}&limit=${pageSize}&search=${search}&dealer=${dealer}`
         // );
+        let queryType = ''
+        if(type){
+          if(type.value !== ''){
+            queryType = `&type=${type.value}`
+          }
+        }
         try {
           const response = await this.axios.get(
-            `${apiRoutes.client}?page=${pageNum}&limit=${pageSize}&search=${search}&dealer=${dealer}`
+            `${apiRoutes.client}?page=${pageNum}&limit=${pageSize}&search=${search}&dealer=${dealer}${queryType}`
           );
           return response;
         } catch (e) {

@@ -369,7 +369,7 @@ export const Profile = () => {
       toast.error('Insira uma nova senha');
     }
   };
-console.log(api.currentUser)
+
   const handleChangeProfile = () => {
     setLoadingEditPass(true);
     api.user

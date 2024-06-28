@@ -7,7 +7,7 @@ import {
   ContainerMobile,
   CardInfo,
 } from '../../../globalStyles';
-// import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import api from '../../services/api';
 // import { ContainerTable } from '../resales/Resales.styles';
 import { PortRequestInfo } from './PortRequestInfo';
@@ -33,7 +33,7 @@ import { TableItens } from '../orders/clientNew/NewOrder.styles';
 import { PortInSteep } from './component/PortInSteep';
 
 export const PortRequests = () => {
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
   const [loadingCancel, setLoadingCancel] = useState(false);
 
   const [loading, setLoading] = useState(true);
@@ -115,7 +115,8 @@ export const PortRequests = () => {
               //     state: { clientRequest: true },
               //   })
               // }
-              onClick={() => setPortinModal(true)}
+              // onClick={() => setPortinModal(true)}
+              onClick={() => (api.currentUser.Type === 'CLIENT' || api.currentUser.Type === 'AGENT') ? navigate('/bringnumber') : setPortinModal(true)}
               style={{  marginBottom: '1rem' }}
             >
               + PORTABILIDADE
@@ -221,7 +222,7 @@ export const PortRequests = () => {
             //     state: { clientRequest: true },
             //   })
             // }
-            onClick={() => setPortinModal(true)}
+            onClick={() => (api.currentUser.Type === 'CLIENT' || api.currentUser.Type === 'AGENT') ? navigate('/bringnumber') : setPortinModal(true)}
             style={{ width: '100%', marginBottom: '1rem' }}
           >
             + PORTABILIDADE

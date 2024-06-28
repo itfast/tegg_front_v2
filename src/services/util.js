@@ -1,3 +1,4 @@
+/* eslint-disable no-useless-escape */
 import { toast } from "react-toastify";
 import Payment from "payment";
 import axios from "axios";
@@ -15,6 +16,18 @@ export const qtdChips = (plan) => {
     return filtered.length;
   }
 };
+
+export const translateTypeClient = (client) => {
+  switch(client){
+    case 'CLIENT':
+      return 'Cliente'
+    case 'AGENT':
+      return 'Representante'
+    case 'DEALER':
+    return 'Revenda'
+    default: return client
+  }
+}
 
 export const translateError = (err) => {
   if (err?.response?.data) {

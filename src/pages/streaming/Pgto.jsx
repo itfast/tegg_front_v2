@@ -563,7 +563,7 @@ export const Pgto = ({ email, products, changeModal }) => {
                               }}
                             />
                           }
-                          label="Gerar assinatura"
+                          label="Eu autorizo a assinatura mensal da minha recarga a partir da data de hoje. Esta autorização se aplica aos serviços contratados e será renovada automaticamente a cada mês, salvo cancelamento prévio por minha parte."
                         />
                       </FormGroup>
                       <h6>NOME DO DONO DO CARTÃO</h6>

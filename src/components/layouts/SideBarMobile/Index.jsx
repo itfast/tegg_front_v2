@@ -523,6 +523,7 @@ export const SideBarMobile = ({ open, setHas, setOpen }) => {
                       >
                         {t("Menu.subscriptions")}
                       </span>
+                      <PermissionView role="TEGG">
                       <span
                         className="link_name"
                         onClick={() => {
@@ -537,11 +538,13 @@ export const SideBarMobile = ({ open, setHas, setOpen }) => {
                       >
                         {t("Menu.portin")}
                       </span>
+                      </PermissionView>
                       <PermissionView role="CLIENT,AGENT">
                         <span
                           className="link_name"
                           onClick={() => {
-                            navigate("/bringnumber");
+                            // navigate("/bringnumber");
+                            navigate("/portRequests");
                             setOpen(false);
                             setExpand({
                               order: false,
@@ -550,7 +553,7 @@ export const SideBarMobile = ({ open, setHas, setOpen }) => {
                             });
                           }}
                         >
-                          Trazer meu número
+                         {t("Menu.portin")}
                         </span>
                       </PermissionView>
                       <span
