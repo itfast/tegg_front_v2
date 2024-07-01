@@ -9,6 +9,7 @@ import { SelectLines } from './SelectLines';
 import api from '../../../services/api';
 import { formatPhone } from '../../../services/util';
 import { Revision } from './Revision';
+import { PageTitles } from '../../../components/PageTitle/PageTitle'
 
 export const NewRechargeClient = () => {
   const stepperClient =
@@ -179,7 +180,7 @@ export const NewRechargeClient = () => {
   };
   return (
     <PageLayout>
-      <h2
+      {/* <h2
         style={{
           color: '#7c7c7c',
           textAlign: 'center',
@@ -187,7 +188,8 @@ export const NewRechargeClient = () => {
         }}
       >
         Recarga
-      </h2>
+      </h2> */}
+      <PageTitles title="Recarga"/>
       <Stepper
         style={{ maxWidth: '1000px', marginTop: 0 }}
         typeStepper={typeStepper}

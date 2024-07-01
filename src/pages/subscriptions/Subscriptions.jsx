@@ -16,6 +16,7 @@ import { SubscriptionInfoMobile } from "./SubscriptionInfoMobile";
 import { translateError } from "../../services/util";
 import { TableItens } from "../orders/clientNew/NewOrder.styles";
 import { Loading } from "../../components/loading/Loading";
+import { PageTitles } from '../../components/PageTitle/PageTitle'
 
 export const Subscriptions = () => {
   const navigate = useNavigate();
@@ -94,6 +95,7 @@ export const Subscriptions = () => {
       <ContainerWeb>
         <Loading open={loading} msg="Buscando assinaturas..." />
         <PageLayout>
+          <PageTitles title={'Assinaturas'} />
           <div style={{ display: "flex", marginBottom: "1rem" }}>
             <Button
               invert={type === "tv"}
@@ -195,6 +197,7 @@ export const Subscriptions = () => {
       <ContainerMobile>
         <div id="banner">
           <PageLayout>
+          <PageTitles title={'Assinaturas'} />
             <div style={{ display: "flex", marginBottom: "1rem" }}>
               <Button
                 invert={type === "tv"}

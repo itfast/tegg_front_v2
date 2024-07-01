@@ -149,7 +149,8 @@ export const ClientCardMobilePending = ({
         </h4>
         <h5>{/* {documentFormat(client.Cpf)} */}</h5>
         <h5>{client?.Mobile}</h5>
-        <h5>{client?.Email}</h5>
+        <h5>{client?.Email}</h5> 
+        <h5>Criado em: {client.CreatedAt && moment(client.CreatedAt).format('DD/MM/YYYY HH:mm')}</h5>
         {api.currentUser.AccessTypes[0] === 'TEGG' && (
           <h5>
             <span style={{ fontWeight: 'bold' }}>{t('ClientsPending.resale')}: </span>

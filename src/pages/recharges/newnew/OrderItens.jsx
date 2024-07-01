@@ -90,7 +90,7 @@ export const OrderItens = ({
               {planOpt?.map((p) => (
                 <RechargeCard
                   key={p.Id}
-                  disabled
+                  // disabled
                   plan={p}
                   name={p?.Name}
                   size={p?.Size}

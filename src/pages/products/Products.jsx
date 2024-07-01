@@ -1,18 +1,19 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react';
 import {
   Button,
   ContainerMobile,
   ContainerWeb,
   PageLayout,
-} from "../../../globalStyles";
-import { useNavigate } from "react-router-dom";
-import api from "../../services/api";
-import { translateError } from "../../services/util";
-import { ProductInfo } from "./ProductInfo";
-import { TableItens } from "../orders/new/NewOrder.styles";
-import { Loading } from "../../components/loading/Loading";
-import { CardProducts } from "./CardProducts";
-import { useTranslation } from "react-i18next";
+} from '../../../globalStyles';
+import { useNavigate } from 'react-router-dom';
+import api from '../../services/api';
+import { translateError } from '../../services/util';
+import { ProductInfo } from './ProductInfo';
+import { TableItens } from '../orders/new/NewOrder.styles';
+import { Loading } from '../../components/loading/Loading';
+import { CardProducts } from './CardProducts';
+import { useTranslation } from 'react-i18next';
+import { PageTitles } from '../../components/PageTitle/PageTitle';
 
 export const Products = () => {
   const { t } = useTranslation();
@@ -33,11 +34,11 @@ export const Products = () => {
   };
 
   useEffect(() => {
-    if (api.currentUser.AccessTypes[0] !== "TEGG") {
+    if (api.currentUser.AccessTypes[0] !== 'TEGG') {
       api.user
         .logout()
         .then(() => {
-          navigate("/login");
+          navigate('/login');
         })
         .catch((err) => {
           console.log(err);
@@ -49,23 +50,24 @@ export const Products = () => {
   return (
     <>
       <PageLayout>
+        <PageTitles title='Produtos' />
         <Button
-          style={{ width: screen.width < 768 && "100%" }}
-          onClick={() => navigate("/products/new")}
+          style={{ width: screen.width < 768 && '100%' }}
+          onClick={() => navigate('/products/new')}
         >
-          {t("Products.labelNew")}
+          {t('Products.labelNew')}
         </Button>
         {products.length > 0 ? (
           <>
             <ContainerWeb>
-              <TableItens style={{ marginTop: "1rem" }}>
+              <TableItens style={{ marginTop: '1rem' }}>
                 <thead>
                   <tr>
-                    <th>{t("Products.table.name")}</th>
-                    <th>{t("Products.table.description")}</th>
-                    <th>{t("Products.table.technology")}</th>
-                    <th>{t("Products.table.version")}</th>
-                    <th>{t("Products.table.value")}</th>
+                    <th>{t('Products.table.name')}</th>
+                    <th>{t('Products.table.description')}</th>
+                    <th>{t('Products.table.technology')}</th>
+                    <th>{t('Products.table.version')}</th>
+                    <th>{t('Products.table.value')}</th>
                   </tr>
                 </thead>
                 {products.map((prod, index) => (
@@ -77,7 +79,7 @@ export const Products = () => {
                 ))}
               </TableItens>
             </ContainerWeb>
-            <ContainerMobile style={{ width: "100%", height: "100%" }}>
+            <ContainerMobile style={{ width: '100%', height: '100%' }}>
               {products.map((prod, index) => (
                 <CardProducts key={index} prod={prod} search={searchProducts} />
               ))}
@@ -87,14 +89,14 @@ export const Products = () => {
           loadingPage && (
             <div
               style={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
                 height: 150,
               }}
             >
-              <h2 style={{ color: "black", fontWeight: "bold" }}>
-                {t("Products.table.notHave")}
+              <h2 style={{ color: 'black', fontWeight: 'bold' }}>
+                {t('Products.table.notHave')}
               </h2>
             </div>
           )

@@ -164,6 +164,7 @@ export const ClientInfoPending = ({
         </td>
         <td>{client.Name}</td>
         <td>{client.Email}</td>
+        <td>{client.CreatedAt && moment(client.CreatedAt).format('DD/MM/YYYY HH:mm')}</td>
         <td>
           <div
             style={{

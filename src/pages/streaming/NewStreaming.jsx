@@ -25,6 +25,7 @@ import { SubscriptionInfoTv } from "../subscriptions/SubscriptionInfoTv";
 import { TableItens } from "../orders/clientNew/NewOrder.styles";
 import { SubscriptionInfoMobileTv } from "../subscriptions/SubscriptionInfoMobileTv";
 import moment from "moment";
+import { PageTitles } from '../../components/PageTitle/PageTitle'
 
 export const NewStreaming = () => {
   const imgDeezer = 'url("/assets/tv/deezer/Copy of Vertical-cb-rgb.svg")';
@@ -396,7 +397,7 @@ export const NewStreaming = () => {
     <>
       <PageLayout>
         <Tooltip id="stream-tooltip" />
-        <h4>Streaming</h4>
+        <PageTitles title="Tegg TV" />
         {loaded && (
           <>
             {tvsubscriptions.length > 0 && !edit ? (

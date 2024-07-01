@@ -31,6 +31,7 @@ import { StreamingManagementMobile } from "./StreamingManagementMobile";
 import {StreamingManagementTableHomolog} from "./StreamingManagementTableHomolog";
 // import _ from "lodash";
 import { useTranslation } from "react-i18next";
+import { PageTitles } from '../../components/PageTitle/PageTitle'
 
 export const StreamingManagement = () => {
   const { t } = useTranslation();
@@ -251,6 +252,7 @@ export const StreamingManagement = () => {
     <>
       <Loading open={loading} msg={msg} />
       <PageLayout>
+      <PageTitles title='Tegg TV' />
         <div className="btn_container">
           <Button onClick={() => setOpen(true)}>
             {t("StreamingManager.newUser")}

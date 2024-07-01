@@ -17,6 +17,7 @@ import { ClientInfoPending } from './ClientInfoPending';
 import { ClientCardMobilePending } from './ClientCardMobilePending';
 import Select from 'react-select';
 import { useTranslation } from 'react-i18next';
+import { PageTitles } from '../../components/PageTitle/PageTitle'
 
 export const ClientsPending = () => {
   const {t} = useTranslation()
@@ -77,7 +78,8 @@ export const ClientsPending = () => {
   return (
     <>
       <PageLayout>
-        <h5>{t('ClientsPending.title')}</h5>
+        <PageTitles title={t('ClientsPending.title')}/>
+       {/* <h5>{t('ClientsPending.title')}</h5> */}
         {/* <h2 style={{ marginTop: '1rem' }}>Clientes</h2> */}
         <div style={{ marginTop: '1rem' }}>
           <div
@@ -146,6 +148,7 @@ export const ClientsPending = () => {
                   <th>{t('ClientsPending.table.document')}</th>
                   <th>{t('ClientsPending.table.contact')}</th>
                   <th>{t('ClientsPending.table.email')}</th>
+                  <th>Data criação</th>
                   <th>{t('ClientsPending.table.status')}</th>
                 </tr>
                 {users.map((d) => (

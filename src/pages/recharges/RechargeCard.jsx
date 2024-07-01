@@ -99,6 +99,7 @@ export const RechargeCard = ({
           </div>
         </CardContent>
         <CardActions
+        onClick={onClick}
           style={{
             display: 'flex',
             justifyContent: 'center',
@@ -107,11 +108,12 @@ export const RechargeCard = ({
         >
           <Button
             disabled={disabled}
-            onClick={() =>
-              navigate('/recharge/new', {
-                state: { plan: plan },
-              })
-            }
+            onClick={onClick}
+            // onClick={() =>
+            //   navigate('/recharge/new', {
+            //     state: { plan: plan },
+            //   })
+            // }
             style={{
               width: 200,
               backgroundColor: 'black',

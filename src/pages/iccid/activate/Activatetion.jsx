@@ -28,6 +28,7 @@ import { NewActivateClient } from './full/NewActivateClient';
 import { toast } from 'react-toastify';
 import { TableActivation } from './TableActivation';
 import { Loading } from '../../../components/loading/Loading';
+import { PageTitles } from '../../../components/PageTitle/PageTitle';
 
 export const Activation = () => {
   const [activations, setActivations] = useState([]);
@@ -98,7 +99,8 @@ export const Activation = () => {
       <ContainerWeb>
         <Loading open={loading} msg={'Buscando ativações pendentes...'} />
         <PageLayout>
-          <h5 style={{ marginBottom: '1rem' }}>Ativações pendentes</h5>
+          {/* <h5 style={{ marginBottom: '1rem' }}>Ativações pendentes</h5> */}
+          <PageTitles title={'Ativações pendentes'} />
           {api.currentUser.AccessTypes[0] === 'TEGG' && (
             <div
               style={{
@@ -175,7 +177,7 @@ export const Activation = () => {
       </ContainerWeb>
       <ContainerMobile>
         <PageLayout>
-          <h5>Ativações pendentes</h5>
+          <PageTitles title={'Ativações pendentes'} />
           {activations.length === 0 && (
             <div style={{ margin: 'auto', marginTop: '2rem' }}>
               {loading ? (

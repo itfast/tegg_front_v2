@@ -25,10 +25,11 @@ import { TableIccids } from './components/TableIccids';
 import { Loading } from '../../components/loading/Loading';
 import { CardsIccidMobile } from './CardsIccidMobile';
 import { useTranslation } from 'react-i18next';
+import { PageTitles } from '../../components/PageTitle/PageTitle';
 
 export const Iccids = () => {
   const navigate = useNavigate();
-  const {t} = useTranslation()
+  const { t } = useTranslation();
   // const [loading, setLoading] = useState(false);
 
   const [loadingDownload, setLoadingDownload] = useState(false);
@@ -107,7 +108,7 @@ export const Iccids = () => {
   // const [showStatusInfo, setShowStatusInfo] = useState(false)
   // const [statusInfo, setStatusInfo] = useState()
   // const [tmp, setTmp] = useState()
-  const [msg, setMsg] = useState(t('Iccids.checkMsg'),);
+  const [msg, setMsg] = useState(t('Iccids.checkMsg'));
 
   const translateStatus = (str) => {
     switch (str) {
@@ -141,7 +142,14 @@ export const Iccids = () => {
     setLoadingAll(true);
     // console.log(pageNum, pageSize, statusSearch, iccidToFind, type?.value, stoke?.value)
     api.iccid
-      .getAllTeste(pageNum, pageSize, statusSearch, iccidToFind, type?.value, stoke?.value)
+      .getAllTeste(
+        pageNum,
+        pageSize,
+        statusSearch,
+        iccidToFind,
+        type?.value,
+        stoke?.value
+      )
       .then((res) => {
         console.log(res.data);
         setTotal(res?.data?.meta?.total);
@@ -218,9 +226,7 @@ export const Iccids = () => {
   };
 
   const handleSurfStatus = async () => {
-    toast.info(
-      t('Iccids.msgSurfSearch')
-    );
+    toast.info(t('Iccids.msgSurfSearch'));
     setStatusLoading(true);
     for (let i = 0; i < checkedArray.length; i++) {
       if (checkedArray[i].iccid) {
@@ -240,9 +246,7 @@ export const Iccids = () => {
 
   const handleDelete = async () => {
     setShowMultiDelete(false);
-    toast.info(
-      t('Iccids.deleteIccidMsg')
-    );
+    toast.info(t('Iccids.deleteIccidMsg'));
     setDeleteLoading(true);
     for (let i = 0; i < checkedArray.length; i++) {
       if (checkedArray[i]) {
@@ -279,6 +283,7 @@ export const Iccids = () => {
     <>
       <Loading open={loadingAll} msg={msg} />
       <PageLayout>
+        <PageTitles title='ICCIDs' />
         <div style={{ display: screen.width > 768 && 'flex', gap: 15 }}>
           {api.currentUser.AccessTypes[0] === 'TEGG' && (
             <Button
@@ -307,7 +312,7 @@ export const Iccids = () => {
               }}
               onClick={() => setShowLinkIccids(true)}
             >
-             {t('Iccids.linkIccid')}
+              {t('Iccids.linkIccid')}
             </Button>
           )}
 
@@ -329,7 +334,9 @@ export const Iccids = () => {
               <div className='loading'>
                 <ReactLoading type={'bars'} color={'#fff'} />
               </div>
-            ) : (t('Iccids.buttonCheckStatus'))}
+            ) : (
+              t('Iccids.buttonCheckStatus')
+            )}
           </Button>
 
           <Button
@@ -461,7 +468,14 @@ export const Iccids = () => {
           </div>
         </div>
 
-        <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginTop: '0.5rem' }}>
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: 10,
+            marginTop: '0.5rem',
+          }}
+        >
           <div style={{ width: screen.width < 768 && '25%' }}>
             <p>{t('Iccids.stoke')}:</p>
           </div>
@@ -480,7 +494,9 @@ export const Iccids = () => {
           </div>
         </div>
 
-        <h4 style={{ marginTop: '1rem' }}>{t('Iccids.total')}: {total}</h4>
+        <h4 style={{ marginTop: '1rem' }}>
+          {t('Iccids.total')}: {total}
+        </h4>
 
         <ContainerWeb>
           {iccids.length > 0 ? (
@@ -502,7 +518,7 @@ export const Iccids = () => {
               }}
             >
               <h2 style={{ color: 'black', fontWeight: 'bold' }}>
-               {t('Iccids.notHave')}
+                {t('Iccids.notHave')}
               </h2>
             </div>
           )}
@@ -584,12 +600,17 @@ export const Iccids = () => {
           <br />
           <br />
           <p>
-            <span style={{ fontWeight: 'bold' }}>{t('Iccids.infMsgs.awaitingStatus')}</span>{' '}
+            <span style={{ fontWeight: 'bold' }}>
+              {t('Iccids.infMsgs.awaitingStatus')}
+            </span>{' '}
             {t('Iccids.infMsgs.awaitingStatusResult')}
           </p>
           <br />
           <p>
-            <span style={{ fontWeight: 'bold' }}>{t('Iccids.infMsgs.available')}</span> {t('Iccids.infMsgs.availableResult')}
+            <span style={{ fontWeight: 'bold' }}>
+              {t('Iccids.infMsgs.available')}
+            </span>{' '}
+            {t('Iccids.infMsgs.availableResult')}
             {api.currentUser.AccessTypes[0] === 'TEGG' && (
               <span>{t('Iccids.infMsgs.availableresale')}</span>
             )}
@@ -597,34 +618,52 @@ export const Iccids = () => {
           </p>
           <br />
           <p>
-            <span style={{ fontWeight: 'bold' }}>{t('Iccids.infMsgs.sale')}</span> {t('Iccids.infMsgs.saleResult')}
-          </p>
-          <br />
-          <p>
-            <span style={{ fontWeight: 'bold' }}>{t('Iccids.infMsgs.sent')}</span> {t('Iccids.infMsgs.sentResult')}
-          </p>
-          <br />
-          <p>
-            <span style={{ fontWeight: 'bold' }}>{t('Iccids.infMsgs.active')}</span> {t('Iccids.infMsgs.activeResult')}
+            <span style={{ fontWeight: 'bold' }}>
+              {t('Iccids.infMsgs.sale')}
+            </span>{' '}
+            {t('Iccids.infMsgs.saleResult')}
           </p>
           <br />
           <p>
             <span style={{ fontWeight: 'bold' }}>
-            {t('Iccids.infMsgs.grace')}
+              {t('Iccids.infMsgs.sent')}
+            </span>{' '}
+            {t('Iccids.infMsgs.sentResult')}
+          </p>
+          <br />
+          <p>
+            <span style={{ fontWeight: 'bold' }}>
+              {t('Iccids.infMsgs.active')}
+            </span>{' '}
+            {t('Iccids.infMsgs.activeResult')}
+          </p>
+          <br />
+          <p>
+            <span style={{ fontWeight: 'bold' }}>
+              {t('Iccids.infMsgs.grace')}
             </span>{' '}
             {t('Iccids.infMsgs.graceResult')}
           </p>
           <br />
           <p>
-            <span style={{ fontWeight: 'bold' }}>{t('Iccids.infMsgs.canceled')}</span> {t('Iccids.infMsgs.canceledResult')}
+            <span style={{ fontWeight: 'bold' }}>
+              {t('Iccids.infMsgs.canceled')}
+            </span>{' '}
+            {t('Iccids.infMsgs.canceledResult')}
           </p>
           <br />
           <p>
-            <span style={{ fontWeight: 'bold' }}>{t('Iccids.infMsgs.portOut')}</span> {t('Iccids.infMsgs.portOutResult')}
+            <span style={{ fontWeight: 'bold' }}>
+              {t('Iccids.infMsgs.portOut')}
+            </span>{' '}
+            {t('Iccids.infMsgs.portOutResult')}
           </p>
           <br />
           <p>
-            <span style={{ fontWeight: 'bold' }}>{t('Iccids.infMsgs.invalid')}</span>{t('Iccids.infMsgs.invalidResult')}
+            <span style={{ fontWeight: 'bold' }}>
+              {t('Iccids.infMsgs.invalid')}
+            </span>
+            {t('Iccids.infMsgs.invalidResult')}
           </p>
           <br />
         </div>

@@ -18,6 +18,7 @@ import { InputData } from "../../resales/Resales.styles";
 import { toast } from "react-toastify";
 import { Loading } from "../../../components/loading/Loading";
 import { useNavigate, useLocation } from "react-router-dom";
+import { PageTitles } from '../../../components/PageTitle/PageTitle'
 
 export const ActivationManual = () => {
   const [loading, setLoading] = useState(false);
@@ -158,6 +159,7 @@ export const ActivationManual = () => {
       <ContainerWeb>
         <Loading open={loading} msg={msg} />
         <PageLayout>
+          <PageTitles title="Ativar nova linha" />
           {location?.state?.document && (
             <Button
               style={{ marginBottom: "1rem" }}
@@ -166,7 +168,6 @@ export const ActivationManual = () => {
               Voltar
             </Button>
           )}
-          <h5 style={{ marginBottom: "1rem" }}>Ativar</h5>
           <div style={{ width: "100%" }}>
             <div
               style={{
@@ -333,7 +334,7 @@ export const ActivationManual = () => {
       <ContainerMobile>
         <Loading open={loading} msg={"Ativando..."} />
         <PageLayout>
-          <h5 style={{ marginBottom: "1rem" }}>Ativar</h5>
+        <PageTitles title="Ativar nova linha" />
           <div style={{ width: "100%" }}>
             <div
               style={{

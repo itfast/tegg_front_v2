@@ -16,6 +16,7 @@ import { LinesCLient } from "./LinesClient";
 import { TableItens } from "../../pages/orders/new/NewOrder.styles";
 import { optChipStatus } from "../../services/util";
 import { InputData } from "../clients/new/NewClient.styles";
+import { PageTitles } from '../../components/PageTitle/PageTitle'
 
 export const Lines = () => {
   const [loading, setLoading] = useState(true);
@@ -107,8 +108,7 @@ export const Lines = () => {
     <>
       <ContainerWeb>
         <PageLayout>
-          {/* <ContainerTable> */}
-          {/* <h2>Linhas cadastradas</h2> */}
+          <PageTitles title="Linhas" />
           {api.currentUser.AccessTypes[0] === "DEALER" && (
             <div
               style={{
@@ -337,7 +337,7 @@ export const Lines = () => {
       // }}
       >
         <PageLayout>
-          <h2 style={{ textAlign: "center" }}>Linhas cadastradas</h2>
+        <PageTitles title="Linhas" />
           {loading ? (
             <div className="loading">
               <ReactLoading type={"bars"} color={"#00D959"} />

@@ -7,19 +7,19 @@ import {
   IconButton,
   Menu,
   MenuItem,
-} from "@mui/material";
-import { IoMdMore } from "react-icons/io";
-import { useState } from "react";
+} from '@mui/material';
+import { IoMdMore } from 'react-icons/io';
+import { useState } from 'react';
 import {
   translateError,
   translateStatus,
   translateValue,
-} from "../../services/util";
-import moment from "moment";
-import ReactLoading from "react-loading";
-import api from "../../services/api";
-import { toast } from "react-toastify";
-import { Button } from "../../../globalStyles";
+} from '../../services/util';
+import moment from 'moment';
+import ReactLoading from 'react-loading';
+import api from '../../services/api';
+import { toast } from 'react-toastify';
+import { Button } from '../../../globalStyles';
 
 /* eslint-disable react/prop-types */
 export const StatementMobile = ({ statement, returnClient, search }) => {
@@ -93,22 +93,22 @@ export const StatementMobile = ({ statement, returnClient, search }) => {
     <>
       <div
         style={{
-          width: "90%",
-          backgroundColor: "#00D959",
-          textAlign: "center",
+          width: '90%',
+          backgroundColor: '#00D959',
+          textAlign: 'center',
           // color: '#3d3d3d',
-          padding: "0.5rem",
-          margin: "auto",
-          borderRadius: "8px",
-          marginTop: "0.2rem",
-          position: "relative",
+          padding: '0.5rem',
+          margin: 'auto',
+          borderRadius: '8px',
+          marginTop: '0.2rem',
+          position: 'relative',
         }}
       >
         <div
           style={{
-            position: "absolute",
-            top: "8px",
-            right: "16px",
+            position: 'absolute',
+            top: '8px',
+            right: '16px',
           }}
         >
           {/* <MdSignalWifiStatusbarNotConnected
@@ -117,11 +117,11 @@ export const StatementMobile = ({ statement, returnClient, search }) => {
             onClick={() => getStatus(i)}
           /> */}
           <IconButton
-            aria-label="more"
-            id="long-button"
-            aria-controls={open ? "long-menu" : undefined}
-            aria-expanded={open ? "true" : undefined}
-            aria-haspopup="true"
+            aria-label='more'
+            id='long-button'
+            aria-controls={open ? 'long-menu' : undefined}
+            aria-expanded={open ? 'true' : undefined}
+            aria-haspopup='true'
             onClick={handleClick}
           >
             <IoMdMore />
@@ -129,9 +129,9 @@ export const StatementMobile = ({ statement, returnClient, search }) => {
         </div>
         <div
           style={{
-            position: "absolute",
-            top: "0px",
-            left: "0px",
+            position: 'absolute',
+            top: '0px',
+            left: '0px',
           }}
         >
           {/* <Checkbox
@@ -141,32 +141,40 @@ export const StatementMobile = ({ statement, returnClient, search }) => {
             }}
           /> */}
         </div>
-        <h4 style={{ padding: "0.2rem", fontWeight: "bold" }}>
+        <h4 style={{ padding: '0.2rem', fontWeight: 'bold' }}>
           {translateValue(statement?.Amount)}
         </h4>
-        <h5>Criado: {moment(statement?.DateCreated).format("DD/MM/YYYY")}</h5>
-        <h5>Vencimento: {moment(statement?.DueDate).format("DD/MM/YYYY")}</h5>
         <h5>
-          {statement.BillingType === "PIX"
-            ? "PIX"
-            : statement.BillingType === "BOLETO"
-            ? "BOLETO"
-            : "CARTÃO DE CRÉDITO"}
+          Criado: {moment(statement?.CreatedAt).format('DD/MM/YYYY HH:mm')}
+        </h5>
+        <h5>Vencimento: {moment(statement?.DueDate).format('DD/MM/YYYY')}</h5>
+        <h5>
+          Pago em:{' '}
+          {statement?.PaymentDate &&
+            statement?.PaymentDate !== '' &&
+            moment(statement?.PaymentDate).format('DD/MM/YYYY')}
+        </h5>
+        <h5>
+          {statement.BillingType === 'PIX'
+            ? 'PIX'
+            : statement.BillingType === 'BOLETO'
+            ? 'BOLETO'
+            : 'CARTÃO DE CRÉDITO'}
         </h5>
         <h5>{translateStatus(statement.Status)}</h5>
         <h5>
-          {" "}
+          {' '}
           {statement.EstimatedCreditDate &&
-            moment(statement.EstimatedCreditDate).format("DD/MM/YYYY")}
+            moment(statement.EstimatedCreditDate).format('DD/MM/YYYY')}
         </h5>
         <h5>{returnClient(statement.Order)}</h5>
         {/* <h4>{translateChipStatus(i.Status)}</h4> */}
       </div>
 
       <Menu
-        id="long-menu"
+        id='long-menu'
         MenuListProps={{
-          "aria-labelledby": "long-button",
+          'aria-labelledby': 'long-button',
         }}
         anchorEl={anchorEl}
         open={open}
@@ -174,9 +182,9 @@ export const StatementMobile = ({ statement, returnClient, search }) => {
       >
         <MenuItem
           disabled={
-            statement?.Status === "CONFIRMED" ||
-            statement?.Status === "RECEIVED" ||
-            statement?.Status === "RECEIVED_IN_CASH"
+            statement?.Status === 'CONFIRMED' ||
+            statement?.Status === 'RECEIVED' ||
+            statement?.Status === 'RECEIVED_IN_CASH'
           }
           onClick={() => {
             setAnchorEl(null);
@@ -201,11 +209,11 @@ export const StatementMobile = ({ statement, returnClient, search }) => {
         >
           Estornar
         </MenuItem>
-        {statement?.BillingType === "BOLETO" && (
+        {statement?.BillingType === 'BOLETO' && (
           <MenuItem
             onClick={() => {
               setAnchorEl(null);
-              window.open(statement?.BankSlipUrl, "_black");
+              window.open(statement?.BankSlipUrl, '_black');
             }}
           >
             Boleto
@@ -217,7 +225,7 @@ export const StatementMobile = ({ statement, returnClient, search }) => {
             setAnchorEl(null);
             window.open(
               `https://teggtelecom.com/apihomolog/payment/files/${statement?.ReceiptFileUrl}`,
-              "_black"
+              '_black'
             );
           }}
         >
@@ -229,12 +237,12 @@ export const StatementMobile = ({ statement, returnClient, search }) => {
       <Dialog
         open={modalReceive}
         onClose={() => setModalReceive(false)}
-        aria-labelledby="alert-dialog-title"
-        aria-describedby="alert-dialog-description"
+        aria-labelledby='alert-dialog-title'
+        aria-describedby='alert-dialog-description'
       >
-        <DialogTitle id="alert-dialog-title">Recebimento</DialogTitle>
+        <DialogTitle id='alert-dialog-title'>Recebimento</DialogTitle>
         <DialogContent>
-          <DialogContentText id="alert-dialog-description">
+          <DialogContentText id='alert-dialog-description'>
             Ao confirmar um recebimento em dinheiro de uma cobrança que possua
             uma negativação em andamento uma taxa de ativação de serviço de
             negativação poderá ser cobrada. Deseja prosseguir?
@@ -248,16 +256,16 @@ export const StatementMobile = ({ statement, returnClient, search }) => {
             {loading ? (
               <div
                 style={{
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
                   height: 15,
                 }}
               >
-                <ReactLoading type={"bars"} color={"#fff"} />
+                <ReactLoading type={'bars'} color={'#fff'} />
               </div>
             ) : (
-              "RECEBER"
+              'RECEBER'
             )}
           </Button>
         </DialogActions>
@@ -267,15 +275,15 @@ export const StatementMobile = ({ statement, returnClient, search }) => {
       <Dialog
         open={modalDelete}
         onClose={() => setModalDelete(false)}
-        aria-labelledby="alert-dialog-title"
-        aria-describedby="alert-dialog-description"
+        aria-labelledby='alert-dialog-title'
+        aria-describedby='alert-dialog-description'
       >
-        <DialogTitle id="alert-dialog-title">Deletar</DialogTitle>
+        <DialogTitle id='alert-dialog-title'>Deletar</DialogTitle>
         <DialogContent>
-          <DialogContentText id="alert-dialog-description">
-            Deseja realmente excluir a cobrança (ASAAS) do cliente{" "}
+          <DialogContentText id='alert-dialog-description'>
+            Deseja realmente excluir a cobrança (ASAAS) do cliente{' '}
             {statement &&
-              returnClient(statement?.Order || statement?.PurchaseOrder)}{" "}
+              returnClient(statement?.Order || statement?.PurchaseOrder)}{' '}
             no valor de {translateValue(statement?.Amount)}? Esta ação não
             podera ser desfeita.
           </DialogContentText>
@@ -288,21 +296,21 @@ export const StatementMobile = ({ statement, returnClient, search }) => {
             notHover={loading}
             onClick={deleteAction}
             autoFocus
-            style={{ backgroundColor: "red" }}
+            style={{ backgroundColor: 'red' }}
           >
             {loading ? (
               <div
                 style={{
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
                   height: 15,
                 }}
               >
-                <ReactLoading type={"bars"} color={"#fff"} />
+                <ReactLoading type={'bars'} color={'#fff'} />
               </div>
             ) : (
-              "DELETAR"
+              'DELETAR'
             )}
           </Button>
         </DialogActions>
@@ -312,17 +320,17 @@ export const StatementMobile = ({ statement, returnClient, search }) => {
       <Dialog
         open={modalRefund}
         onClose={() => setModalRefund(false)}
-        aria-labelledby="alert-dialog-title"
-        aria-describedby="alert-dialog-description"
+        aria-labelledby='alert-dialog-title'
+        aria-describedby='alert-dialog-description'
       >
-        <DialogTitle id="alert-dialog-title">Estornar</DialogTitle>
+        <DialogTitle id='alert-dialog-title'>Estornar</DialogTitle>
         <DialogContent>
-          <DialogContentText id="alert-dialog-description">
+          <DialogContentText id='alert-dialog-description'>
             <div
               style={{
-                border: "1px dashed red",
-                padding: "0.5rem",
-                textAlign: "justify",
+                border: '1px dashed red',
+                padding: '0.5rem',
+                textAlign: 'justify',
               }}
             >
               As taxas referentes à cobrança como a de compensação e de
@@ -330,13 +338,13 @@ export const StatementMobile = ({ statement, returnClient, search }) => {
               você tenha acabado de receber uma cobrança em Pix e tente estornar
               o valor total, retornará erro e será necessário aumentar o próprio
               saldo para conseguir o estorno total.
-            </div>{" "}
+            </div>{' '}
             <br />
             O estorno implicara também em remover o credito colocado na linha do
             cliente, caso esse pagamento seja referente a uma recarga.
-            <br /> <br /> Deseja realemente estornar o pagamento do cliente{" "}
+            <br /> <br /> Deseja realemente estornar o pagamento do cliente{' '}
             {statement &&
-              returnClient(statement?.Order || statement?.PurchaseOrder)}{" "}
+              returnClient(statement?.Order || statement?.PurchaseOrder)}{' '}
             no valor de {translateValue(statement?.Amount)}? Esta ação não
             podera ser desfeita.
           </DialogContentText>
@@ -349,21 +357,21 @@ export const StatementMobile = ({ statement, returnClient, search }) => {
             notHover={loading}
             onClick={refundAction}
             autoFocus
-            style={{ backgroundColor: "red" }}
+            style={{ backgroundColor: 'red' }}
           >
             {loading ? (
               <div
                 style={{
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
                   height: 15,
                 }}
               >
-                <ReactLoading type={"bars"} color={"#fff"} />
+                <ReactLoading type={'bars'} color={'#fff'} />
               </div>
             ) : (
-              "ESTORNAR"
+              'ESTORNAR'
             )}
           </Button>
         </DialogActions>

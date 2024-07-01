@@ -11,6 +11,7 @@ import { ActionsTable } from "./ActionsTable";
 // import { Tooltip } from "react-tooltip";
 import { Pagination, Stack } from "@mui/material";
 import { translateError } from "../../services/util";
+import { PageTitles } from '../../components/PageTitle/PageTitle'
 
 export const Actions = () => {
   const navigate = useNavigate();
@@ -106,6 +107,7 @@ export const Actions = () => {
     <>
       <Loading open={loading} msg={msg} />
       <PageLayout>
+        <PageTitles title={'Ações'} />
         <Button
           style={{ width: screen.width < 768 && "100%" }}
           onClick={() => navigate("/clients/new")}

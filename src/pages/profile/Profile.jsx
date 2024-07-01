@@ -41,6 +41,7 @@ import { InputPassSignUp } from '../login/Login.styles';
 import { LiaEyeSolid, LiaEyeSlash } from 'react-icons/lia';
 import { PerfilSettings } from '../../components/perfilSettings/PerfilSettings';
 import { PerfilSettingsDealer } from '../../components/perfilSettings/PerfilSettingsDealer';
+import { PageTitles } from '../../components/PageTitle/PageTitle'
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -509,6 +510,7 @@ export const Profile = () => {
   return (
     <>
       <PageLayout>
+        <PageTitles title="Perfil" />
         <CardData style={{ maxWidth: '1000px', margin: 'auto' }}>
           <div
             style={{

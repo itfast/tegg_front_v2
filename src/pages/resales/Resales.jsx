@@ -17,6 +17,7 @@ import { TableItens } from "../orders/clientNew/NewOrder.styles";
 import { ResaleCardMobile } from "./ResaleCardMobile";
 import { Loading } from "../../components/loading/Loading";
 import { useTranslation } from "react-i18next";
+import { PageTitles } from '../../components/PageTitle/PageTitle'
 
 export const Resales = () => {
   const { t } = useTranslation();
@@ -73,6 +74,7 @@ export const Resales = () => {
     <>
       <Loading open={loading} msg={msg} />
       <PageLayout>
+        <PageTitles title={'Revendas'}/>
         <Button
           style={{ width: screen.width < 768 && "100%" }}
           onClick={() => navigate("/salesforce/new")}

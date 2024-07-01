@@ -30,6 +30,7 @@ import { IoMdMore } from "react-icons/io";
 import { toast } from "react-toastify";
 import { InputSearch } from "../orders/OrdersPending.styles";
 import { StatementMobile } from "./StatementMobile";
+import { PageTitles } from '../../components/PageTitle/PageTitle'
 
 export const Statement = () => {
   const [status, setStatus] = useState({ label: "Todos", value: "" });
@@ -139,6 +140,7 @@ export const Statement = () => {
     <>
       <ContainerWeb>
         <PageLayout>
+        <PageTitles title='Extrato'/>
           <div
             style={{
               display: "flex",
@@ -195,6 +197,7 @@ export const Statement = () => {
               <th>Valor</th>
               <th>Criado</th>
               <th>Vencimento</th>
+              <th>Pago em</th>
               <th>Tipo</th>
               <th>Status</th>
               <th>Previsão recebimento</th>
@@ -213,10 +216,13 @@ export const Statement = () => {
                   {translateValue(s?.Amount)}
                 </th>
                 <th style={{ fontWeight: "normal" }}>
-                  {moment(s?.DateCreated).format("DD/MM/YYYY")}
+                  {moment(s?.CreatedAt).format("DD/MM/YYYY HH:mm")}
                 </th>
                 <th style={{ fontWeight: "normal" }}>
                   {moment(s?.DueDate).format("DD/MM/YYYY")}
+                </th>
+                <th style={{ fontWeight: "normal" }}>
+                  {(s?.PaymentDate && s?.PaymentDate !== '') && moment(s?.PaymentDate).format("DD/MM/YYYY")}
                 </th>
                 <th style={{ fontWeight: "normal" }}>
                   {s.BillingType === "PIX"
@@ -370,6 +376,7 @@ export const Statement = () => {
       </ContainerWeb>
       <ContainerMobile>
         <PageLayout>
+        <PageTitles title='Extrato'/>
           <div
             style={{
               display: "flex",

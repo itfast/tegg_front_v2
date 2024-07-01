@@ -18,6 +18,7 @@ import { BsFiletypeXml } from 'react-icons/bs';
 import { AiOutlineFilePdf } from 'react-icons/ai';
 import { TableNf } from './TableNf';
 import { Loading } from '../../components/loading/Loading';
+import { PageTitles } from '../../components/PageTitle/PageTitle';
 
 export const NFe = () => {
   const [loading, setLoading] = useState(true);
@@ -66,6 +67,7 @@ export const NFe = () => {
       <ContainerWeb>
         <Loading open={loading} msg={'Buscando notas...'} />
         <PageLayout>
+          <PageTitles title={'Notas fiscais'} />
           <div
             style={{
               display: 'flex',
@@ -191,7 +193,7 @@ export const NFe = () => {
       <ContainerMobile>
         <div id='banner'>
           <PageLayout>
-            <h2>Notas fiscais</h2>
+            <PageTitles title={'Notas fiscais'} />
             {loading ? (
               <div className='loading'>
                 <ReactLoading type={'bars'} color={'#00D959'} />

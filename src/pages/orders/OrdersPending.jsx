@@ -32,7 +32,8 @@ import {
 import { LinkIccids } from '../../components/AddIccids/LinkIccids';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { CopyToClipboard } from "react-copy-to-clipboard";
+import { CopyToClipboard } from 'react-copy-to-clipboard';
+import { PageTitles } from '../../components/PageTitle/PageTitle';
 
 export const OrdersPending = () => {
   const navigate = useNavigate();
@@ -107,7 +108,7 @@ export const OrdersPending = () => {
       .getAll(pageNum, pageSize.value, '', search.value, '')
       .then((res) => {
         setMaxPages(res.data.meta.totalPages || 1);
-        console.log(res.data?.orders)
+        console.log(res.data?.orders);
         setOrders(res.data?.orders);
       })
       .catch((err) => {
@@ -220,7 +221,7 @@ export const OrdersPending = () => {
       <ContainerWeb>
         <Loading open={loading} msg='Gerando link pix...' />
         <PageLayout>
-          <h4>Pedidos de clientes</h4>
+          <PageTitles title='Pedidos pendentes' />
           <div
             style={{
               marginTop: '1rem',
@@ -301,9 +302,7 @@ export const OrdersPending = () => {
                         }}
                       >
                         {returnQtdSimCard(o?.OrderItems) > 0 && (
-                          <h5>
-                            SimCard: {returnQtdSimCard(o?.OrderItems)}
-                          </h5>
+                          <h5>SimCard: {returnQtdSimCard(o?.OrderItems)}</h5>
                         )}
                         {returnQtdEsim(o?.OrderItems) > 0 && (
                           <h5>e-Sim: {returnQtdEsim(o?.OrderItems)}</h5>
@@ -377,7 +376,7 @@ export const OrdersPending = () => {
       </ContainerWeb>
       <ContainerMobile>
         <PageLayout>
-          <h4>Pedidos de clientes</h4>
+          <PageTitles title='Pedidos pendentes' />
           <div
             style={{
               marginTop: '1rem',
@@ -535,19 +534,20 @@ export const OrdersPending = () => {
         >
           Atender pedido
         </MenuItem>
-        {tmpOrder?.Status === 'PROCESSED' && api.currentUser.AccessTypes[0] !== 'CLIENT' && (
-          <MenuItem
-            // disabled={!hasStoke}
-            disabled={tmpOrder?.Status !== 'PROCESSED'}
-            onClick={() => {
-              navigate(`/orders/pending/${tmpOrder?.Id}`,{
-                state: { order: tmpOrder },
-              })
-            }}
-          >
-            Detalhes
-          </MenuItem>
-        )}
+        {tmpOrder?.Status === 'PROCESSED' &&
+          api.currentUser.AccessTypes[0] !== 'CLIENT' && (
+            <MenuItem
+              // disabled={!hasStoke}
+              disabled={tmpOrder?.Status !== 'PROCESSED'}
+              onClick={() => {
+                navigate(`/orders/pending/${tmpOrder?.Id}`, {
+                  state: { order: tmpOrder },
+                });
+              }}
+            >
+              Detalhes
+            </MenuItem>
+          )}
 
         <MenuItem
           disabled={!tmpOrder?.Payments[0]?.InvoiceUrl}
@@ -718,20 +718,33 @@ export const OrdersPending = () => {
           </div>
           {/* <div style={{justifyContent: 'center', padding: '2rem'}}> */}
           {/* <div style={{display: 'flex', justifyContent: 'center', width: '100%'}}> */}
-          
-          <h4 style={{ fontWeight: "bold", color: "#00D959", textAlign: 'center', marginBottom: '1rem' }}>
-                Clique no texto abaixo para copiar
-              </h4>
-            <div style={{ wordWrap: "" }}>
-              {pixInf?.payload && (
-                <CopyToClipboard
-                  text={pixInf?.payload}
-                  onCopy={() => toast.info("Pix copia e cola copiado para área de transferência")}
-                >
-                  <span style={{textAlign: 'center', wordWrap: 'anywhere'}}>{pixInf?.payload}</span>
-                </CopyToClipboard>
-              )}
-            </div>
+
+          <h4
+            style={{
+              fontWeight: 'bold',
+              color: '#00D959',
+              textAlign: 'center',
+              marginBottom: '1rem',
+            }}
+          >
+            Clique no texto abaixo para copiar
+          </h4>
+          <div style={{ wordWrap: '' }}>
+            {pixInf?.payload && (
+              <CopyToClipboard
+                text={pixInf?.payload}
+                onCopy={() =>
+                  toast.info(
+                    'Pix copia e cola copiado para área de transferência'
+                  )
+                }
+              >
+                <span style={{ textAlign: 'center', wordWrap: 'anywhere' }}>
+                  {pixInf?.payload}
+                </span>
+              </CopyToClipboard>
+            )}
+          </div>
           {/* </div> */}
           {/* </DialogContentText> */}
         </DialogContent>

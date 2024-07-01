@@ -31,6 +31,7 @@ import { toast } from 'react-toastify';
 import { TableItens } from '../orders/clientNew/NewOrder.styles';
 // import { PortInClient } from './component/PortinClient';
 import { PortInSteep } from './component/PortInSteep';
+import { PageTitles } from '../../components/PageTitle/PageTitle'
 
 export const PortRequests = () => {
   const navigate = useNavigate();
@@ -107,6 +108,7 @@ export const PortRequests = () => {
     <>
       <ContainerWeb>
         <PageLayout>
+          <PageTitles title={'Portabilidade'} />
           {((api.currentUser.AccessTypes[0] !== 'TEGG' && api.currentUser.AccessTypes[0] !== 'DEALER')) && (
           <div className='btn_container'>
             <Button
@@ -215,6 +217,7 @@ export const PortRequests = () => {
       </ContainerWeb>
       <ContainerMobile>
         <PageLayout>
+        <PageTitles title={'Portabilidade'} />
           {/* <div className='btn_container'> */}
           <Button
             // onClick={() =>

@@ -23,6 +23,7 @@ import { InputSearch } from "./OrdersPending.styles";
 import { CardOderItens } from "./CardOrderItens";
 import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
+import { PageTitles } from '../../components/PageTitle/PageTitle'
 
 export const Orders = () => {
   const { t } = useTranslation();
@@ -98,6 +99,7 @@ export const Orders = () => {
     <>
       <ContainerWeb>
         <PageLayout>
+          <PageTitles title="Pedidos" />
           <Button
             style={{ marginLeft: 20 }}
             onClick={async () => {
@@ -296,6 +298,7 @@ export const Orders = () => {
       <ContainerMobile>
         <div id="banner">
           <PageLayout>
+          <PageTitles title="Pedidos" />
             <Button
               style={{ width: "100%", color: "#3d3d3d", fontSize: 20 }}
               onClick={async () => {

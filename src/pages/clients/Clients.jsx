@@ -19,6 +19,7 @@ import { Loading } from '../../components/loading/Loading';
 import { ClientCardMobile } from './ClientCardMobile';
 import { useTranslation } from 'react-i18next';
 import Select from 'react-select';
+import { PageTitles } from '../../components/PageTitle/PageTitle'
 
 export const Clients = () => {
   const { t } = useTranslation();
@@ -97,6 +98,7 @@ export const Clients = () => {
   return (
     <>
       <PageLayout>
+        <PageTitles title="Clientes"/>
         <Button
           style={{ width: screen.width < 768 && '100%' }}
           onClick={() => navigate('/clients/new')}

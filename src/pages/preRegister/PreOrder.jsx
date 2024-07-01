@@ -21,6 +21,7 @@ import { Loading } from "../../components/loading/Loading";
 import AsyncSelect from "react-select/async";
 import { AsyncPaginate } from "react-select-async-paginate";
 import { toast } from "react-toastify";
+import { PageTitles } from '../../components/PageTitle/PageTitle'
 // import { toast } from "react-toastify";
 
 export const PreOrder = () => {
@@ -215,6 +216,7 @@ export const PreOrder = () => {
     <>
       <Loading open={loading} msg={"Buscando..."} />
       <PageLayout>
+        <PageTitles title="Pré cadastrados"/>
         <div
           style={{
             width: "100%",
@@ -224,7 +226,7 @@ export const PreOrder = () => {
           }}
         >
           <div>
-            <h4>Pré cadastrados</h4>
+            {/* <h4>Pré cadastrados</h4> */}
             <h4>{totalRegister} cadastros feitos</h4>
           </div>
           <div>

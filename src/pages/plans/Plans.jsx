@@ -13,6 +13,7 @@ import { PlanInfo } from './PlanInfo';
 import { TableItens } from '../orders/new/NewOrder.styles';
 import { PlanCard } from './PlanCard';
 import { useTranslation } from 'react-i18next';
+import { PageTitles } from '../../components/PageTitle/PageTitle'
 
 export const Plans = () => {
   const {t} =  useTranslation()
@@ -48,6 +49,7 @@ export const Plans = () => {
   return (
     <>
       <PageLayout>
+      <PageTitles title='Planos' />
         {api.currentUser.AccessTypes[0] === 'TEGG' && (
           <Button
             style={{ width: screen.width < 768 && '100%' }}
