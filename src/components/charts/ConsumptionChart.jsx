@@ -174,6 +174,7 @@ export const ConsumptionChart = ({ lineMetrics }) => {
       api.line
         .getDataConsumption(Number(selectedLine.value), date.Year, date.Month)
         .then((res) => {
+          console.log(res)
           let uArray = [];
           let dArray = [];
           let sum = 0;
@@ -197,7 +198,8 @@ export const ConsumptionChart = ({ lineMetrics }) => {
             setUploadData(uArray);
             setDownloadData(dArray);
             const veryLargeNumber = 1.0e+06
-            setDataTotal([((total * veryLargeNumber)-sum), sum]);
+            const result = total === 0 ? 0 : (total * veryLargeNumber)-sum
+            setDataTotal([result, sum]);
             setBalance(res.data?.balance?.resultado?.qtDadoRestante);
           }
         })
