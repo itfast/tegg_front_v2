@@ -102,7 +102,8 @@ export const HeaderMobile = ({ setOpen, open, has }) => {
                     : 'Tegg'}
                 </h5>
               </div>
-              {(api.currentUser.Type !== 'TEGG') && (
+              {api.currentUser.Type !== 'TEGG' && (api.currentUser.MyUserFinalClientId ||
+                    api.currentUser.MyUserDealerId || api.currentUser.Type === 'CLIENT' || api.currentUser.Type === 'AGENT') && (
                 <div style={{ marginLeft: 10 }}>
                   <TbReplace
                     data-tooltip-id='inf-tooltip'

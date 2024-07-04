@@ -18,7 +18,6 @@ export const Header = ({ setOpen, open }) => {
   const openMenu = Boolean(anchorEl);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
-    console.log(Boolean(anchorEl));
   };
   const handleClose = () => {
     setAnchorEl(null);
@@ -110,33 +109,35 @@ export const Header = ({ setOpen, open }) => {
                       : t('Menu.tegg')}
                   </h5>
                 </div>
-                {api.currentUser.Type !== 'TEGG' && (
-                  <div style={{ marginLeft: 10 }}>
-                    <TbReplace
-                      data-tooltip-id='inf-tooltip'
-                      data-tooltip-content='Mudar perfil'
-                      data-tooltip-place='left'
-                      size={25}
-                      style={{ cursor: 'pointer' }}
-                      onClick={handleClick}
-                      // onClick={() => setShowEditProfile(true)}
-                    />
-                    <Menu
-                      id='basic-menu'
-                      anchorEl={anchorEl}
-                      open={openMenu}
-                      onClose={handleClose}
-                      MenuListProps={{
-                        'aria-labelledby': 'basic-button',
-                      }}
-                    >
-                      <ChangeProfile
-                        setShowEditProfile={handleClose}
-                        setLoading={setLoading}
+                {api.currentUser.Type !== 'TEGG' &&
+                  (api.currentUser.MyUserFinalClientId ||
+                    api.currentUser.MyUserDealerId || api.currentUser.Type === 'CLIENT' || api.currentUser.Type === 'AGENT') && (
+                    <div style={{ marginLeft: 10 }}>
+                      <TbReplace
+                        data-tooltip-id='inf-tooltip'
+                        data-tooltip-content='Mudar perfil'
+                        data-tooltip-place='left'
+                        size={25}
+                        style={{ cursor: 'pointer' }}
+                        onClick={handleClick}
+                        // onClick={() => setShowEditProfile(true)}
                       />
-                    </Menu>
-                  </div>
-                )}
+                      <Menu
+                        id='basic-menu'
+                        anchorEl={anchorEl}
+                        open={openMenu}
+                        onClose={handleClose}
+                        MenuListProps={{
+                          'aria-labelledby': 'basic-button',
+                        }}
+                      >
+                        <ChangeProfile
+                          setShowEditProfile={handleClose}
+                          setLoading={setLoading}
+                        />
+                      </Menu>
+                    </div>
+                  )}
                 <div style={{ marginLeft: 10 }}>
                   <GiExitDoor
                     data-tooltip-id='inf-tooltip'

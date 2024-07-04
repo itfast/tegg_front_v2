@@ -39,7 +39,8 @@ export const ChangeProfile = ({ setShowEditProfile, setLoading }) => {
           }
         });
       })
-      .catch((err) => translateError(err));
+      .catch((err) => translateError(err))
+      .finally(()=> setLoading(false));
   };
 
   const handleChangeProfile = (profile) => {
@@ -62,11 +63,11 @@ export const ChangeProfile = ({ setShowEditProfile, setLoading }) => {
       toast.info('Perfil selecionado já é o perfil atual.');
     }
   };
-
+console.log(api.currentUser)
   return (
     <>
-    <MenuItem disabled={api.currentUser.Type === 'CLIENT'} onClick={()=>handleChangeProfile('CLIENT')}>Cliente</MenuItem>
-    <MenuItem disabled={api.currentUser.Type === 'AGENT'} onClick={()=>handleChangeProfile('AGENT')}>Representante</MenuItem>
+    {(api.currentUser.MyUserFinalClientId || api.currentUser.Type === 'AGENT' || api.currentUser.Type === 'CLIENT') &&<MenuItem disabled={api.currentUser.Type === 'CLIENT'} onClick={()=>handleChangeProfile('CLIENT')}>Cliente</MenuItem>}
+    {(api.currentUser.MyUserFinalClientId || api.currentUser.Type === 'AGENT' || api.currentUser.Type === 'CLIENT') &&<MenuItem disabled={api.currentUser.Type === 'AGENT'} onClick={()=>handleChangeProfile('AGENT')}>Representante</MenuItem>}
     {(api.currentUser.MyUserDealerId || api.currentUser.Type === 'DEALER')  && <MenuItem disabled={api.currentUser.Type === 'DEALER'} onClick={()=>handleChangeProfile('DEALER')}>Revenda</MenuItem>}
     </>
   );
