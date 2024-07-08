@@ -33,7 +33,7 @@ export const PorInAction = () => {
     const myNumber = location.state.line?.IccidHistoric[0].SurfMsisdn?.substring(2, location.state.line?.IccidHistoric[0].SurfMsisdn?.length)
     console.log(1, 10, myNumber)
     api.line
-      .getPortRequests(1, 10, myNumber)
+      .getPortRequests(1, 10, 55+myNumber)
       .then((res) => {
         console.log(res)
         setPortRequests(res.data.portRequests);

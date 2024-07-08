@@ -626,6 +626,8 @@ export const translateStatus = (status) => {
       return "Pagamento pendente";
     case "PORTIN_PENDING":
       return "Portabilidade pendente";
+    case "PORTIN_CREATED":
+      return "Portabilidade pendente";
     case "UPDATED":
       return "Pagamento atualizado";
     case "CONFIRMED":

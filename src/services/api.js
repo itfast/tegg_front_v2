@@ -2524,10 +2524,10 @@ class Api {
       portIn: async (msisdn, msisdnOutraOperadora, operadora, doc, nome) => {
         try {
           const response = await this.axios.post(`${apiRoutes.iccid}/portin`, {
-            msisdn: Number(`55${msisdn}`),
+            msisdn: Number(`${msisdn}`),
             msisdnOutraOperadora: Number(`55${msisdnOutraOperadora}`),
             operadora: operadora,
-            doc: Number(doc),
+            doc: doc,
             nome: nome,
           });
           return response;

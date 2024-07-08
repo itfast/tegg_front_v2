@@ -125,6 +125,7 @@ export const DashBoard = ({ installApp }) => {
   };
 
   const syncMyLines = async () => {
+    console.log(api.currentUser)
     try {
       const res = await api.line.syncMyLines(
         api.currentUser.MyDocument,

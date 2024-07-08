@@ -140,9 +140,10 @@ export const BringNumber = () => {
             if (operator) {
               console.log(name, cpf, oldNumber, operator, line);
               setLoading(true);
+              const msisdn = `55${line?.label}`
               api.line
                 .portIn(
-                  Number(cleanNumber(line?.label)),
+                  Number(cleanNumber(msisdn)),
                   Number(cleanNumber(oldNumber)),
                   operator.value,
                   cleanNumber(cpf),
