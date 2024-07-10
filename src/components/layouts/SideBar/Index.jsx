@@ -220,7 +220,8 @@ export function SideBar({ open }) {
                     local.pathname === "/salesforce/new" ||
                     local.pathname === "/salesforce/edit" ||
                     local.pathname === "/clients/pending" ||
-                    local.pathname === "/salesforce/details"
+                    local.pathname === "/salesforce/details" ||
+                    local.pathname === "/salesforce/deleteds"
                       ? "#00D959"
                       : "",
                 }}
@@ -272,6 +273,18 @@ export function SideBar({ open }) {
                       </a>
                     </li>
                   </PermissionView>
+                  <PermissionView role="TEGG">
+                    <li>
+                      <a
+                        href="#"
+                        onClick={() => {
+                          navigate("/salesforce/deleteds");
+                        }}
+                      >
+                        Excluídas
+                      </a>
+                    </li>
+                  </PermissionView>
                 </ul>
               </li>
             </PermissionView>
@@ -315,7 +328,8 @@ export function SideBar({ open }) {
                     local.pathname === "/clients" ||
                     local.pathname === "/clients/" ||
                     local.pathname === "/clients/new" ||
-                    local.pathname === "/clients/edit"
+                    local.pathname === "/clients/edit" ||
+                    local.pathname === "/clients/deleteds"
                       ? "#00D959"
                       : "",
                 }}
@@ -343,6 +357,65 @@ export function SideBar({ open }) {
                       {t("Menu.clients")}
                     </a>
                   </li>
+                  <li>
+                    <a
+                      href="#"
+                      onClick={() => {
+                        navigate("/clients/deleteds");
+                      }}
+                    >
+                      Excluídos
+                    </a>
+                  </li>
+                </ul>
+              </li>
+            </PermissionView>
+            <PermissionView role="TEGG,DEALER">
+              <li
+                style={{
+                  backgroundColor:
+                    local.pathname === "/agents"
+                    // local.pathname === "/clients/" ||
+                    // local.pathname === "/clients/new" ||
+                    // local.pathname === "/clients/edit" ||
+                    // local.pathname === "/clients/deleteds"
+                      ? "#00D959"
+                      : "",
+                }}
+              >
+                <div className="iocn-link" onClick={submenuAction}>
+                  <a
+                    href="#"
+                    onClick={() => {
+                      navigate("/agents");
+                    }}
+                  >
+                    <i className="bx bx-street-view"></i>
+                    <span className="link_name">Representantes</span>
+                  </a>
+                  <i className="bx bxs-chevron-down arrow"></i>
+                </div>
+                <ul className="sub-menu">
+                  <li>
+                    <a
+                      href="#"
+                      onClick={() => {
+                        navigate("/agents");
+                      }}
+                    >
+                      Representantes
+                    </a>
+                  </li>
+                  {/* <li>
+                    <a
+                      href="#"
+                      onClick={() => {
+                        navigate("/clients/deleteds");
+                      }}
+                    >
+                      Excluídos
+                    </a>
+                  </li> */}
                 </ul>
               </li>
             </PermissionView>

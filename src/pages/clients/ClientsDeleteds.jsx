@@ -1,7 +1,6 @@
 import { useLocation, useNavigate } from 'react-router-dom';
 // import ReactLoading from 'react-loading';
 import {
-  Button,
   ContainerMobile,
   ContainerWeb,
   PageLayout,
@@ -11,50 +10,45 @@ import { useEffect, useState } from 'react';
 import api from '../../services/api';
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
-import AsyncSelect from 'react-select/async';
-import { ClientInfo } from './ClientInfo';
 import { translateError } from '../../services/util';
-import { TableItens } from '../../pages/orders/new/NewOrder.styles';
+import { TableItens } from '../orders/new/NewOrder.styles';
 import { Loading } from '../../components/loading/Loading';
-import { ClientCardMobile } from './ClientCardMobile';
 import { useTranslation } from 'react-i18next';
-import Select from 'react-select';
 import { PageTitles } from '../../components/PageTitle/PageTitle'
+import { ClientInfoDeleted } from './ClientInfoDeleted'
+import { ClientCardMobileDeleted } from './ClientCardMobileDeleted'
 
-export const Clients = () => {
+export const ClientsDeleteds = () => {
   const { t } = useTranslation();
-  const navigate = useNavigate();
   const location = useLocation();
+  const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
-  const [msg, setMsg] = useState('Buscando clientes...');
+  // const [msg, setMsg] = useState('Buscando clientes...');
+  const msg = 'Buscando clientes...'
   const [loadingDetails, setLoadingDetails] = useState(true);
   const [users, setUsers] = useState([]);
   // const [totalPages, setTotalPages] = useState(0);
   const [search, setSearch] = useState('');
-  const [dealer, setDealer] = useState('');
+
   const [pageNum, setPageNum] = useState(1);
   const [maxPages, setMaxPages] = useState(1);
   const [pageSize, setPageSize] = useState(10);
-  const [clientType, setClientType] = useState({label: 'Todos', value: ''});
+  // const [type, setType] = useState('Client')
 
-  useEffect(() => {
-    console.log(location.pathname)
-    if(location?.pathname === '/agents'){
-      setClientType({label: 'Representante', value: 'AGENT'})
-    }else{
-      setClientType({label: 'Cliente', value: 'CLIENT'})
-    }
-   
-  },[location]);
+  console.log(location.pathname)
+
 
   const getClients = () => {
+    // http://localhost:4000/api/deletedusers
+    const type = location.pathname === '/clients/deleteds' ? 'Client' : 'Dealer'
     setLoading(true);
     api.client
-      .getAll(pageNum, pageSize, search, dealer, clientType)
+      .getDeleteds(pageNum, pageSize, search, type)
       .then((res) => {
-        console.log(res.data.finalClients);
+        console.log(res)
+        // console.log(res.data.finalClients);
         setMaxPages(res.data?.meta?.totalPages || 1);
-        setUsers(res.data.finalClients);
+        setUsers(res.data?.deletedUsers);
       })
       .catch((err) => translateError(err))
       .finally(() => {
@@ -63,23 +57,7 @@ export const Clients = () => {
       });
   };
 
-  const loadDealers = async (search) => {
-    if (api.currentUser.AccessTypes[0] === 'TEGG') {
-      const response = await api.dealer.getSome(1, 15, search);
-      const dealers = await response.data.dealers;
-      const array = [];
-
-      if (dealers.length !== 0) {
-        for (const d of dealers) {
-          array.push({
-            value: d.Id,
-            label: d.CompanyName || d.Name,
-          });
-        }
-      }
-      return array;
-    }
-  };
+  
 
   const handlePageChange = (event, value) => {
     setPageNum(value);
@@ -104,19 +82,12 @@ export const Clients = () => {
         });
     }
     getClients();
-  }, [pageNum, search, pageSize, dealer, clientType]);
+  }, [pageNum, search, pageSize, location ]);
 
- 
   return (
     <>
       <PageLayout>
-        <PageTitles title="Clientes/Representantes"/>
-        <Button
-          style={{ width: screen.width < 768 && '100%' }}
-          onClick={() => navigate('/clients/new')}
-        >
-          {t('Clients.title')}
-        </Button>
+        <PageTitles title={`${location.pathname === '/clients/deleteds' ? 'Clientes excluídos' : 'Revendas excluídas'}`}/>
         {/* <h2 style={{ marginTop: '1rem' }}>Clientes</h2> */}
         <div style={{ marginTop: '1rem' }}>
           <div
@@ -135,61 +106,18 @@ export const Clients = () => {
                 gap: 10,
               }}
             >
-              <h3>{t('Clients.searchClient')}:</h3>
+              <h3>Buscar:</h3>
               <InputData
                 id='iccid'
                 type='text'
                 // disabled={searched}
-                placeholder={t('Clients.searchType')}
+                placeholder={"Nome/Documento"}
                 style={{
                   width: screen.width < 768 ? '100%' : 250,
                   marginBottom: screen.width < 768 && '1rem',
                 }}
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
-              />
-            </div>
-            {api.currentUser.AccessTypes[0] === 'TEGG' && (
-              <AsyncSelect
-                style={{ width: 250 }}
-                loadOptions={loadDealers}
-                placeholder={t('Clients.searchResalePlaceHolder')}
-                menuPortalTarget={document.body}
-                styles={{
-                  menuPortal: (base) => ({ ...base, zIndex: 9999 }),
-                }}
-                menuPosition={'fixed'}
-                defaultOptions
-                isClearable
-                onChange={(e) => {
-                  // console.log(e);
-                  if (e === null) {
-                    setDealer('');
-                  } else {
-                    setDealer(e.value);
-                  }
-                }}
-              />
-            )}
-            <div style={{ width: window.innerWidth > 768 && 150, marginTop: window.innerWidth < 768 && 10 }}>
-              <Select
-                // style={{ width: 250, marginTop: window.innerWidth < 768 && 10 }}
-                styles={{
-                  menuPortal: (base) => ({ ...base, zIndex: 9999 }),
-                }}
-                isSearchable={false}
-                // isClearable={false}
-                value={clientType}
-                options={[
-                  { label: 'Cliente', value: 'CLIENT' },
-                  { label: 'Representante', value: 'AGENT' },
-                  { label: 'Todos', value: '' },
-                ]}
-                placeholder='Tipo'
-                menuPosition='fixed'
-                onChange={(e) => {
-                  setClientType(e);
-                }}
               />
             </div>
           </div>
@@ -199,37 +127,27 @@ export const Clients = () => {
             <ContainerWeb>
               <TableItens>
                 <tr>
+                  {/* <th>Tipo</th> */}
                   <th>{t('Clients.table.name')}</th>
-                  <th>Perfil ativo</th>
-                  <th>Status</th>
                   <th>{t('Clients.table.document')}</th>
-                  <th>{t('Clients.table.contact')}</th>
-                  {api.currentUser.AccessTypes[0] === 'TEGG' && (
-                    <th>{t('Clients.table.resale')}</th>
-                  )}
-                  <th>Email de contato</th>
-                  <th>Email principal (Acesso ao sistema)</th>
-                  {/* <th>{t("Clients.table.email")}</th> */}
+                  <th>ICCID</th>
+                  <th>Linha</th>
+                  <th>Data ativação</th>
+                  <th>Data cancelamento</th>
                 </tr>
                 {users.map((d) => (
-                  <ClientInfo
+                  <ClientInfoDeleted
                     key={d.Id}
                     client={d}
-                    setLoading={setLoadingDetails}
-                    setMsg={setMsg}
-                    getClients={getClients}
                   />
                 ))}
               </TableItens>
             </ContainerWeb>
             <ContainerMobile style={{ width: '100%', height: '100%' }}>
               {users.map((d) => (
-                <ClientCardMobile
+                <ClientCardMobileDeleted
                   key={d.Id}
                   client={d}
-                  setLoading={setLoadingDetails}
-                  setMsg={setMsg}
-                  getClients={getClients}
                 />
               ))}
             </ContainerMobile>
@@ -251,7 +169,7 @@ export const Clients = () => {
                   textAlign: 'center',
                 }}
               >
-                {t('Clients.table.notHave')}
+                Sem clientes excluídos
               </h2>
             </div>
           )

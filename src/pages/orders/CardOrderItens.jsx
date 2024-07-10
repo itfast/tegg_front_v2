@@ -750,7 +750,7 @@ export const CardOderItens = ({ o, search }) => {
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                overflowY: 'scroll',
+                // overflowY: 'scroll',
                 // maxHeight: '300px'
               }}
             >

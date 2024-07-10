@@ -87,17 +87,16 @@ export const ClientInfo = ({ client, setLoading, setMsg, getClients }) => {
   const excludAction = () => {
     setMsg("Excluindo cliente...");
     setLoading(true);
-    // api.user
-    //   .updatePassword(client.Email, password)
-    //   .then((res) => {
-    //     toast.success(res.data.Message);
-    //     setShowModalReset(false);
-    //     setPassword();
-    //   })
-    //   .catch((err) => {
-    //     translateError(err);
-    //   })
-    //   .finally(() => setLoading(false));
+    api.client.delete(client.Id)
+      .then((res) => {
+        toast.success(res.data.Message);
+        setExcludClient(false);
+        getClients()
+      })
+      .catch((err) => {
+        translateError(err);
+      })
+      .finally(() => setLoading(false));
   };
 
   const handleTypePass = () => {
@@ -254,14 +253,14 @@ export const ClientInfo = ({ client, setLoading, setMsg, getClients }) => {
                       <MenuItem onClick={getNewSession}>
                         Acessar Painel
                       </MenuItem>
-                      {/* <MenuItem
+                      <MenuItem
                         onClick={() => {
                           setAnchorEl();
                           setExcludClient(true);
                         }}
                       >
                         Excluir
-                      </MenuItem> */}
+                      </MenuItem>
                       <MenuItem
                         onClick={() => {
                           setDisableClient(true), setAnchorEl();
@@ -608,7 +607,7 @@ export const ClientInfo = ({ client, setLoading, setMsg, getClients }) => {
         <DialogTitle>Excluir</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            Deseja realmente Excluir o cliente {client.Name}? Com a exclusão do
+            Deseja realmente Excluír o cliente {client.Name}? Com a exclusão do
             cliente do sistema todo o seu histórico de pedidos e transações no
             sistema serão perdidos!
             <div

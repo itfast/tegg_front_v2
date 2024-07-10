@@ -53,9 +53,13 @@ export const CardProducts = ({ prod, search }) => {
       >
         <div
           style={{
-            position: 'absolute',
-            top: '8px',
-            right: '16px',
+            display: 'flex',
+            justifyContent: 'flex-end',
+            marginTop: '-10px',
+            marginBottom: '-10px',
+            // position: 'absolute',
+            // top: '8px',
+            // right: '16px',
           }}
         >
           <IconButton

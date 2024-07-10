@@ -70,6 +70,7 @@ import { PreOrder } from '../pages/preRegister/PreOrder';
 // import { element } from 'prop-types';
 import { ChangeChip } from '../pages/ChangeChip/ChangeChip';
 import { BringNumber } from '../pages/portRequests/component/BringNumber'
+import { ClientsDeleteds } from '../pages/clients/ClientsDeleteds'
 
 export function Router() {
   const [deferredPrompt, setDeferredPrompt] = useState();
@@ -186,12 +187,15 @@ export function Router() {
               <Route path={'plans/info'} element={<NewPlans />} />
               <Route path={'plans/new'} element={<NewPlans />} />
               <Route path={'plans/edit'} element={<NewPlans />} />
+              <Route path={'agents'} element={<Clients />} />
               <Route path={'clients'} element={<Clients />} />
               <Route path={'clients/new'} element={<NewClient />} />
               <Route path={'clients/edit'} element={<NewClient />} />
               <Route path={'clients/pending'} element={<ClientsPending />} />
+              <Route path={'clients/deleteds'} element={<ClientsDeleteds />} />
               <Route path={'salesforce'} element={<Resales />} />
               <Route path={'salesforce/details'} element={<ResalesDetails />} />
+              <Route path={'salesforce/deleteds'} element={<ClientsDeleteds />} />
               <Route path={'salesforce/new'} element={<NewResales />} />
               <Route path={'salesforce/edit/:t'} element={<EditResales />} />
               <Route path={'products/'} element={<Products />} />

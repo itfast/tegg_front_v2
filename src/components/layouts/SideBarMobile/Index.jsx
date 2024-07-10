@@ -276,6 +276,33 @@ export const SideBarMobile = ({ open, setHas, setOpen }) => {
                   </a>
                 </li>
               </PermissionView>
+              <PermissionView role="TEGG">
+                <li className={open ? "animate" : ""}>
+                  <a>
+                    <div
+                      style={{
+                        position: "relative",
+                        display: "flex",
+                        width: "100%",
+                        justifyContent: "space-around",
+                        alignItems: "center",
+                        zIndex: 999,
+                      }}
+                      onClick={() => {
+                        navigate("/salesforce/deleteds");
+                        setOpen(false);
+                        setExpand({
+                          order: false,
+                          line: false,
+                          profile: false,
+                        });
+                      }}
+                    >
+                      <span className="link_name">Revendas excluídas</span>
+                    </div>
+                  </a>
+                </li>
+              </PermissionView>
               {/* CLIENTES */}
               <PermissionView role="TEGG,DEALER">
                 <li className={open ? "animate" : ""}>
@@ -300,6 +327,60 @@ export const SideBarMobile = ({ open, setHas, setOpen }) => {
                       }}
                     >
                       <span className="link_name">{t("Menu.clients")}</span>
+                    </div>
+                  </a>
+                </li>
+              </PermissionView>
+              <PermissionView role="TEGG">
+                <li className={open ? "animate" : ""}>
+                  <a>
+                    <div
+                      style={{
+                        position: "relative",
+                        display: "flex",
+                        width: "100%",
+                        justifyContent: "space-around",
+                        alignItems: "center",
+                        zIndex: 999,
+                      }}
+                      onClick={() => {
+                        navigate("/clients/deleteds");
+                        setOpen(false);
+                        setExpand({
+                          order: false,
+                          line: false,
+                          profile: false,
+                        });
+                      }}
+                    >
+                      <span className="link_name">{t("Menu.clients")} excluídos</span>
+                    </div>
+                  </a>
+                </li>
+              </PermissionView>
+              <PermissionView role="TEGG,DEALER">
+                <li className={open ? "animate" : ""}>
+                  <a>
+                    <div
+                      style={{
+                        position: "relative",
+                        display: "flex",
+                        width: "100%",
+                        justifyContent: "space-around",
+                        alignItems: "center",
+                        zIndex: 999,
+                      }}
+                      onClick={() => {
+                        navigate("/agents");
+                        setOpen(false);
+                        setExpand({
+                          order: false,
+                          line: false,
+                          profile: false,
+                        });
+                      }}
+                    >
+                      <span className="link_name">Representantes</span>
                     </div>
                   </a>
                 </li>

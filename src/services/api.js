@@ -908,19 +908,47 @@ class Api {
       },
     };
     this.client = {
+      delete:async (Id) => {
+        try {
+          const response = await this.axios.delete(`${apiRoutes.client}/${Id}`);
+          return response;
+        } catch (e) {
+          throwFormattedError(e);
+        }
+      },
       getAll: async (pageNum, pageSize, search, dealer, type) => {
         // console.log(
         //   `${apiRoutes.client}?page=${pageNum}&limit=${pageSize}&search=${search}&dealer=${dealer}`
         // );
         let queryType = ''
         if(type){
-          if(type.value !== ''){
+          if(type?.value !== ''){
             queryType = `&type=${type.value}`
           }
         }
         try {
           const response = await this.axios.get(
             `${apiRoutes.client}?page=${pageNum}&limit=${pageSize}&search=${search}&dealer=${dealer}${queryType}`
+          );
+          return response;
+        } catch (e) {
+          throwFormattedError(e);
+        }
+      },
+      getDeleteds: async (pageNum, pageSize, search, type) => {
+        // console.log(
+        //   `${apiRoutes.client}?page=${pageNum}&limit=${pageSize}&search=${search}&dealer=${dealer}`
+        // );
+        // let queryType = ''
+        // if(type){
+        //   if(type?.value !== ''){
+        //     queryType = `&type=${type.value}`
+        //   }
+        // }
+        console.log(`/deletedusers?page=${pageNum}&limit=${pageSize}&search=${search}&type=${type}`)
+        try {
+          const response = await this.axios.get(
+            `/deletedusers?page=${pageNum}&limit=${pageSize}&search=${search}&type=${type}`
           );
           return response;
         } catch (e) {
@@ -2177,8 +2205,6 @@ class Api {
             Email,
             Password,
           });
-          // console.log("AQUI");
-          // console.log(response);
           setSession(response.data.AccessToken);
           return response;
         } catch (e) {
@@ -2308,6 +2334,14 @@ class Api {
       },
     };
     this.dealer = {
+      delete:async (Id) => {
+        try {
+          const response = await this.axios.delete(`${apiRoutes.dealer}/${Id}`);
+          return response;
+        } catch (e) {
+          throwFormattedError(e);
+        }
+      },
       getAll: async (page, limit, search) => {
         try {
           const response = await this.axios.get(

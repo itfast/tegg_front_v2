@@ -54,29 +54,26 @@ export const IccidDataSpreadsheet = ({
     <>
       <CardData>
         <h3>{label}</h3>
-
         <div style={{ width: "100%", margin: "1rem", display: "flex" }}>
           <div
             style={{
               width: "100%",
               marginRight: "1%",
               display: "flex",
+              flexDirection: window.innerWidth < 768 ? 'column' : 'row',
               alignItems: "center",
               gap: 20,
             }}
           >
             <Button
-              //  nothover
               onClick={downloadExample}
             >
               <div style={{ display: "flex", gap: 5 }}>
                 <p>PLANILHA EXEMPLO</p>
-                {/* <IoMdDownload size={20} /> */}
               </div>
             </Button>
 
             <Button
-              //  nothover
               onClick={() => addSpreadsheet.current.click()}
             >
               {file ? "TROCAR ARQUIVO" : "ESCOLHER ARQUIVO"}
@@ -88,7 +85,7 @@ export const IccidDataSpreadsheet = ({
         <br />
 
         <div className="flex end">
-          <div className="btn_container btn_invert">
+          {/* <div className="btn_container btn_invert"> */}
             <Button invert onClick={goBackStep}>
               VOLTAR
             </Button>
@@ -104,7 +101,7 @@ export const IccidDataSpreadsheet = ({
                 "CADASTRAR"
               )}
             </Button>
-          </div>
+          {/* </div> */}
         </div>
       </CardData>
       <input

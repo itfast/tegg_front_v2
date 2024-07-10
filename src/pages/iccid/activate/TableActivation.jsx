@@ -140,9 +140,8 @@ export const TableActivation = ({ activations, search }) => {
         onClose={() => {
           setShow(false);
         }}
+        fullWidth
         maxWidth='md'
-        aria-labelledby='alert-dialog-title'
-        aria-describedby='alert-dialog-description'
       >
         <DialogTitle id='alert-dialog-title'>ATIVAÇÃO</DialogTitle>
         <DialogContent>
@@ -174,14 +173,14 @@ export const TableActivation = ({ activations, search }) => {
               </>
             ) : (
               <>
-                <div style={{ width: '100%' }}>
+                {/* <div style={{ width: '100%' }}> */}
                   <NewActivateClient
                     setShow={setShow}
                     iccid={tmpActivate?.Iccid}
                     search={search}
                     tmpActivate={tmpActivate}
                   />
-                </div>
+                {/* </div> */}
               </>
             )}
           </DialogContentText>

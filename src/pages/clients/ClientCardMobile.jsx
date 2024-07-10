@@ -7,8 +7,8 @@ import {
   IconButton,
   Menu,
   MenuItem,
-} from "@mui/material";
-import api from "../../services/api";
+} from '@mui/material';
+import api from '../../services/api';
 import {
   documentFormat,
   formatPhone,
@@ -16,16 +16,16 @@ import {
   translateError,
   translateStatus,
   translateTypeClient,
-} from "../../services/util";
-import { IoMdMore } from "react-icons/io";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import moment from "moment";
-import { InputPassSignUp } from "../login/Login.styles";
-import { toast } from "react-toastify";
-import { LiaEyeSolid, LiaEyeSlash } from "react-icons/lia";
-import { Button } from "../../../globalStyles";
-import { useTranslation } from "react-i18next";
+} from '../../services/util';
+import { IoMdMore } from 'react-icons/io';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import moment from 'moment';
+import { InputPassSignUp } from '../login/Login.styles';
+import { toast } from 'react-toastify';
+import { LiaEyeSolid, LiaEyeSlash } from 'react-icons/lia';
+import { Button } from '../../../globalStyles';
+import { useTranslation } from 'react-i18next';
 
 /* eslint-disable react/prop-types */
 export const ClientCardMobile = ({
@@ -40,8 +40,8 @@ export const ClientCardMobile = ({
   const [userDetails, setUserDetails] = useState({});
   const [showModal, setShowModal] = useState(false);
   const [showModalReset, setShowModalReset] = useState(false);
-  const [password, setPassword] = useState("");
-  const [typePass, setTypePass] = useState("password");
+  const [password, setPassword] = useState('');
+  const [typePass, setTypePass] = useState('password');
   const [anchorEl, setAnchorEl] = useState(null);
   const [excludClient, setExcludClient] = useState(false);
   const [disableClient, setDisableClient] = useState(false);
@@ -59,7 +59,7 @@ export const ClientCardMobile = ({
   };
 
   const getInfo = () => {
-    setMsg(t("Clients.table.searchDetails"));
+    setMsg(t('Clients.table.searchDetails'));
     setLoading(true);
     api.client
       .getInfo(client.Id)
@@ -90,7 +90,7 @@ export const ClientCardMobile = ({
   };
 
   const handleTypePass = () => {
-    setTypePass(typePass === "password" ? "text" : "password");
+    setTypePass(typePass === 'password' ? 'text' : 'password');
   };
 
   const getNewSession = () => {
@@ -99,7 +99,7 @@ export const ClientCardMobile = ({
       .then((res) => {
         window.open(
           `https://tegg.app/?token=${res.data?.AccessToken}`,
-          "_black"
+          '_black'
         );
         setAnchorEl();
       })
@@ -107,11 +107,13 @@ export const ClientCardMobile = ({
   };
 
   const disableAction = () => {
-    setMsg(`${ client.Status === "Active" ? "Desativando" : "Ativando"} cliente...`);
+    setMsg(
+      `${client.Status === 'Active' ? 'Desativando' : 'Ativando'} cliente...`
+    );
     setLoading(true);
     api.user
       .blockUnblock(
-        client.Status === "Active" ? "Blocked" : "Active",
+        client.Status === 'Active' ? 'Blocked' : 'Active',
         client.Id
       )
       .then((res) => {
@@ -126,23 +128,34 @@ export const ClientCardMobile = ({
   };
 
   const excludAction = () => {
-    setMsg("Excluindo cliente...");
+    setMsg('Excluindo cliente...');
     setLoading(true);
+    api.client
+      .delete(client.Id)
+      .then((res) => {
+        toast.success(res.data.Message);
+        setExcludClient(false);
+        getClients();
+      })
+      .catch((err) => {
+        translateError(err);
+      })
+      .finally(() => setLoading(false));
   };
 
   return (
     <>
       <div
         style={{
-          width: "90%",
-          backgroundColor: "#00D959",
-          textAlign: "center",
+          width: '90%',
+          backgroundColor: '#00D959',
+          textAlign: 'center',
           // color: '#3d3d3d',
-          padding: "0.5rem",
-          margin: "auto",
-          borderRadius: "8px",
-          marginTop: "0.2rem",
-          position: "relative",
+          padding: '0.5rem',
+          margin: 'auto',
+          borderRadius: '8px',
+          marginTop: '0.2rem',
+          position: 'relative',
         }}
       >
         <div
@@ -151,7 +164,7 @@ export const ClientCardMobile = ({
             display: 'flex',
             justifyContent: 'end',
             marginTop: '-10px',
-            marginBottom: '-10px'
+            marginBottom: '-10px',
           }}
         >
           {/* <MdSignalWifiStatusbarNotConnected
@@ -160,11 +173,11 @@ export const ClientCardMobile = ({
             onClick={() => getStatus(i)}
           /> */}
           <IconButton
-            aria-label="more"
-            id="long-button"
-            aria-controls={open ? "long-menu" : undefined}
-            aria-expanded={open ? "true" : undefined}
-            aria-haspopup="true"
+            aria-label='more'
+            id='long-button'
+            aria-controls={open ? 'long-menu' : undefined}
+            aria-expanded={open ? 'true' : undefined}
+            aria-haspopup='true'
             onClick={handleClick}
           >
             <IoMdMore />
@@ -172,9 +185,9 @@ export const ClientCardMobile = ({
         </div>
         <div
           style={{
-            position: "absolute",
-            top: "0px",
-            left: "0px",
+            position: 'absolute',
+            top: '0px',
+            left: '0px',
           }}
         >
           {/* <Checkbox
@@ -184,7 +197,7 @@ export const ClientCardMobile = ({
             }}
           /> */}
         </div>
-        <h4 style={{ padding: "0.2rem", fontWeight: "bold" }}>
+        <h4 style={{ padding: '0.2rem', fontWeight: 'bold' }}>
           {client.CompanyName || client.Name}
         </h4>
         <h5>{translateTypeClient(client?.User?.Type)}</h5>
@@ -196,20 +209,20 @@ export const ClientCardMobile = ({
         </h5>
         <h5>{client?.Mobile}</h5>
         <h5>{client?.SecondEmail}</h5>
-        <h5 style={{ wordWrap: "anywhere" }}>
+        <h5 style={{ wordWrap: 'anywhere' }}>
           Acesso ao sistema: {client.Email || client.SecondEmail}
         </h5>
-        {api.currentUser.AccessTypes[0] === "TEGG" && (
+        {api.currentUser.AccessTypes[0] === 'TEGG' && (
           <h5>
             {/* <div> */}
-            <span style={{ fontWeight: "bold" }}>
-              {t("Clients.table.resale")}:{" "}
+            <span style={{ fontWeight: 'bold' }}>
+              {t('Clients.table.resale')}:{' '}
             </span>
             {client?.DealerId
-              ? client?.Dealer?.CompanyName !== ""
+              ? client?.Dealer?.CompanyName !== ''
                 ? client?.Dealer?.CompanyName
                 : client?.Dealer?.Name
-              : "TEGG"}
+              : 'TEGG'}
             {/* </div> */}
           </h5>
         )}
@@ -217,9 +230,9 @@ export const ClientCardMobile = ({
       </div>
 
       <Menu
-        id="long-menu"
+        id='long-menu'
         MenuListProps={{
-          "aria-labelledby": "long-button",
+          'aria-labelledby': 'long-button',
         }}
         anchorEl={anchorEl}
         open={open}
@@ -234,16 +247,16 @@ export const ClientCardMobile = ({
             }
           }}
         >
-          {t("Clients.table.buttonDetails")}
+          {t('Clients.table.buttonDetails')}
         </MenuItem>
         <MenuItem
           onClick={() =>
-            navigate("/clients/edit", {
+            navigate('/clients/edit', {
               state: { clients: client },
             })
           }
         >
-          {t("Clients.table.buttonEdit")}
+          {t('Clients.table.buttonEdit')}
         </MenuItem>
         <MenuItem
           onClick={() => {
@@ -251,25 +264,25 @@ export const ClientCardMobile = ({
             handleClose();
           }}
         >
-          {t("Clients.table.buttonPassword")}
+          {t('Clients.table.buttonPassword')}
         </MenuItem>
-        {api.currentUser?.Type === "TEGG" && (
+        {api.currentUser?.Type === 'TEGG' && (
           <>
             <MenuItem onClick={getNewSession}>Acessar Painel</MenuItem>
-            {/* <MenuItem
+            <MenuItem
               onClick={() => {
                 setAnchorEl();
                 setExcludClient(true);
               }}
             >
               Excluir
-            </MenuItem> */}
+            </MenuItem>
             <MenuItem
               onClick={() => {
                 setDisableClient(true), setAnchorEl();
               }}
             >
-              {client.Status === "Active" ? "Desativar" : "Ativar"}
+              {client.Status === 'Active' ? 'Desativar' : 'Ativar'}
             </MenuItem>
           </>
         )}
@@ -278,8 +291,8 @@ export const ClientCardMobile = ({
       <Dialog
         open={showModal}
         // onClose={() => console.log('fechar')}
-        aria-labelledby="alert-dialog-title"
-        aria-describedby="alert-dialog-description"
+        aria-labelledby='alert-dialog-title'
+        aria-describedby='alert-dialog-description'
         fullWidth
       >
         {/* <DialogTitle id="alert-dialog-title">
@@ -288,218 +301,231 @@ export const ClientCardMobile = ({
         <DialogContent>
           <div>
             <div>
-              <div className="info_title">
-                <p className="bold">
-                  {userDetails?.Type === "PF"
-                    ? t("Clients.modalDetails.typePf")
-                    : t("Clients.modalDetails.typePj")}
+              <div className='info_title'>
+                <p className='bold'>
+                  {userDetails?.Type === 'PF'
+                    ? t('Clients.modalDetails.typePf')
+                    : t('Clients.modalDetails.typePj')}
                 </p>
                 <p
                   // className="bold"
                   style={{
-                    color: userDetails?.Status === "Active" ? "green" : "red", fontWeight: 'bold'
+                    color: userDetails?.Status === 'Active' ? 'green' : 'red',
+                    fontWeight: 'bold',
                   }}
                 >
-                  {userDetails?.Status === "Active"
-                    ? t("Clients.modalDetails.active")
-                    : t("Clients.modalDetails.disabled")}
+                  {userDetails?.Status === 'Active'
+                    ? t('Clients.modalDetails.active')
+                    : t('Clients.modalDetails.disabled')}
                 </p>
               </div>
-              <div className="info_line">
+              <div className='info_line'>
                 <div>
-                  <label className="bold">
-                    {t("Clients.modalDetails.name")}
+                  <label className='bold'>
+                    {t('Clients.modalDetails.name')}
                   </label>
                   <p style={{ wordWrap: 'anywhere' }}>{userDetails?.Name}</p>
                 </div>
                 <div>
-                  <label className="bold">
-                    {t("Clients.modalDetails.userLegacy")}
+                  <label className='bold'>
+                    {t('Clients.modalDetails.userLegacy')}
                   </label>
-                  <p style={{ wordWrap: 'anywhere' }}>{userDetails?.UserLegacySystem?.nome}</p>
+                  <p style={{ wordWrap: 'anywhere' }}>
+                    {userDetails?.UserLegacySystem?.nome}
+                  </p>
                   <p></p>
                 </div>
               </div>
-              <div className="info_line">
+              <div className='info_line'>
                 <div>
-                  <label className="bold">
-                    {t("Clients.modalDetails.email")}
+                  <label className='bold'>
+                    {t('Clients.modalDetails.email')}
                   </label>
                   <p style={{ wordWrap: 'anywhere' }}>{userDetails?.Email}</p>
                 </div>
                 <div>
-                  <label className="bold">
-                    {t("Clients.modalDetails.secondMail")}
+                  <label className='bold'>
+                    {t('Clients.modalDetails.secondMail')}
                   </label>
-                  <p style={{ wordWrap: 'anywhere' }}>{userDetails?.SecondEmail}</p>
+                  <p style={{ wordWrap: 'anywhere' }}>
+                    {userDetails?.SecondEmail}
+                  </p>
                 </div>
               </div>
-              {userDetails?.Type === "PF" ? (
-                <div className="info_line">
+              {userDetails?.Type === 'PF' ? (
+                <div className='info_line'>
                   <div>
-                    <label className="bold">
-                      {t("Clients.modalDetails.cpf")}
+                    <label className='bold'>
+                      {t('Clients.modalDetails.cpf')}
                     </label>
                     <p style={{ wordWrap: 'anywhere' }}>
                       {userDetails?.Cpf && documentFormat(userDetails?.Cpf)}
                     </p>
                   </div>
                   <div>
-                    <label className="bold">
-                      {t("Clients.modalDetails.rg")}
+                    <label className='bold'>
+                      {t('Clients.modalDetails.rg')}
                     </label>
                     <p style={{ wordWrap: 'anywhere' }}>{userDetails?.Rg}</p>
                   </div>
                 </div>
               ) : (
-                <div className="info_line">
+                <div className='info_line'>
                   <div>
-                    <label className="bold">
-                      {t("Clients.modalDetails.cnpj")}
+                    <label className='bold'>
+                      {t('Clients.modalDetails.cnpj')}
                     </label>
                     <p style={{ wordWrap: 'anywhere' }}>
                       {userDetails?.Cnpj && documentFormat(userDetails?.Cnpj)}
                     </p>
                   </div>
                   <div>
-                    <label className="bold">
-                      {t("Clients.modalDetails.ie")}
+                    <label className='bold'>
+                      {t('Clients.modalDetails.ie')}
                     </label>
                     <p style={{ wordWrap: 'anywhere' }}>{userDetails?.Ie}</p>
                   </div>
                 </div>
               )}
 
-              <div className="info_line">
+              <div className='info_line'>
                 <div>
-                  <label className="bold">
-                    {t("Clients.modalDetails.phone")}
+                  <label className='bold'>
+                    {t('Clients.modalDetails.phone')}
                   </label>
                   <p style={{ wordWrap: 'anywhere' }}>
                     {userDetails?.Mobile && phoneFormat(userDetails.Mobile)}
                   </p>
                 </div>
                 <div>
-                  <label className="bold">
-                    {t("Clients.modalDetails.whatsapp")}
+                  <label className='bold'>
+                    {t('Clients.modalDetails.whatsapp')}
                   </label>
                   <p style={{ wordWrap: 'anywhere' }}>
                     {userDetails?.Whatsapp && phoneFormat(userDetails.Whatsapp)}
                   </p>
                 </div>
               </div>
-              <hr className="margin_half" />
-              <div className="info_line">
-                <p className="bold">{t("Clients.modalDetails.address")}</p>
+              <hr className='margin_half' />
+              <div className='info_line'>
+                <p className='bold'>{t('Clients.modalDetails.address')}</p>
               </div>
-              <div className="info_line">
+              <div className='info_line'>
                 <div>
-                  <label className="bold">
-                    {t("Clients.modalDetails.street")}
+                  <label className='bold'>
+                    {t('Clients.modalDetails.street')}
                   </label>
-                  <p style={{ wordWrap: 'anywhere' }}>{userDetails?.StreetName}</p>
+                  <p style={{ wordWrap: 'anywhere' }}>
+                    {userDetails?.StreetName}
+                  </p>
                 </div>
                 <div>
-                  <label className="bold">
-                    {t("Clients.modalDetails.number")}
+                  <label className='bold'>
+                    {t('Clients.modalDetails.number')}
                   </label>
                   <p style={{ wordWrap: 'anywhere' }}>{userDetails?.Number}</p>
                 </div>
               </div>
 
-              <div className="info_line">
+              <div className='info_line'>
                 <div>
-                  <label className="bold">
-                    {t("Clients.modalDetails.complement")}
+                  <label className='bold'>
+                    {t('Clients.modalDetails.complement')}
                   </label>
-                  <p style={{ wordWrap: 'anywhere' }}>{userDetails?.Complement}</p>
+                  <p style={{ wordWrap: 'anywhere' }}>
+                    {userDetails?.Complement}
+                  </p>
                 </div>
                 <div>
-                  <label className="bold">
-                    {t("Clients.modalDetails.postalCode")}
+                  <label className='bold'>
+                    {t('Clients.modalDetails.postalCode')}
                   </label>
-                  <p style={{ wordWrap: 'anywhere' }}>{userDetails?.PostalCode}</p>
+                  <p style={{ wordWrap: 'anywhere' }}>
+                    {userDetails?.PostalCode}
+                  </p>
                 </div>
               </div>
 
-              <div className="info_line">
+              <div className='info_line'>
                 <div>
-                  <label className="bold">
-                    {t("Clients.modalDetails.neighborhood")}
+                  <label className='bold'>
+                    {t('Clients.modalDetails.neighborhood')}
                   </label>
-                  <p style={{ wordWrap: 'anywhere' }}>{userDetails?.District}</p>
+                  <p style={{ wordWrap: 'anywhere' }}>
+                    {userDetails?.District}
+                  </p>
                 </div>
                 <div>
-                  <label className="bold">
-                    {t("Clients.modalDetails.city")}
+                  <label className='bold'>
+                    {t('Clients.modalDetails.city')}
                   </label>
                   <p style={{ wordWrap: 'anywhere' }}>{userDetails?.City}</p>
                 </div>
                 <div>
-                  <label className="bold">
-                    {t("Clients.modalDetails.state")}
+                  <label className='bold'>
+                    {t('Clients.modalDetails.state')}
                   </label>
                   <p style={{ wordWrap: 'anywhere' }}>{userDetails?.State}</p>
                 </div>
               </div>
-              <hr className="margin_half" />
-              <div className="info_line space_between">
+              <hr className='margin_half' />
+              <div className='info_line space_between'>
                 <div>
-                  <label className="bold">
-                    {t("Clients.modalDetails.dateRegister")}
+                  <label className='bold'>
+                    {t('Clients.modalDetails.dateRegister')}
                   </label>
                   <p style={{ wordWrap: 'anywhere' }}>
                     {userDetails?.CreatedAt &&
-                      moment(userDetails?.CreatedAt).format("DD/MM/YYYY")}
+                      moment(userDetails?.CreatedAt).format('DD/MM/YYYY')}
                   </p>
                 </div>
                 <div>
-                  <label className="bold">
-                    {t("Clients.modalDetails.youResale")}
+                  <label className='bold'>
+                    {t('Clients.modalDetails.youResale')}
                   </label>
                   <p style={{ wordWrap: 'anywhere' }}>
                     {userDetails?.DealerId
-                      ? userDetails?.Dealer?.CompanyName !== ""
+                      ? userDetails?.Dealer?.CompanyName !== ''
                         ? userDetails?.Dealer?.CompanyName
                         : userDetails?.Dealer?.Name
-                      : "TEGG"}
+                      : 'TEGG'}
                   </p>
                 </div>
               </div>
-              <hr className="margin_half" />
-              <div className="info_line">
+              <hr className='margin_half' />
+              <div className='info_line'>
                 <div>
-                  <label className="bold">
-                    {t("Clients.modalDetails.linesRegistered")}
+                  <label className='bold'>
+                    {t('Clients.modalDetails.linesRegistered')}
                   </label>
                 </div>
               </div>
-              <div className="info_line">
+              <div className='info_line'>
                 {userDetails?.Plans?.length > 0 ? (
                   <ul style={{ marginLeft: 5 }}>
                     {userDetails?.Plans?.map((p, i) => (
                       <li key={i} style={{ marginBottom: 15 }}>
                         <div
                           style={{
-                            display: "flex",
-                            flexDirection: "column",
+                            display: 'flex',
+                            flexDirection: 'column',
                             gap: 5,
                           }}
                         >
                           <p style={{ wordWrap: 'anywhere' }}>
                             <span
-                              style={{ fontWeight: "bold", marginRight: 10 }}
+                              style={{ fontWeight: 'bold', marginRight: 10 }}
                             >
-                              {t("Clients.modalDetails.line")}:
+                              {t('Clients.modalDetails.line')}:
                             </span>
                             {formatPhone(p.Phone)}
                           </p>
                           <p style={{ wordWrap: 'anywhere' }}>
                             <span
-                              style={{ fontWeight: "bold", marginRight: 10 }}
+                              style={{ fontWeight: 'bold', marginRight: 10 }}
                             >
-                              {t("Clients.modalDetails.plan")}:
-                            </span>{" "}
+                              {t('Clients.modalDetails.plan')}:
+                            </span>{' '}
                             {p.Plan}
                           </p>
                         </div>
@@ -509,13 +535,13 @@ export const ClientCardMobile = ({
                 ) : (
                   <div
                     style={{
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
                     }}
                   >
-                    <p style={{ fontWeight: "bold",  wordWrap: 'anywhere' }}>
-                      {t("Clients.modalDetails.notHaveLine")}
+                    <p style={{ fontWeight: 'bold', wordWrap: 'anywhere' }}>
+                      {t('Clients.modalDetails.notHaveLine')}
                     </p>
                   </div>
                 )}
@@ -525,44 +551,44 @@ export const ClientCardMobile = ({
         </DialogContent>
         <DialogActions>
           <Button invert onClick={() => setShowModal(false)}>
-            {t("Clients.modalDetails.buttonClose")}
+            {t('Clients.modalDetails.buttonClose')}
           </Button>
         </DialogActions>
       </Dialog>
       <Dialog
         open={showModalReset}
-        aria-labelledby="alert-dialog-title"
-        aria-describedby="alert-dialog-description"
+        aria-labelledby='alert-dialog-title'
+        aria-describedby='alert-dialog-description'
       >
-        <DialogTitle id="alert-dialog-title">
-          {t("Clients.modalPassword.title")}
+        <DialogTitle id='alert-dialog-title'>
+          {t('Clients.modalPassword.title')}
         </DialogTitle>
         <DialogContent>
-          <DialogContentText id="alert-dialog-description">
-            <InputPassSignUp style={{ fontSize: "10px" }}>
+          <DialogContentText id='alert-dialog-description'>
+            <InputPassSignUp style={{ fontSize: '10px' }}>
               <input
                 style={{
-                  border: "1px solid #00D959",
-                  background: "transparent",
-                  fontSize: "14px",
+                  border: '1px solid #00D959',
+                  background: 'transparent',
+                  fontSize: '14px',
                 }}
                 type={typePass}
-                placeholder={t("Clients.modalPassword.new")}
+                placeholder={t('Clients.modalPassword.new')}
                 value={password}
-                id="password"
-                name="password"
+                id='password'
+                name='password'
                 onChange={(e) => setPassword(e.target.value)}
               />
               {password &&
-                (typePass === "password" ? (
+                (typePass === 'password' ? (
                   <LiaEyeSolid
-                    className="eyes"
+                    className='eyes'
                     onClick={handleTypePass}
                     size={25}
                   />
                 ) : (
                   <LiaEyeSlash
-                    className="eyes"
+                    className='eyes'
                     onClick={handleTypePass}
                     size={25}
                   />
@@ -572,7 +598,7 @@ export const ClientCardMobile = ({
         </DialogContent>
         <DialogActions>
           <Button invert onClick={() => setShowModalReset(false)}>
-            {t("Clients.modalPassword.buttonCancel")}
+            {t('Clients.modalPassword.buttonCancel')}
           </Button>
           <Button notHover onClick={action} autoFocus>
             {/* {loading ? (
@@ -587,7 +613,7 @@ export const ClientCardMobile = ({
                 <ReactLoading type={'bars'} color={'#fff'} />
               </div>
             ) : ( */}
-            {t("Clients.modalPassword.buttonReset")}
+            {t('Clients.modalPassword.buttonReset')}
             {/* // )} */}
           </Button>
         </DialogActions>
@@ -595,16 +621,16 @@ export const ClientCardMobile = ({
 
       <Dialog open={disableClient}>
         <DialogTitle>
-          {client.Status === "Active" ? "Desativar" : "Ativar"}
+          {client.Status === 'Active' ? 'Desativar' : 'Ativar'}
         </DialogTitle>
         <DialogContent>
           <DialogContentText>
-            Deseja realmente{" "}
-            {client.Status === "Active" ? "desativar" : "ativar"} o cliente{" "}
-            {client.Name}?{" "}
-            {client.Status === "Active"
-              ? "Se o cliente for desativado ele não conseguirá mais acessar o sistema."
-              : "Se o cliente for ativado ele voltara a ter acesso ao sistema."}
+            Deseja realmente{' '}
+            {client.Status === 'Active' ? 'desativar' : 'ativar'} o cliente{' '}
+            {client.Name}?{' '}
+            {client.Status === 'Active'
+              ? 'Se o cliente for desativado ele não conseguirá mais acessar o sistema.'
+              : 'Se o cliente for ativado ele voltara a ter acesso ao sistema.'}
           </DialogContentText>
         </DialogContent>
         <DialogActions>
@@ -612,7 +638,7 @@ export const ClientCardMobile = ({
             Cancelar
           </Button>
           <Button notHover onClick={disableAction} autoFocus>
-            {client.Status === "Active" ? "Desativar" : "Ativar"}
+            {client.Status === 'Active' ? 'Desativar' : 'Ativar'}
           </Button>
         </DialogActions>
       </Dialog>
@@ -621,14 +647,14 @@ export const ClientCardMobile = ({
         <DialogTitle>Excluir</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            Deseja realmente Excluir o cliente {client.Name}? Com a exclusão do
+            Deseja realmente Excluír o cliente {client.Name}? Com a exclusão do
             cliente do sistema todo o seu histórico de pedidos e transações no
             sistema serão perdidos!
             <div
               style={{
-                border: "2px dashed red",
-                padding: "0.5rem",
-                textAlign: "center",
+                border: '2px dashed red',
+                padding: '0.5rem',
+                textAlign: 'center',
               }}
             >
               ESTA AÇÃO É IRREVERSÍVEL

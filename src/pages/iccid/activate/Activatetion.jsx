@@ -10,7 +10,7 @@ import {
   Dialog,
   DialogActions,
   DialogContent,
-  DialogContentText,
+  // DialogContentText,
   DialogTitle,
   Pagination,
   Stack,
@@ -29,6 +29,7 @@ import { toast } from 'react-toastify';
 import { TableActivation } from './TableActivation';
 import { Loading } from '../../../components/loading/Loading';
 import { PageTitles } from '../../../components/PageTitle/PageTitle';
+import { useNavigate } from 'react-router-dom';
 
 export const Activation = () => {
   const [activations, setActivations] = useState([]);
@@ -41,6 +42,7 @@ export const Activation = () => {
   const [maxPages, setMaxPages] = useState(1);
   const [pageSize, setPageSize] = useState(10);
   const [iccid, setIccid] = useState('');
+  const navigate = useNavigate();
 
   const handlePageChange = (event, value) => {
     setPageNum(value);
@@ -213,6 +215,11 @@ export const Activation = () => {
                   style={{ cursor: 'pointer', color: 'white' }}
                   onClick={() => {
                     setTmpActivate(r);
+                    if (api.currentUser.Type === 'TEGG' && !r?.AwardedSurfPlan) {
+                      navigate('/activation/manual', {
+                        state: { iccid: r?.Iccid, finalClientId: r?.FinalClientId, clientDocument: r?.FinalClient?.Type === 'PF' ?r?.FinalClient?.Cpf : r?.FinalClient?.Cnpj},
+                      });
+                    }
                     setShow(true);
                   }}
                 />
@@ -275,44 +282,45 @@ export const Activation = () => {
       >
         <DialogTitle id='alert-dialog-title'>ATIVAÇÃO</DialogTitle>
         <DialogContent>
-          <DialogContentText id='alert-dialog-description'>
-            Iccid: {tmpActivate?.Iccid}
-            {tmpActivate?.AwardedSurfPlan ? (
-              <>
-                <h5 style={{ marginTop: '0.5rem' }}>DDD</h5>
-                <InputData
-                  id='ddd'
-                  type='text'
-                  style={{ width: '100%' }}
-                  placeholder='DDD'
-                  pattern='\d*'
-                  // style={{ width: 250 }}
-                  maxLength={2}
-                  value={ddd}
-                  onChange={(e) => setDdd(e.target.value)}
+          {/* {console.log(tmpActivate)} */}
+          {/* <DialogContentText id='alert-dialog-description'> */}
+          Iccid: {tmpActivate?.Iccid}
+          {tmpActivate?.AwardedSurfPlan ? (
+            <>
+              <h5 style={{ marginTop: '0.5rem' }}>DDD</h5>
+              <InputData
+                id='ddd'
+                type='text'
+                style={{ width: '100%' }}
+                placeholder='DDD'
+                pattern='\d*'
+                // style={{ width: 250 }}
+                maxLength={2}
+                value={ddd}
+                onChange={(e) => setDdd(e.target.value)}
+              />
+              <h5>Documento</h5>
+              <InputData
+                id='cpf'
+                style={{ width: '100%' }}
+                placeholder='CPF/CNPJ'
+                // style={{ width: 250 }}
+                value={cpf}
+                onChange={(e) => setCpf(documentFormat(e.target.value))}
+              />
+            </>
+          ) : (
+            <>
+              <div style={{ width: '100%' }}>
+                <NewActivateClient
+                  setShow={setShow}
+                  iccid={tmpActivate?.Iccid}
+                  search={search}
                 />
-                <h5>Documento</h5>
-                <InputData
-                  id='cpf'
-                  style={{ width: '100%' }}
-                  placeholder='CPF/CNPJ'
-                  // style={{ width: 250 }}
-                  value={cpf}
-                  onChange={(e) => setCpf(documentFormat(e.target.value))}
-                />
-              </>
-            ) : (
-              <>
-                <div style={{ width: '100%' }}>
-                  <NewActivateClient
-                    setShow={setShow}
-                    iccid={tmpActivate?.Iccid}
-                    search={search}
-                  />
-                </div>
-              </>
-            )}
-          </DialogContentText>
+              </div>
+            </>
+          )}
+          {/* </DialogContentText> */}
         </DialogContent>
         <DialogActions>
           {tmpActivate?.AwardedSurfPlan && (

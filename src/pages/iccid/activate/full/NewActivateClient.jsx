@@ -258,14 +258,14 @@ export const NewActivateClient = ({
 
   return (
     <>
-      <PageLayout>
+      {/* <PageLayout> */}
         <PageTitles title={'Ativar nova linha'} />
         <Stepper
           style={{ maxWidth: '1000px', marginTop: 10 }}
           typeStepper={typeStepper}
         />
         {returnStep()}
-      </PageLayout>
+      {/* </PageLayout> */}
       <Dialog
         open={openCam}
         fullScreen={window.innerWidth < 768 ? true : false}

@@ -103,20 +103,20 @@ export const ResaleInfo = ({ dealer, getDealers, setLoading, setMsg, loading }) 
   };
 
   const excludAction = () => {
-    // setMsg("Excluindo cliente...");
+    setMsg('Excluindo revenda...');
     setLoading(true);
-    // api.user
-    //   .updatePassword(client.Email, password)
-    //   .then((res) => {
-    //     toast.success(res.data.Message);
-    //     setShowModalReset(false);
-    //     setPassword();
-    //   })
-    //   .catch((err) => {
-    //     translateError(err);
-    //   })
-    //   .finally(() => setLoading(false));
-  };
+    api.dealer
+      .delete(dealer.Id)
+      .then((res) => {
+        toast.success(res.data.Message);
+        setExcludClient(false);
+        getDealers()
+      })
+      .catch((err) => {
+        translateError(err);
+      })
+      .finally(() => setLoading(false));
+  }
 
   return (
     // <tbody>
@@ -186,14 +186,14 @@ export const ResaleInfo = ({ dealer, getDealers, setLoading, setMsg, loading }) 
                 {api.currentUser?.Type === "TEGG" && (
                   <>
                     <MenuItem onClick={getNewSession}>Acessar Painel</MenuItem>
-                    {/* <MenuItem
+                    <MenuItem
                       onClick={() => {
                         setAnchorEl();
                         setExcludClient(true);
                       }}
                     >
                       Excluir
-                    </MenuItem> */}
+                    </MenuItem>
                     <MenuItem
                       onClick={() => {
                         setDisableClient(true), setAnchorEl();

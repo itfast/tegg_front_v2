@@ -611,9 +611,9 @@ export const Iccids = () => {
               {t('Iccids.infMsgs.available')}
             </span>{' '}
             {t('Iccids.infMsgs.availableResult')}
-            {api.currentUser.AccessTypes[0] === 'TEGG' && (
+            {/* {api.currentUser.AccessTypes[0] === 'TEGG' && (
               <span>{t('Iccids.infMsgs.availableresale')}</span>
-            )}
+            )} */}
             .
           </p>
           <br />
