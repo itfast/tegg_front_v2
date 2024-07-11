@@ -1,146 +1,146 @@
 /* eslint-disable react/prop-types */
-import api from "../../../services/api";
-import { SidebarContainer } from "./styles";
-import ReactCardFlip from "react-card-flip";
+import api from '../../../services/api';
+import { SidebarContainer } from './styles';
+import ReactCardFlip from 'react-card-flip';
 
 // import avatar from '/assets/avatar.png';
 // import aguia from '../../assets/itfast_aguia.png'
-import logoCompleto from "/assets/tegg-verde.png";
-import logo from "/assets/tegg-logo.png";
-import { useNavigate, useLocation } from "react-router-dom";
-import PermissionView from "../../../routes/PermissionView";
-import { useTranslation } from "react-i18next";
+import logoCompleto from '/assets/tegg-verde.png';
+import logo from '/assets/tegg-logo.png';
+import { useNavigate, useLocation } from 'react-router-dom';
+import PermissionView from '../../../routes/PermissionView';
+import { useTranslation } from 'react-i18next';
 
 export function SideBar({ open }) {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const local = useLocation();
   const submenuAction = (e) => {
     const submenu = e.target.parentElement.parentElement;
-    submenu.classList.toggle("showMenu");
+    submenu.classList.toggle('showMenu');
   };
 
   const goExit = () => {
     api.user.logout();
-    navigate("/login");
+    navigate('/login');
   };
 
   return (
     <>
       <SidebarContainer>
-        <div id="sideContainer" className={open ? "sidebar" : "sidebar close "}>
-          <div className="logo-details">
+        <div id='sideContainer' className={open ? 'sidebar' : 'sidebar close '}>
+          <div className='logo-details'>
             <ReactCardFlip isFlipped={open}>
               <div>
-                <img src={logo} alt="profileImg" />
+                <img src={logo} alt='profileImg' />
               </div>
               <div>
                 <img
                   src={logoCompleto}
-                  style={{ width: "70%", marginTop: 15 }}
-                  alt="profileImg"
+                  style={{ width: '70%', marginTop: 15 }}
+                  alt='profileImg'
                 />
               </div>
             </ReactCardFlip>
           </div>
           {/* DASBOARD */}
-          <ul className="nav-links">
+          <ul className='nav-links'>
             {/* DASHBOARD */}
             <li
               style={{
                 backgroundColor:
-                  local.pathname === "/" || local.pathname === "/"
-                    ? "#00D959"
-                    : "",
+                  local.pathname === '/' || local.pathname === '/'
+                    ? '#00D959'
+                    : '',
               }}
             >
-              <a href="#" onClick={() => navigate("/")}>
-                <i className="bx bx-grid-alt"></i>
-                <span className="link_name">{t("Menu.dashboard")}</span>
+              <a href='#' onClick={() => navigate('/')}>
+                <i className='bx bx-grid-alt'></i>
+                <span className='link_name'>{t('Menu.dashboard')}</span>
               </a>
-              <ul className="sub-menu blank">
+              <ul className='sub-menu blank'>
                 <li>
                   <a
-                    className="link_name"
-                    href="#"
-                    onClick={() => navigate("/")}
+                    className='link_name'
+                    href='#'
+                    onClick={() => navigate('/')}
                   >
-                    {t("Menu.dashboard")}
+                    {t('Menu.dashboard')}
                   </a>
                 </li>
               </ul>
             </li>
             {/* TEGG TV */}
-            <PermissionView role="CLIENT,AGENT">
-            <li
-              style={{
-                backgroundColor:
-                  local.pathname === "/streaming" ? "#00D959" : "",
-              }}
-            >
-              <a href="#" onClick={() => navigate("/streaming")}>
-                <i className="bx bx-tv"></i>
-                <span className="link_name">{t("Menu.streaming")}</span>
-              </a>
-              <ul className="sub-menu blank">
-                <li>
-                  <a
-                    className="link_name"
-                    href="#"
-                    onClick={() => navigate("/streaming")}
-                  >
-                    {t("Menu.streaming")}
-                  </a>
-                </li>
-              </ul>
-            </li>
-            </PermissionView>
-            <PermissionView role="TEGG">
-            <li
-              style={{
-                backgroundColor:
-                  local.pathname === "/management/streaming" ? "#00D959" : "",
-              }}
-            >
-              <a href="#" onClick={() => navigate("/management/streaming")}>
-                <i className="bx bx-tv"></i>
-                <span className="link_name">Tegg TV</span>
-              </a>
-              <ul className="sub-menu blank">
-                <li>
-                  <a
-                    className="link_name"
-                    href="#"
-                    onClick={() => navigate("/management/streaming")}
-                  >
-                    Tegg TV
-                  </a>
-                </li>
-              </ul>
-            </li>
-            </PermissionView>
-            {/* PLANOS */}
-            <PermissionView role="TEGG">
+            <PermissionView role='CLIENT,AGENT'>
               <li
                 style={{
-                  backgroundColor: local.pathname === "/plans" ? "#00D959" : "",
+                  backgroundColor:
+                    local.pathname === '/streaming' ? '#00D959' : '',
                 }}
               >
-                <div className="iocn-link" onClick={submenuAction}>
-                  <a href="#" onClick={() => navigate("/plans")}>
-                    <i className="bx bxs-notepad"></i>
-                    <span className="link_name">{t("Menu.plans")}</span>
+                <a href='#' onClick={() => navigate('/streaming')}>
+                  <i className='bx bx-tv'></i>
+                  <span className='link_name'>{t('Menu.streaming')}</span>
+                </a>
+                <ul className='sub-menu blank'>
+                  <li>
+                    <a
+                      className='link_name'
+                      href='#'
+                      onClick={() => navigate('/streaming')}
+                    >
+                      {t('Menu.streaming')}
+                    </a>
+                  </li>
+                </ul>
+              </li>
+            </PermissionView>
+            <PermissionView role='TEGG'>
+              <li
+                style={{
+                  backgroundColor:
+                    local.pathname === '/management/streaming' ? '#00D959' : '',
+                }}
+              >
+                <a href='#' onClick={() => navigate('/management/streaming')}>
+                  <i className='bx bx-tv'></i>
+                  <span className='link_name'>Tegg TV</span>
+                </a>
+                <ul className='sub-menu blank'>
+                  <li>
+                    <a
+                      className='link_name'
+                      href='#'
+                      onClick={() => navigate('/management/streaming')}
+                    >
+                      Tegg TV
+                    </a>
+                  </li>
+                </ul>
+              </li>
+            </PermissionView>
+            {/* PLANOS */}
+            <PermissionView role='TEGG'>
+              <li
+                style={{
+                  backgroundColor: local.pathname === '/plans' ? '#00D959' : '',
+                }}
+              >
+                <div className='iocn-link' onClick={submenuAction}>
+                  <a href='#' onClick={() => navigate('/plans')}>
+                    <i className='bx bxs-notepad'></i>
+                    <span className='link_name'>{t('Menu.plans')}</span>
                   </a>
                   {/* <i className='bx bxs-chevron-down arrow'></i> */}
                 </div>
-                <ul className="sub-menu">
+                <ul className='sub-menu'>
                   <li>
                     <a
-                      className="link_name"
-                      href="#"
-                      onClick={() => navigate("/plans")}
+                      className='link_name'
+                      href='#'
+                      onClick={() => navigate('/plans')}
                     >
-                      {t("Menu.plans")}
+                      {t('Menu.plans')}
                     </a>
                   </li>
                   {/* <li>
@@ -150,34 +150,34 @@ export function SideBar({ open }) {
               </li>
             </PermissionView>
             {/* PRODUTOS */}
-            <PermissionView role="TEGG">
+            <PermissionView role='TEGG'>
               <li
                 style={{
                   backgroundColor:
-                    local.pathname === "/products" ? "#00D959" : "",
+                    local.pathname === '/products' ? '#00D959' : '',
                 }}
               >
-                <div className="iocn-link" onClick={submenuAction}>
+                <div className='iocn-link' onClick={submenuAction}>
                   <a
-                    href="#"
+                    href='#'
                     onClick={() => {
-                      navigate("/products");
+                      navigate('/products');
                     }}
                   >
-                    <i className="bx bxs-package"></i>
-                    <span className="link_name">{t("Menu.products")}</span>
+                    <i className='bx bxs-package'></i>
+                    <span className='link_name'>{t('Menu.products')}</span>
                   </a>
                   {/* <i className='bx bxs-chevron-down arrow'></i> */}
                 </div>
-                <ul className="sub-menu">
+                <ul className='sub-menu'>
                   <li>
                     <a
-                      href="#"
+                      href='#'
                       onClick={() => {
-                        navigate("/products");
+                        navigate('/products');
                       }}
                     >
-                      {t("Menu.products")}
+                      {t('Menu.products')}
                     </a>
                   </li>
                   {/* <li>
@@ -190,95 +190,95 @@ export function SideBar({ open }) {
               </li>
             </PermissionView>
             {/* ICCIDS */}
-            <PermissionView role="TEGG,DEALER">
+            <PermissionView role='TEGG,DEALER'>
               <li
                 style={{
                   backgroundColor:
-                    local.pathname === "/iccids" ? "#00D959" : "",
+                    local.pathname === '/iccids' ? '#00D959' : '',
                 }}
               >
-                <a href="#" onClick={() => navigate("/iccids")}>
-                  <i className="bx bxs-chip"></i>
-                  <span className="link_name">{t("Menu.iccids")}</span>
+                <a href='#' onClick={() => navigate('/iccids')}>
+                  <i className='bx bxs-chip'></i>
+                  <span className='link_name'>{t('Menu.iccids')}</span>
                 </a>
-                <ul className="sub-menu blank">
+                <ul className='sub-menu blank'>
                   <li>
-                    <a href="#" onClick={() => navigate("/iccids")}>
-                    {t("Menu.iccids")}
+                    <a href='#' onClick={() => navigate('/iccids')}>
+                      {t('Menu.iccids')}
                     </a>
                   </li>
                 </ul>
               </li>
             </PermissionView>
             {/* REVENDAS */}
-            <PermissionView role="TEGG">
+            <PermissionView role='TEGG'>
               <li
                 style={{
                   backgroundColor:
-                    local.pathname === "/salesforce" ||
-                    local.pathname === "/salesforce/" ||
-                    local.pathname === "/salesforce/new" ||
-                    local.pathname === "/salesforce/edit" ||
-                    local.pathname === "/clients/pending" ||
-                    local.pathname === "/salesforce/details" ||
-                    local.pathname === "/salesforce/deleteds"
-                      ? "#00D959"
-                      : "",
+                    local.pathname === '/salesforce' ||
+                    local.pathname === '/salesforce/' ||
+                    local.pathname === '/salesforce/new' ||
+                    local.pathname === '/salesforce/edit' ||
+                    local.pathname === '/clients/pending' ||
+                    local.pathname === '/salesforce/details' ||
+                    local.pathname === '/salesforce/deleteds'
+                      ? '#00D959'
+                      : '',
                 }}
               >
                 <a
-                  href="#"
+                  href='#'
                   onClick={() => {
-                    if (api.currentUser.AccessTypes[0] === "TEGG") {
-                      navigate("/salesforce");
+                    if (api.currentUser.AccessTypes[0] === 'TEGG') {
+                      navigate('/salesforce');
                     } else {
-                      navigate("/salesforce/details");
+                      navigate('/salesforce/details');
                     }
                   }}
                 >
-                  <i className="bx bxs-store-alt"></i>
-                  <span className="link_name">
-                    {api.currentUser.AccessTypes[0] === "TEGG"
-                      ? t("Menu.resales")
-                      : t("Menu.resale")}
+                  <i className='bx bxs-store-alt'></i>
+                  <span className='link_name'>
+                    {api.currentUser.AccessTypes[0] === 'TEGG'
+                      ? t('Menu.resales')
+                      : t('Menu.resale')}
                   </span>
                 </a>
-                <ul className="sub-menu blank">
+                <ul className='sub-menu blank'>
                   <li>
                     <a
-                      className="link_name"
-                      href="#"
+                      className='link_name'
+                      href='#'
                       onClick={() => {
-                        if (api.currentUser.AccessTypes[0] === "TEGG") {
-                          navigate("/salesforce");
+                        if (api.currentUser.AccessTypes[0] === 'TEGG') {
+                          navigate('/salesforce');
                         } else {
-                          navigate("/salesforce/details");
+                          navigate('/salesforce/details');
                         }
                       }}
                     >
-                      {api.currentUser.AccessTypes[0] === "TEGG"
-                        ? t("Menu.resales")
-                        : t("Menu.resale")}
+                      {api.currentUser.AccessTypes[0] === 'TEGG'
+                        ? t('Menu.resales')
+                        : t('Menu.resale')}
                     </a>
                   </li>
-                  <PermissionView role="TEGG">
+                  <PermissionView role='TEGG'>
                     <li>
                       <a
-                        href="#"
+                        href='#'
                         onClick={() => {
-                          navigate("/clients/pending");
+                          navigate('/clients/pending');
                         }}
                       >
-                        {t("Menu.pendings")}
+                        {t('Menu.pendings')}
                       </a>
                     </li>
                   </PermissionView>
-                  <PermissionView role="TEGG">
+                  <PermissionView role='TEGG'>
                     <li>
                       <a
-                        href="#"
+                        href='#'
                         onClick={() => {
-                          navigate("/salesforce/deleteds");
+                          navigate('/salesforce/deleteds');
                         }}
                       >
                         Excluídas
@@ -321,47 +321,47 @@ export function SideBar({ open }) {
               </ul>
             </li>
             </PermissionView> */}
-            <PermissionView role="TEGG,DEALER">
+            <PermissionView role='TEGG,DEALER'>
               <li
                 style={{
                   backgroundColor:
-                    local.pathname === "/clients" ||
-                    local.pathname === "/clients/" ||
-                    local.pathname === "/clients/new" ||
-                    local.pathname === "/clients/edit" ||
-                    local.pathname === "/clients/deleteds"
-                      ? "#00D959"
-                      : "",
+                    local.pathname === '/clients' ||
+                    local.pathname === '/clients/' ||
+                    local.pathname === '/clients/new' ||
+                    local.pathname === '/clients/edit' ||
+                    local.pathname === '/clients/deleteds'
+                      ? '#00D959'
+                      : '',
                 }}
               >
-                <div className="iocn-link" onClick={submenuAction}>
+                <div className='iocn-link' onClick={submenuAction}>
                   <a
-                    href="#"
+                    href='#'
                     onClick={() => {
-                      navigate("/clients");
+                      navigate('/clients');
                     }}
                   >
-                    <i className="bx bx-body"></i>
-                    <span className="link_name">{t("Menu.clients")}</span>
+                    <i className='bx bx-body'></i>
+                    <span className='link_name'>{t('Menu.clients')}</span>
                   </a>
-                  <i className="bx bxs-chevron-down arrow"></i>
+                  <i className='bx bxs-chevron-down arrow'></i>
                 </div>
-                <ul className="sub-menu">
+                <ul className='sub-menu'>
                   <li>
                     <a
-                      href="#"
+                      href='#'
                       onClick={() => {
-                        navigate("/clients");
+                        navigate('/clients');
                       }}
                     >
-                      {t("Menu.clients")}
+                      {t('Menu.clients')}
                     </a>
                   </li>
                   <li>
                     <a
-                      href="#"
+                      href='#'
                       onClick={() => {
-                        navigate("/clients/deleteds");
+                        navigate('/clients/deleteds');
                       }}
                     >
                       Excluídos
@@ -370,37 +370,37 @@ export function SideBar({ open }) {
                 </ul>
               </li>
             </PermissionView>
-            <PermissionView role="TEGG,DEALER">
+            <PermissionView role='TEGG,DEALER'>
               <li
                 style={{
                   backgroundColor:
-                    local.pathname === "/agents"
-                    // local.pathname === "/clients/" ||
-                    // local.pathname === "/clients/new" ||
-                    // local.pathname === "/clients/edit" ||
-                    // local.pathname === "/clients/deleteds"
-                      ? "#00D959"
-                      : "",
+                    local.pathname === '/agents'
+                      ? // local.pathname === "/clients/" ||
+                        // local.pathname === "/clients/new" ||
+                        // local.pathname === "/clients/edit" ||
+                        // local.pathname === "/clients/deleteds"
+                        '#00D959'
+                      : '',
                 }}
               >
-                <div className="iocn-link" onClick={submenuAction}>
+                <div className='iocn-link' onClick={submenuAction}>
                   <a
-                    href="#"
+                    href='#'
                     onClick={() => {
-                      navigate("/agents");
+                      navigate('/agents');
                     }}
                   >
-                    <i className="bx bx-street-view"></i>
-                    <span className="link_name">Representantes</span>
+                    <i className='bx bx-street-view'></i>
+                    <span className='link_name'>Representantes</span>
                   </a>
-                  <i className="bx bxs-chevron-down arrow"></i>
+                  <i className='bx bxs-chevron-down arrow'></i>
                 </div>
-                <ul className="sub-menu">
+                <ul className='sub-menu'>
                   <li>
                     <a
-                      href="#"
+                      href='#'
                       onClick={() => {
-                        navigate("/agents");
+                        navigate('/agents');
                       }}
                     >
                       Representantes
@@ -423,105 +423,105 @@ export function SideBar({ open }) {
             <li
               style={{
                 backgroundColor:
-                  local.pathname === "/orders" ||
-                  local.pathname === "/orders/" ||
-                  local.pathname === "/orders/new/chip" ||
-                  local.pathname === "/orders/new/esim" ||
-                  local.pathname === "/orders/sendIccid" ||
-                  local.pathname === "/orders/pay" ||
-                  local.pathname === "/nfe" ||
-                  local.pathname === "/activation"
-                    ? "#00D959"
-                    : "",
+                  local.pathname === '/orders' ||
+                  local.pathname === '/orders/' ||
+                  local.pathname === '/orders/new/chip' ||
+                  local.pathname === '/orders/new/esim' ||
+                  local.pathname === '/orders/sendIccid' ||
+                  local.pathname === '/orders/pay' ||
+                  local.pathname === '/nfe' ||
+                  local.pathname === '/activation'
+                    ? '#00D959'
+                    : '',
               }}
             >
-              <div className="iocn-link" onClick={submenuAction}>
+              <div className='iocn-link' onClick={submenuAction}>
                 <a
-                  href="#"
+                  href='#'
                   onClick={() => {
-                    navigate("/orders");
+                    navigate('/orders');
                   }}
                 >
-                  <i className="bx bxs-add-to-queue"></i>
-                  <span className="link_name">{t("Menu.orders")}</span>
+                  <i className='bx bxs-add-to-queue'></i>
+                  <span className='link_name'>{t('Menu.orders')}</span>
                 </a>
-                <i className="bx bxs-chevron-down arrow"></i>
+                <i className='bx bxs-chevron-down arrow'></i>
               </div>
-              <ul className="sub-menu">
+              <ul className='sub-menu'>
                 <li>
                   <a
-                    href="#"
+                    href='#'
                     onClick={() => {
-                      navigate("/orders");
+                      navigate('/orders');
                     }}
                   >
-                    {t("Menu.orders")}
+                    {t('Menu.orders')}
                   </a>
                 </li>
-                <PermissionView role="TEGG">
+                <PermissionView role='TEGG'>
                   <li>
                     <a
-                      href="#"
+                      href='#'
                       onClick={() => {
-                        navigate("/statement");
+                        navigate('/statement');
                       }}
                     >
-                       {t("Menu.extract")}
+                      {t('Menu.extract')}
                     </a>
                   </li>
                 </PermissionView>
-                <PermissionView role="TEGG,DEALER">
+                <PermissionView role='TEGG,DEALER'>
                   <li>
                     <a
-                      href="#"
+                      href='#'
                       onClick={() => {
-                        navigate("/orders/pending");
+                        navigate('/orders/pending');
                       }}
                     >
-                      {t("Menu.ordersPending")}
+                      {t('Menu.ordersPending')}
                     </a>
                   </li>
                 </PermissionView>
-                <PermissionView role="TEGG">
+                <PermissionView role='TEGG'>
                   <li>
                     <a
-                      href="#"
+                      href='#'
                       onClick={() => {
-                        navigate("/activation");
+                        navigate('/activation');
                       }}
                     >
-                      {t("Menu.activationsPending")}
+                      {t('Menu.activationsPending')}
                     </a>
                   </li>
                 </PermissionView>
-                <PermissionView role="TEGG">
+                <PermissionView role='TEGG'>
                   <li>
                     <a
-                      href="#"
+                      href='#'
                       onClick={() => {
-                        navigate("/activation/manual");
+                        navigate('/activation/manual');
                       }}
                     >
-                      {t("Menu.activeNewLine")}
+                      {t('Menu.activeNewLine')}
                     </a>
                   </li>
                 </PermissionView>
                 <li>
                   <a
-                    href="#"
+                    href='#'
                     onClick={() => {
-                      navigate("/nfe");
+                      navigate('/nfe');
                     }}
                   >
-                    {t("Menu.invoices")}
+                    {t('Menu.invoices')}
                   </a>
                 </li>
-                <PermissionView role="TEGG,DEALER,AGENT">
+                <PermissionView role='TEGG,DEALER,AGENT'>
                   <li>
                     <a
-                      href="#"
+                      href='#'
                       onClick={() => {
-                        navigate("/preorder");
+                        navigate('/preorder');
                       }}
                     >
                       Pré-Cadastros
@@ -535,33 +535,33 @@ export function SideBar({ open }) {
               style={{
                 backgroundColor:
                   // local.pathname === "/streaming" ||
-                  local.pathname === "/subscriptions" ||
-                  local.pathname === "/subscriptions/new/"
-                    ? "#00D959"
-                    : "",
+                  local.pathname === '/subscriptions' ||
+                  local.pathname === '/subscriptions/new/'
+                    ? '#00D959'
+                    : '',
               }}
             >
-              <div className="iocn-link" onClick={submenuAction}>
+              <div className='iocn-link' onClick={submenuAction}>
                 <a
-                  href="#"
+                  href='#'
                   onClick={() => {
-                    navigate("/subscriptions");
+                    navigate('/subscriptions');
                   }}
                 >
-                  <i className="bx bx-food-menu"></i>
-                  <span className="link_name"> {t("Menu.subscriptions")}</span>
+                  <i className='bx bx-food-menu'></i>
+                  <span className='link_name'> {t('Menu.subscriptions')}</span>
                 </a>
-                <i className="bx bxs-chevron-down arrow"></i>
+                <i className='bx bxs-chevron-down arrow'></i>
               </div>
-              <ul className="sub-menu">
+              <ul className='sub-menu'>
                 <li>
                   <a
-                    href="#"
+                    href='#'
                     onClick={() => {
-                      navigate("/subscriptions");
+                      navigate('/subscriptions');
                     }}
                   >
-                    {t("Menu.subscriptions")}
+                    {t('Menu.subscriptions')}
                   </a>
                 </li>
               </ul>
@@ -570,72 +570,72 @@ export function SideBar({ open }) {
             <li
               style={{
                 backgroundColor:
-                  local.pathname === "/lines" ||
-                  local.pathname === "/lines/esim/" ||
+                  local.pathname === '/lines' ||
+                  local.pathname === '/lines/esim/' ||
                   // local.pathname === "/subscriptions" ||
                   // local.pathname === "/subscriptions/new/" ||
-                  local.pathname === "/portRequests" ||
-                  local.pathname === "/portRequests/new" ||
-                  local.pathname === "/recharge" ||
-                  local.pathname === "/recharge/new" ||
-                  local.pathname === "/recharge/pay"
-                    ? "#00D959"
-                    : "",
+                  local.pathname === '/portRequests' ||
+                  local.pathname === '/portRequests/new' ||
+                  local.pathname === '/recharge' ||
+                  local.pathname === '/recharge/new' ||
+                  local.pathname === '/recharge/pay'
+                    ? '#00D959'
+                    : '',
               }}
             >
-              <div className="iocn-link" onClick={submenuAction}>
+              <div className='iocn-link' onClick={submenuAction}>
                 <a
-                  href="#"
+                  href='#'
                   onClick={() => {
-                    navigate("/lines");
+                    navigate('/lines');
                   }}
                 >
-                  <i className="bx bxs-phone"></i>
-                  <span className="link_name"> {t("Menu.lines")}</span>
+                  <i className='bx bxs-phone'></i>
+                  <span className='link_name'> {t('Menu.lines')}</span>
                 </a>
-                <i className="bx bxs-chevron-down arrow"></i>
+                <i className='bx bxs-chevron-down arrow'></i>
               </div>
-              <ul className="sub-menu">
+              <ul className='sub-menu'>
                 <li>
                   <a
-                    href="#"
+                    href='#'
                     onClick={() => {
-                      navigate("/lines");
+                      navigate('/lines');
                     }}
                   >
-                     {t("Menu.lines")}
+                    {t('Menu.lines')}
                   </a>
                 </li>
-                <PermissionView role="TEGG">
+                <PermissionView role='TEGG'>
                   <li>
                     <a
-                      href="#"
+                      href='#'
                       onClick={() => {
-                        navigate("/subscriptions");
+                        navigate('/subscriptions');
                       }}
                     >
-                       {t("Menu.subscriptions")}
+                      {t('Menu.subscriptions')}
                     </a>
                   </li>
                 </PermissionView>
-                <PermissionView role="TEGG">
-                <li>
-                  <a
-                    href="#"
-                    onClick={() => {
-                      navigate("/portRequests");
-                    }}
-                  >
-                     {t("Menu.portin")}
-                  </a>
-                </li>
-                </PermissionView>
-                <PermissionView role="CLIENT,AGENT">
+                <PermissionView role='TEGG'>
                   <li>
                     <a
-                      href="#"
+                      href='#'
                       onClick={() => {
-                        navigate("/portRequests");
+                        navigate('/portRequests');
+                      }}
+                    >
+                      {t('Menu.portin')}
+                    </a>
+                  </li>
+                </PermissionView>
+                <PermissionView role='CLIENT,AGENT'>
+                  <li>
+                    <a
+                      href='#'
+                      onClick={() => {
+                        navigate('/portRequests');
                         // navigate("/bringnumber");
                       }}
                     >
@@ -645,35 +645,35 @@ export function SideBar({ open }) {
                 </PermissionView>
                 <li>
                   <a
-                    href="#"
+                    href='#'
                     onClick={() => {
-                      navigate("/recharge");
+                      navigate('/recharge');
                     }}
                   >
-                     {t("Menu.recharge")}
+                    {t('Menu.recharge')}
                   </a>
                 </li>
-                <PermissionView role="CLIENT,AGENT">
+                <PermissionView role='CLIENT,AGENT'>
                   <li>
                     <a
-                      href="#"
+                      href='#'
                       onClick={() => {
-                        navigate("/activation");
+                        navigate('/activation');
                       }}
                     >
-                       {t("Menu.activation")}
+                      {t('Menu.activation')}
                     </a>
                   </li>
                 </PermissionView>
-                <PermissionView role="CLIENT,AGENT">
+                <PermissionView role='CLIENT,AGENT'>
                   <li>
                     <a
-                      href="#"
+                      href='#'
                       onClick={() => {
-                        navigate("/activation/client/manual");
+                        navigate('/activation/client/manual');
                       }}
                     >
-                      {t("Menu.activeNewLine")}
+                      {t('Menu.activeNewLine')}
                     </a>
                   </li>
                 </PermissionView>
@@ -705,36 +705,45 @@ export function SideBar({ open }) {
               </ul>
             </li>
             </PermissionView> */}
-            <PermissionView role="TEGG,DEALER">
+            <PermissionView role='TEGG,DEALER'>
               <li
                 style={{
                   backgroundColor:
-                    local.pathname === "/actions" ? "#00D959" : "",
+                    local.pathname === '/actions' ? '#00D959' : '',
                 }}
               >
-                <div className="iocn-link" onClick={submenuAction}>
+                <div className='iocn-link' onClick={submenuAction}>
                   <a
-                    href="#"
+                    href='#'
                     onClick={() => {
-                      navigate("/actions");
+                      navigate('/actions');
                     }}
                   >
-                    <i className="bx bx-cross"></i>
-                    <span className="link_name">{t("Menu.actions")}</span>
+                    <i className='bx bx-cross'></i>
+                    <span className='link_name'>{t('Menu.actions')}</span>
                   </a>
                   {/* <i className='bx bxs-chevron-down arrow'></i> */}
                 </div>
-                <ul className="sub-menu">
+                <ul className='sub-menu'>
                   <li>
                     <a
-                      href="#"
+                      href='#'
                       onClick={() => {
-                        navigate("/actions");
+                        navigate('/actions');
                       }}
                     >
-                      {t("Menu.actions")}
+                      {t('Menu.actions')}
                     </a>
                   </li>
+                  <PermissionView role='TEGG'>
+                  <li>
+                    <a href='#' onClick={() => {
+                        navigate('/actions/portDoc');
+                      }}>
+                      Trocas de titularidades
+                    </a>
+                  </li>
+                  </PermissionView>
                   {/* <li>
                   <a href='/admin/partners/new'>Novo Parceiro</a>
                 </li> */}
@@ -747,35 +756,35 @@ export function SideBar({ open }) {
             {/* PERFIL */}
             <li
               style={{
-                backgroundColor: local.pathname === "/profile" ? "#00D959" : "",
+                backgroundColor: local.pathname === '/profile' ? '#00D959' : '',
               }}
             >
-              <div className="iocn-link" onClick={submenuAction}>
+              <div className='iocn-link' onClick={submenuAction}>
                 <a
-                  href="#"
+                  href='#'
                   onClick={() => {
-                    navigate("/profile");
+                    navigate('/profile');
                   }}
                 >
-                  <i className="bx bxs-user-circle"></i>
-                  <span className="link_name"> {t("Menu.profile")}</span>
+                  <i className='bx bxs-user-circle'></i>
+                  <span className='link_name'> {t('Menu.profile')}</span>
                 </a>
-                <i className="bx bxs-chevron-down arrow"></i>
+                <i className='bx bxs-chevron-down arrow'></i>
               </div>
-              <ul className="sub-menu">
+              <ul className='sub-menu'>
                 <li>
                   <a
-                    href="#"
+                    href='#'
                     onClick={() => {
-                      navigate("/profile");
+                      navigate('/profile');
                     }}
                   >
-                    {t("Menu.profile")}
+                    {t('Menu.profile')}
                   </a>
                 </li>
                 <li>
-                  <a href="#" onClick={goExit}>
-                  {t("Menu.exit")}
+                  <a href='#' onClick={goExit}>
+                    {t('Menu.exit')}
                   </a>
                 </li>
               </ul>

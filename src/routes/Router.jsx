@@ -71,6 +71,8 @@ import { PreOrder } from '../pages/preRegister/PreOrder';
 import { ChangeChip } from '../pages/ChangeChip/ChangeChip';
 import { BringNumber } from '../pages/portRequests/component/BringNumber'
 import { ClientsDeleteds } from '../pages/clients/ClientsDeleteds'
+import { ChangeDocument } from '../pages/ChangeDocument/ChangeDocument'
+import { PortDoc } from '../components/PortDocs/PortDoc'
 
 export function Router() {
   const [deferredPrompt, setDeferredPrompt] = useState();
@@ -211,6 +213,8 @@ export function Router() {
               <Route path={'actions/portin'} element={<PorInAction />} />
               <Route path={'actions/invoices'} element={<Invoices/>}/>
               <Route path={'actions/changechip'} element={<ChangeChip />} />
+              <Route path={'actions/changedocument'} element={<ChangeDocument />} />
+              <Route path={'actions/portDoc'} element={<PortDoc />} />
               <Route path={'bringnumber'} element={<BringNumber />} />
             </Route>
           </Route>

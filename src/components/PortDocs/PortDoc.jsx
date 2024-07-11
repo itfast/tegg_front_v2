@@ -5,26 +5,29 @@ import {
   ContainerWeb,
   PageLayout,
 } from '../../../globalStyles';
-import { InputData } from '../resales/Resales.styles';
+// import { InputData } from '/resales/Resales.styles';
 import { useEffect, useState } from 'react';
 import api from '../../services/api';
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
 import { translateError } from '../../services/util';
-import { TableItens } from '../orders/new/NewOrder.styles';
+import { TableItens } from '../../pages/orders/new/NewOrder.styles';
 import { Loading } from '../../components/loading/Loading';
 import { useTranslation } from 'react-i18next';
-import { PageTitles } from '../../components/PageTitle/PageTitle'
-import { ClientInfoDeleted } from './ClientInfoDeleted'
-import { ClientCardMobileDeleted } from './ClientCardMobileDeleted'
+import { PageTitles } from '../../components/PageTitle/PageTitle';
+// import { ClientInfoDeleted } from './ClientInfoDeleted'
+// import { ClientCardMobileDeleted } from './ClientCardMobileDeleted'
+import { InputData } from '../../pages/resales/Resales.styles';
+import { TableInfo } from './TableInfo';
+import { PortDocMobile } from './PortDocMobile';
 
-export const ClientsDeleteds = () => {
+export const PortDoc = () => {
   const { t } = useTranslation();
   const location = useLocation();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
   // const [msg, setMsg] = useState('Buscando clientes...');
-  const msg = 'Buscando clientes...'
+  const msg = 'Buscando clientes...';
   const [loadingDetails, setLoadingDetails] = useState(true);
   const [users, setUsers] = useState([]);
   // const [totalPages, setTotalPages] = useState(0);
@@ -35,20 +38,18 @@ export const ClientsDeleteds = () => {
   const [pageSize, setPageSize] = useState(10);
   // const [type, setType] = useState('Client')
 
-  console.log(location.pathname)
+  console.log(location.pathname);
 
-
-  const getClients = () => {
+  const getPorts = () => {
     // http://localhost:4000/api/deletedusers
-    const type = location.pathname === '/clients/deleteds' ? 'Client' : 'Dealer'
+    const type =
+      location.pathname === '/clients/deleteds' ? 'Client' : 'Dealer';
     setLoading(true);
     api.client
-      .getDeleteds(pageNum, pageSize, search, type)
+      .getDocPorts(pageNum, pageSize, search, type)
       .then((res) => {
-        console.log(res)
-        // console.log(res.data.finalClients);
         setMaxPages(res.data?.meta?.totalPages || 1);
-        setUsers(res.data?.deletedUsers);
+        setUsers(res.data?.historic);
       })
       .catch((err) => translateError(err))
       .finally(() => {
@@ -56,8 +57,6 @@ export const ClientsDeleteds = () => {
         setLoadingDetails(false);
       });
   };
-
-  
 
   const handlePageChange = (event, value) => {
     setPageNum(value);
@@ -81,13 +80,13 @@ export const ClientsDeleteds = () => {
           console.log(err);
         });
     }
-    getClients();
-  }, [pageNum, search, pageSize, location ]);
+    getPorts();
+  }, [pageNum, search, pageSize, location]);
 
   return (
     <>
       <PageLayout>
-        <PageTitles title={`${location.pathname === '/clients/deleteds' ? 'Clientes excluídos' : 'Revendas excluídas'}`}/>
+        <PageTitles title={'Trocas de titularidade'} />
         {/* <h2 style={{ marginTop: '1rem' }}>Clientes</h2> */}
         <div style={{ marginTop: '1rem' }}>
           <div
@@ -111,7 +110,7 @@ export const ClientsDeleteds = () => {
                 id='iccid'
                 type='text'
                 // disabled={searched}
-                placeholder={"Nome/Documento"}
+                placeholder={'Iccid/Linha/Documento'}
                 style={{
                   width: screen.width < 768 ? '100%' : 250,
                   marginBottom: screen.width < 768 && '1rem',
@@ -127,28 +126,21 @@ export const ClientsDeleteds = () => {
             <ContainerWeb>
               <TableItens>
                 <tr>
-                  {/* <th>Tipo</th> */}
-                  <th>{t('Clients.table.name')}</th>
-                  <th>{t('Clients.table.document')}</th>
-                  <th>ICCID</th>
+                  <th>Nome</th>
                   <th>Linha</th>
-                  <th>Data ativação</th>
-                  <th>Data cancelamento</th>
+                  <th>ICCID</th>
+                  <th>Documento antigo</th>
+                  <th>Novo documento</th>
+                  <th>Data solicitação</th>
                 </tr>
                 {users.map((d) => (
-                  <ClientInfoDeleted
-                    key={d.Id}
-                    client={d}
-                  />
+                  <TableInfo key={d.Id} client={d} />
                 ))}
               </TableItens>
             </ContainerWeb>
             <ContainerMobile style={{ width: '100%', height: '100%' }}>
               {users.map((d) => (
-                <ClientCardMobileDeleted
-                  key={d.Id}
-                  client={d}
-                />
+                <PortDocMobile key={d.Id} client={d} />
               ))}
             </ContainerMobile>
           </>

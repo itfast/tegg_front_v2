@@ -22,6 +22,7 @@ import {
   FaExchangeAlt,
   FaRegRegistered,
   FaRegTrashAlt,
+  FaRegIdCard,
 } from 'react-icons/fa';
 import { AiFillEdit, AiTwotoneContainer } from 'react-icons/ai';
 import { Tooltip } from 'react-tooltip';
@@ -138,7 +139,10 @@ export const ActionsTable = ({ line, setLoading, setMsg }) => {
             </div>
           </div>
         </td>
-        <td>{line?.FinalClient?.User?.Type && translateTypeClient(line?.FinalClient?.User?.Type)}</td>
+        <td>
+          {line?.FinalClient?.User?.Type &&
+            translateTypeClient(line?.FinalClient?.User?.Type)}
+        </td>
         <td>
           {(line?.FinalClient?.Type === 'PJ' &&
             documentFormat(line?.FinalClient?.Cnpj)) ||
@@ -289,12 +293,39 @@ export const ActionsTable = ({ line, setLoading, setMsg }) => {
                   data-tooltip-place='top'
                   style={{
                     cursor:
-                      (line?.Status === 'INVALID' || line?.Status === 'EX') ? 'not-allowed' : 'pointer',
+                      line?.Status === 'INVALID' || line?.Status === 'EX'
+                        ? 'not-allowed'
+                        : 'pointer',
                   }}
                   onClick={() =>
                     line?.Status !== 'INVALID' &&
                     line?.Status !== 'EX' &&
                     navigate('/actions/changechip', {
+                      state: { line: line, client: line?.FinalClient?.Name },
+                    })
+                  }
+                />
+                <FaRegIdCard
+                  size={20}
+                  data-tooltip-id='action-tooltip'
+                  data-tooltip-content={
+                    line?.Status === 'INVALID' || line?.Status === 'EX'
+                      ? line?.Status === 'EX'
+                        ? 'Não permitido para esse ICCID'
+                        : 'Iccid inválido'
+                      : 'Trocar titularidade'
+                  }
+                  data-tooltip-place='top'
+                  style={{
+                    cursor:
+                      line?.Status === 'INVALID' || line?.Status === 'EX'
+                        ? 'not-allowed'
+                        : 'pointer',
+                  }}
+                  onClick={() =>
+                    line?.Status !== 'INVALID' &&
+                    line?.Status !== 'EX' &&
+                    navigate('/actions/changedocument', {
                       state: { line: line, client: line?.FinalClient?.Name },
                     })
                   }

@@ -935,17 +935,32 @@ class Api {
           throwFormattedError(e);
         }
       },
+      // http://localhost:4000/api/iccid/changelinedocument?page=1&limit=10
+      getDocPorts: async (pageNum, pageSize, search, type) => {
+        try {
+          const response = await this.axios.get(
+            `${apiRoutes.iccid}/changelinedocument?page=${pageNum}&limit=${pageSize}&search=${search}&type=${type}`
+          );
+          return response;
+        } catch (e) {
+          throwFormattedError(e);
+        }
+      },
+      changeDoc: async (Msisdn, Document, Iccid)=>{
+        try {
+          const response = await this.axios.post(
+            `${apiRoutes.iccid}/changelinedocument`,{
+              Msisdn,
+              Document,
+              Iccid
+            }
+          );
+          return response;
+        } catch (e) {
+          throwFormattedError(e);
+        }
+      },
       getDeleteds: async (pageNum, pageSize, search, type) => {
-        // console.log(
-        //   `${apiRoutes.client}?page=${pageNum}&limit=${pageSize}&search=${search}&dealer=${dealer}`
-        // );
-        // let queryType = ''
-        // if(type){
-        //   if(type?.value !== ''){
-        //     queryType = `&type=${type.value}`
-        //   }
-        // }
-        console.log(`/deletedusers?page=${pageNum}&limit=${pageSize}&search=${search}&type=${type}`)
         try {
           const response = await this.axios.get(
             `/deletedusers?page=${pageNum}&limit=${pageSize}&search=${search}&type=${type}`
