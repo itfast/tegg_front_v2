@@ -76,7 +76,7 @@ export const EsimOrderData = ({ goBackStep, label }) => {
   };
 
   const loadClientsDealers = async (search) => {
-    if (api.currentUser.AccessTypes[0] !== 'CLIENT') {
+    if (api.currentUser.AccessTypes[0] !== 'CLIENT' && api.currentUser.AccessTypes[0] !== 'AGENT') {
       const responseC = await api.client.getSome(1, 15, search);
       const clients = await responseC.data.finalClients;
       let responseD = [];
@@ -134,7 +134,7 @@ export const EsimOrderData = ({ goBackStep, label }) => {
       plans = await response.data.filter((p) =>
         p.Products.every((prod) => prod.Product.SurfId !== null)
       );
-    } else if (api.currentUser.AccessTypes[0] === 'CLIENT') {
+    } else if (api.currentUser.AccessTypes[0] === 'CLIENT' || api.currentUser.AccessTypes[0] === 'AGENT') {
       plans = await response.data.filter(
         (p) => p.Products.length === 1 && p.Products[0].Product.SurfId !== null
       );
@@ -744,7 +744,7 @@ export const EsimOrderData = ({ goBackStep, label }) => {
     <CardData>
       <h2>{label}</h2>
       <br />
-      {api.currentUser.AccessTypes[0] !== 'CLIENT' && (
+      {api.currentUser.AccessTypes[0] !== 'CLIENT' && api.currentUser.AccessTypes[0] !== 'AGENT' && (
         <div className='input_container'>
           <div className='input'>
             {!personal && (
@@ -861,7 +861,7 @@ export const EsimOrderData = ({ goBackStep, label }) => {
           </div>
         )}
       </div>
-      {api.currentUser.AccessTypes[0] !== 'CLIENT' && (
+      {api.currentUser.AccessTypes[0] !== 'CLIENT' && api.currentUser.AccessTypes[0] !== 'AGENT' && (
         <div>
           {iccidsToActivate.length !== 0 && (
             <div className='input_container_2'>

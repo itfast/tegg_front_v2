@@ -31,12 +31,16 @@ export const PorInAction = () => {
   const getRequests = () => {
     // setLoading(true);
     const myNumber = location.state.line?.IccidHistoric[0].SurfMsisdn?.substring(2, location.state.line?.IccidHistoric[0].SurfMsisdn?.length)
-    console.log(1, 10, myNumber)
     api.line
       .getPortRequests(1, 10, 55+myNumber)
       .then((res) => {
-        console.log(res)
-        setPortRequests(res.data.portRequests);
+        const list = []
+        res.data.portRequests.forEach((p)=>{
+          if(p.Status !== 'CANCELLED'){
+            list.push(p)
+          }
+        })
+        setPortRequests(list);
         // setMaxPages(res.data.meta.totalPages || 1);
       })
       .catch((err) => {
@@ -49,7 +53,6 @@ export const PorInAction = () => {
   };
 
   useEffect(() => {
-    console.log(location.state.line)
     if (location.state.line) {
       const { line } = location.state;
       setName(line?.FinalClient?.Name);
@@ -91,10 +94,6 @@ export const PorInAction = () => {
         setLoading(false)
       })
   };
-
-  useEffect(()=>{
-    console.log(oldNumber)
-  },[oldNumber])
 
   const handleNext = () => {
     if (name) {
@@ -158,7 +157,6 @@ export const PorInAction = () => {
           }}
         >
           <h4 style={{ backgroundColor: "yellow" }}>
-            {" "}
             <IoWarningOutline size={20} /> Status da portabilidade:{" "}
             {!portRequests || portRequests.length === 0
               ? "Não solicitada"

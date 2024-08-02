@@ -343,7 +343,7 @@ export const Orders = () => {
           <Button
             style={{ marginLeft: 20 }}
             onClick={async () => {
-              if (api.currentUser.AccessTypes[0] !== 'CLIENT') {
+              if (api.currentUser.AccessTypes[0] !== 'CLIENT' && api.currentUser.AccessTypes[0] !== 'AGENT') {
                 navigate('/orders/new');
               } else {
                 navigate('/orders/newbyclient');
@@ -458,7 +458,7 @@ export const Orders = () => {
             >
               <h2 style={{ color: 'black', fontWeight: 'bold' }}>
                 {`Ainda não existem ${
-                  api.currentUser.AccessTypes[0] !== 'CLIENT'
+                  api.currentUser.AccessTypes[0] !== 'CLIENT' && api.currentUser.AccessTypes[0] !== 'AGENT'
                     ? 'pedidos cadastrados'
                     : 'compras cadastradas'
                 }`}

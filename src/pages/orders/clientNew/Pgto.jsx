@@ -115,7 +115,7 @@ export const Pgto = ({ orderId }) => {
   useEffect(() => {
     if (
       api?.currentUser?.MyFinalClientId &&
-      api.currentUser.AccessTypes[0] === 'CLIENT'
+      (api.currentUser.AccessTypes[0] === 'CLIENT' || api.currentUser.AccessTypes[0] === 'AGENT')
     ) {
       api.iccid
         .getSubscriptions(1, 100)

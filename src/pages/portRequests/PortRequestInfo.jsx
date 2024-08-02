@@ -151,14 +151,14 @@ export const PortRequestInfo = ({
       {/* <tbody> */}
       <tr>
         {/* <td></td> */}
-        {api.currentUser.AccessTypes[0] !== 'CLIENT' && (
+        {api.currentUser.AccessTypes[0] !== 'CLIENT' && api.currentUser.AccessTypes[0] !== 'AGENT' && (
           <td>
             {request.DealerId !== null
               ? request?.Dealer?.CompanyName || request?.Dealer?.Name
               : 'TEGG'}
           </td>
         )}
-        {api.currentUser.AccessTypes[0] !== 'CLIENT' && (
+        {api.currentUser.AccessTypes[0] !== 'CLIENT' && api.currentUser.AccessTypes[0] !== 'AGENT' && (
           <td>{request?.FinalClient?.Name}</td>
         )}
         <td>{translateStatus(request.Status)}</td>

@@ -96,7 +96,7 @@ export const OrderData = ({ goBackStep, label }) => {
 
   const loadClientsDealers = async (search) => {
     console.log('load clientes');
-    if (api.currentUser.AccessTypes[0] !== 'CLIENT') {
+    if (api.currentUser.AccessTypes[0] !== 'CLIENT' && api.currentUser.AccessTypes[0] !== 'AGENT') {
       const responseC = await api.client.getSome(1, 15, search);
       const clients = await responseC.data.finalClients;
       let responseD = [];
@@ -154,7 +154,7 @@ export const OrderData = ({ goBackStep, label }) => {
       plans = await response.data.filter((p) =>
         p.Products.every((prod) => prod.Product.SurfId !== null)
       );
-    } else if (api.currentUser.AccessTypes[0] === 'CLIENT') {
+    } else if (api.currentUser.AccessTypes[0] === 'CLIENT' || api.currentUser.AccessTypes[0] === 'AGENT') {
       plans = await response.data.filter(
         (p) => p.Products.length === 1 && p.Products[0].Product.SurfId !== null
       );
@@ -935,7 +935,7 @@ export const OrderData = ({ goBackStep, label }) => {
   };
 
   useEffect(() => {
-    if (api.currentUser.AccessTypes[0] === 'CLIENT') {
+    if (api.currentUser.AccessTypes[0] === 'CLIENT' || api.currentUser.AccessTypes[0] === 'AGENT') {
       getAddress(api.currentUser.MyFinalClientId, '');
     }
     if (location?.state?.personal) {
@@ -951,7 +951,7 @@ export const OrderData = ({ goBackStep, label }) => {
       <br />
       <br />
       <h3>DETALHES DO PEDIDO</h3>
-      {api.currentUser.AccessTypes[0] !== 'CLIENT' && (
+      {api.currentUser.AccessTypes[0] !== 'CLIENT' && api.currentUser.AccessTypes[0] !== 'AGENT' && (
         <div className='input_container'>
           <div className='input'>
             {!personal && (
@@ -1071,7 +1071,7 @@ export const OrderData = ({ goBackStep, label }) => {
           </div>
         )}
       </div>
-      {api.currentUser.AccessTypes[0] !== 'CLIENT' && !withFreight && (
+      {api.currentUser.AccessTypes[0] !== 'CLIENT'&& api.currentUser.AccessTypes[0] !== 'AGENT' && !withFreight && (
         <div>
           {iccidsToActivate.length !== 0 && (
             <div className='input_container_2'>
@@ -1159,7 +1159,7 @@ export const OrderData = ({ goBackStep, label }) => {
       )}
       {(api.currentUser.AccessTypes[0] === 'TEGG' ||
         (api.currentUser.AccessTypes[0] === 'DEALER' && personal) ||
-        (api.currentUser.AccessTypes[0] === 'CLIENT' &&
+        (api.currentUser.AccessTypes[0] === 'CLIENT' || api.currentUser.AccessTypes[0] === 'AGENT' &&
           api.currentUser.DealerId === null)) && (
         <>
           <br />
@@ -1286,7 +1286,7 @@ export const OrderData = ({ goBackStep, label }) => {
       <div className='input_container end'>
         {(api.currentUser.AccessTypes[0] === 'TEGG' ||
           (api.currentUser.AccessTypes[0] === 'DEALER' && personal) ||
-          (api.currentUser.AccessTypes[0] === 'CLIENT' &&
+          (api.currentUser.AccessTypes[0] === 'CLIENT' || api.currentUser.AccessTypes[0] === 'AGENT' &&
             api.currentUser.DealerId === null)) && (
           <div className='input_3 mr'>
             <label className='bold' style={{ fontSize: '1em' }}>

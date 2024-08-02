@@ -39,7 +39,7 @@ export const RechargeData = ({ plan, goBackStep, label }) => {
   const loadLines = async (search) => {
     const array = [];
     console.log(api.currentUser);
-    if (api.currentUser.AccessTypes[0] === 'CLIENT') {
+    if (api.currentUser.AccessTypes[0] === 'CLIENT' || api.currentUser.AccessTypes[0] === 'AGENT') {
       const response = await api.line.myLines(1, 20);
       // console.log(response.data);
       const lines = await response.data.iccids;
@@ -134,7 +134,7 @@ export const RechargeData = ({ plan, goBackStep, label }) => {
           ? api.currentUser.MyFinalClientId === clientId
             ? null
             : api.currentUser.DealerId
-          : api.currentUser.AccessTypes[0] === 'CLIENT'
+          : api.currentUser.AccessTypes[0] === 'CLIENT' || api.currentUser.AccessTypes[0] === 'AGENT'
           ? api.currentUser.MyDealerId || null
           : null,
         api.currentUser.Type === 'TEGG' ? 2 : 1,
@@ -154,7 +154,7 @@ export const RechargeData = ({ plan, goBackStep, label }) => {
               if (
                 (api.currentUser.AccessTypes[0] === 'DEALER' &&
                   api.currentUser.MyFinalClientId === clientId) ||
-                api.currentUser.AccessTypes[0] === 'CLIENT'
+                api.currentUser.AccessTypes[0] === 'CLIENT' || api.currentUser.AccessTypes[0] === 'AGENT'
               ) {
                 navigate(`/recharge/pay/${orderId}`);
               } else {

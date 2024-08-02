@@ -403,7 +403,7 @@ export const CardOderItens = ({ o, search }) => {
         >
           Informar pagamento
         </MenuItem>
-        {api.currentUser.AccessTypes[0] !== 'CLIENT' && (
+        {api.currentUser.AccessTypes[0] !== 'CLIENT' && api.currentUser.AccessTypes[0] !== 'AGENT' && (
           <MenuItem
             disabled={!(o?.Payments?.length === 0)}
             onClick={() => {
@@ -415,6 +415,7 @@ export const CardOderItens = ({ o, search }) => {
           </MenuItem>
         )}
         {(api.currentUser.AccessTypes[0] === 'CLIENT' ||
+        api.currentUser.AccessTypes[0] === 'AGENT' ||
           api.currentUser.AccessTypes[0] === 'DEALER') && (
           <MenuItem
             disabled={
@@ -457,6 +458,7 @@ export const CardOderItens = ({ o, search }) => {
           </MenuItem>
         )}
         {(api.currentUser.AccessTypes[0] === 'CLIENT' ||
+        api.currentUser.AccessTypes[0] === 'AGENT' ||
           api.currentUser.AccessTypes[0] === 'DEALER') && (
           <MenuItem
             // disabled={
@@ -551,7 +553,7 @@ export const CardOderItens = ({ o, search }) => {
         >
           XML NF-e
         </MenuItem>
-        {api.currentUser.AccessTypes[0] !== 'CLIENT' && (
+        {api.currentUser.AccessTypes[0] !== 'CLIENT' || api.currentUser.AccessTypes[0] !== 'AGENT' && (
           <MenuItem
             // disabled={o?.Payments[0]?.Status === 'RECEIVED'}
             // disabled

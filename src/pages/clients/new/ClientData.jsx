@@ -57,7 +57,7 @@ export const ClientData = ({
   }, [userLegacy]);
 
   const loadClientsDealers = async (search) => {
-    if (api.currentUser.AccessTypes[0] !== 'CLIENT') {
+    if (api.currentUser.AccessTypes[0] !== 'CLIENT' && api.currentUser.AccessTypes[0] !== 'AGENT') {
       let responseD = [];
       let dealers = [];
       if (api.currentUser.AccessTypes[0] === 'TEGG') {

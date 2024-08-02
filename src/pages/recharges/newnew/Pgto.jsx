@@ -300,7 +300,7 @@ export const Pgto = ({ goBackStep, plan, line, dueDate, orderId }) => {
                 height: 15,
               }}
             >
-              <ReactLoading type={"bars"} color={"#00D959"} />
+              <ReactLoading type={"bars"} color={"#fff"} />
             </div>
           ) : (
             <h5 style={{ textAlign: "center" }}>PIX</h5>
@@ -336,7 +336,7 @@ export const Pgto = ({ goBackStep, plan, line, dueDate, orderId }) => {
                 height: 15,
               }}
             >
-              <ReactLoading type={"bars"} color={"#00D959"} />
+              <ReactLoading type={"bars"} color={"#fff"} />
             </div>
           ) : (
             <h5 style={{ textAlign: "center" }}>BOLETO</h5>

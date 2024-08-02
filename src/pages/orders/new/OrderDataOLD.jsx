@@ -127,7 +127,7 @@ export const OrderDataNew = () => {
       plans = await response.data.filter((p) =>
         p.Products.every((prod) => prod.Product.SurfId !== null)
       );
-    } else if (api.currentUser.AccessTypes[0] === 'CLIENT') {
+    } else if (api.currentUser.AccessTypes[0] === 'CLIENT' || api.currentUser.AccessTypes[0] === 'AGENT') {
       plans = await response.data.filter(
         (p) => p.Products.length === 1 && p.Products[0].Product.SurfId !== null
       );
@@ -150,7 +150,7 @@ export const OrderDataNew = () => {
 
   const loadClientsDealers = async (search) => {
     console.log('load clientes');
-    if (api.currentUser.AccessTypes[0] !== 'CLIENT') {
+    if (api.currentUser.AccessTypes[0] !== 'CLIENT' && api.currentUser.AccessTypes[0] !== 'AGENT') {
       const responseC = await api.client.getSome(1, 15, search);
       const clients = await responseC.data.finalClients;
       let responseD = [];
@@ -242,7 +242,7 @@ export const OrderDataNew = () => {
   };
 
   useEffect(() => {
-    if (api.currentUser.AccessTypes[0] === 'CLIENT') {
+    if (api.currentUser.AccessTypes[0] === 'CLIENT' || api.currentUser.AccessTypes[0] === 'AGENT') {
       getAddress(api.currentUser.MyFinalClientId, '');
     }
     if (location?.state?.personal) {
@@ -271,7 +271,7 @@ export const OrderDataNew = () => {
           </Typography>
         </AccordionSummary>
         <AccordionDetails>
-          {api.currentUser.AccessTypes[0] !== 'CLIENT' && (
+          {api.currentUser.AccessTypes[0] !== 'CLIENT' && api.currentUser.AccessTypes[0] !== 'AGENT' && (
             // <div className="input_container">
             <div className='input'>
               {!personal && (

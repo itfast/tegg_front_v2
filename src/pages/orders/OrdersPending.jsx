@@ -535,7 +535,7 @@ export const OrdersPending = () => {
           Atender pedido
         </MenuItem>
         {tmpOrder?.Status === 'PROCESSED' &&
-          api.currentUser.AccessTypes[0] !== 'CLIENT' && (
+          api.currentUser.AccessTypes[0] !== 'CLIENT' && api.currentUser.AccessTypes[0] !== 'AGENT' && (
             <MenuItem
               // disabled={!hasStoke}
               disabled={tmpOrder?.Status !== 'PROCESSED'}
@@ -558,7 +558,7 @@ export const OrdersPending = () => {
         >
           Recibo pagamento
         </MenuItem>
-        {api.currentUser.AccessTypes[0] !== 'CLIENT' && (
+        {api.currentUser.AccessTypes[0] !== 'CLIENT' && api.currentUser.AccessTypes[0] !== 'AGENT' &&(
           <>
             <MenuItem
               // disabled={o?.Payments[0]?.Status === 'RECEIVED'}

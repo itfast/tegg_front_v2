@@ -33,7 +33,7 @@ export const Plans = () => {
   };
 
   useEffect(() => {
-    if (api.currentUser.AccessTypes[0] === 'CLIENT') {
+    if (api.currentUser.AccessTypes[0] === 'CLIENT' || api.currentUser.AccessTypes[0] === 'AGENT') {
       api.user
         .logout()
         .then(() => {
@@ -66,15 +66,15 @@ export const Plans = () => {
                 <thead>
                   <tr>
                     <th>{t('plans.table.name')}</th>
-                    {api.currentUser.AccessTypes[0] !== 'CLIENT' && (
+                    {api.currentUser.AccessTypes[0] !== 'CLIENT' && api.currentUser.AccessTypes[0] !== 'AGENT' && (
                       <th>{t('plans.table.pointsCarreira')}</th>
                     )}
-                    {api.currentUser.AccessTypes[0] !== 'CLIENT' && (
+                    {api.currentUser.AccessTypes[0] !== 'CLIENT' && api.currentUser.AccessTypes[0] !== 'AGENT' && (
                       <th>{t('plans.table.performance')} (%)</th>
                     )}
                     <th>{t('plans.table.multiLabel')}</th>
                     <th>{t('plans.table.duration')}</th>
-                    {api.currentUser.AccessTypes[0] !== 'CLIENT' && (
+                    {api.currentUser.AccessTypes[0] !== 'CLIENT' && api.currentUser.AccessTypes[0] !== 'AGENT' && (
                       <th>{t('plans.table.maxTop')}</th>
                     )}
                   </tr>

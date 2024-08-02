@@ -36,7 +36,7 @@ export const ActivationManual = () => {
   const [line, setLine] = useState();
 
   useEffect(() => {
-    if (api.currentUser.AccessTypes[0] === 'CLIENT') {
+    if (api.currentUser.AccessTypes[0] === 'CLIENT' || api.currentUser.AccessTypes[0] === 'AGENT') {
       navigate('/');
     }
     if (location.state?.document) {

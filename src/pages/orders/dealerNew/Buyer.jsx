@@ -29,7 +29,7 @@ export const Buyer = ({
   //   console.log(api.currentUser);
   // }
   const loadClientsDealers = async (search) => {
-    if (api.currentUser.AccessTypes[0] !== 'CLIENT') {
+    if (api.currentUser.AccessTypes[0] !== 'CLIENT' && api.currentUser.AccessTypes[0] !== 'AGENT') {
       const responseC = await api.client.getSome(1, 15, search);
       const clients = await responseC.data.finalClients;
       let responseD = [];

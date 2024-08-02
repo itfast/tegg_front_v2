@@ -13,7 +13,7 @@ import { PageTitles } from '../../../components/PageTitle/PageTitle'
 
 export const NewRechargeClient = () => {
   const stepperClient =
-    api.currentUser.AccessTypes[0] === 'CLIENT'
+    (api.currentUser.AccessTypes[0] === 'CLIENT' || api.currentUser.AccessTypes[0] === 'AGENT')
       ? [
           { name: 'PLANOS', status: 'current' },
           { name: 'LINHA', status: '' },
@@ -103,7 +103,7 @@ export const NewRechargeClient = () => {
   // }, []);
 
   const handleNext = () => {
-    if (step === 2 && api.currentUser.AccessTypes[0] !== 'CLIENT') {
+    if (step === 2 && api.currentUser.AccessTypes[0] !== 'CLIENT' && api.currentUser.AccessTypes[0] !== 'AGENT') {
       navigate('/orders');
     } else {
       const orig = _.cloneDeep(typeStepper);

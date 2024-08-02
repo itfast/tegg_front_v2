@@ -23,7 +23,7 @@ import { PageTitles } from '../../components/PageTitle/PageTitle';
 export const NFe = () => {
   const [loading, setLoading] = useState(true);
   const [status, setStatus] = useState(
-    api.currentUser.AccessTypes[0] === 'CLIENT'
+    api.currentUser.AccessTypes[0] === 'CLIENT' || api.currentUser.AccessTypes[0] === 'AGENT'
       ? { label: 'Autorizada', value: 100 }
       : { label: 'Tudo', value: null }
   );
@@ -78,7 +78,7 @@ export const NFe = () => {
             }}
           >
             <div style={{ display: 'flex', alignItems: 'center' }}>
-              {api.currentUser.AccessTypes[0] !== 'CLIENT' && (
+              {api.currentUser.AccessTypes[0] !== 'CLIENT' && api.currentUser.AccessTypes[0] !== 'AGENT' && (
                 <>
                   <h5 style={{ marginRight: 10 }}>STATUS</h5>
                   <div style={{ width: '10rem' }}>

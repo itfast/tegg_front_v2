@@ -91,7 +91,7 @@ export const PortRequests = () => {
     <>
       <ContainerWeb>
         <PageLayout>
-          {api.currentUser.AccessTypes[0] !== 'CLIENT' && (
+          {api.currentUser.AccessTypes[0] !== 'CLIENT' && api.currentUser.AccessTypes[0] !== 'AGENT' && (
             <div className='btn_container'>
               <Button onClick={() => navigate('/portRequests/new')}>
                 + REQUISIÇÃO
@@ -108,10 +108,10 @@ export const PortRequests = () => {
               <table id='customers' className='mt-30'>
                 <thead>
                   <tr>
-                    {api.currentUser.AccessTypes[0] !== 'CLIENT' && (
+                    {api.currentUser.AccessTypes[0] !== 'CLIENT' && api.currentUser.AccessTypes[0] !== 'AGENT' && (
                       <th>Revenda</th>
                     )}
-                    {api.currentUser.AccessTypes[0] !== 'CLIENT' && (
+                    {api.currentUser.AccessTypes[0] !== 'CLIENT' && api.currentUser.AccessTypes[0] !== 'AGENT' && (
                       <th>Cliente</th>
                     )}
                     <th>Status</th>

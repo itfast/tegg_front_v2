@@ -238,7 +238,7 @@ export const SubscriptionData = ({
     const array = [];
     if (Object.keys(client).length !== 0) {
       let response;
-      if (api.currentUser.AccessTypes[0] !== 'CLIENT') {
+      if (api.currentUser.AccessTypes[0] !== 'CLIENT' && api.currentUser.AccessTypes[0] !== 'AGENT') {
         response = await api.line.getClientLines(1, 10, client.Id);
       } else {
         response = await api.line.myLines(1, 10);
@@ -364,7 +364,7 @@ export const SubscriptionData = ({
   return (
     <CardData>
       <h3>{label}</h3>
-      {api.currentUser.AccessTypes[0] !== 'CLIENT' && (
+      {api.currentUser.AccessTypes[0] !== 'CLIENT' && api.currentUser.AccessTypes[0] !== 'AGENT' && (
         <div className='input_row_2'>
           <div className='input'>
             <label>CLIENTE</label>

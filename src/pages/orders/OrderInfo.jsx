@@ -409,7 +409,7 @@ export const OrderInfo = ({
                 >
                   Atualizar status frete
                 </MenuItem>
-                {api.currentUser.AccessTypes[0] !== 'CLIENT' && (
+                {api.currentUser.AccessTypes[0] !== 'CLIENT' && api.currentUser.AccessTypes[0] !== 'AGENT' && (
                   <MenuItem
                     disabled={!(order?.Payments?.length === 0)}
                     onClick={() => {
@@ -421,6 +421,7 @@ export const OrderInfo = ({
                   </MenuItem>
                 )}
                 {(api.currentUser.AccessTypes[0] === 'CLIENT' ||
+                api.currentUser.AccessTypes[0] === 'AGENT' ||
                   (api.currentUser.AccessTypes[0] === 'DEALER' &&
                     personalOrders)) && (
                   <MenuItem
@@ -438,6 +439,7 @@ export const OrderInfo = ({
                   </MenuItem>
                 )}
                 {(api.currentUser.AccessTypes[0] === 'CLIENT' ||
+                api.currentUser.AccessTypes[0] === 'AGENT' ||
                   (api.currentUser.AccessTypes[0] === 'DEALER' &&
                     personalOrders)) && (
                   <MenuItem
@@ -542,7 +544,7 @@ export const OrderInfo = ({
                 >
                   XML NF-e
                 </MenuItem>
-                {api.currentUser.AccessTypes[0] !== 'CLIENT' && (
+                {api.currentUser.AccessTypes[0] !== 'CLIENT' && api.currentUser.AccessTypes[0] !== 'AGENT' && (
                   <MenuItem
                     onClick={() => {
                       generateLink(order);

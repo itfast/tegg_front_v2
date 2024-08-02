@@ -79,7 +79,7 @@ export const NFe = () => {
                     <th>Download PDF</th>
                     <th>Download XML</th>
                     <th>Data de autorização</th>
-                    {api.currentUser.AccessTypes[0] !== 'CLIENT' && (
+                    {api.currentUser.AccessTypes[0] !== 'CLIENT' && api.currentUser.AccessTypes[0] !== 'AGENT' && (
                       <th>Reemitir NF-e</th>
                     )}
                   </tr>
