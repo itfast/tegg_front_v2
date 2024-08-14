@@ -705,6 +705,27 @@ export const SideBarMobile = ({ open, setHas, setOpen }) => {
                   )}
                 </a>
               </li>
+              <li className={open ? "animate" : ""}>
+                <a>
+                  <div
+                    style={{
+                      position: "relative",
+                      display: "flex",
+                      width: "100%",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      zIndex: open ? 999 : 0,
+                    }}
+                    onClick={() => {
+                      navigate("/tutorials");
+                      setOpen(false);
+                      setExpand({ order: false, line: false, profile: false });
+                    }}
+                  >
+                    <span className="link_name">Tutoriais</span>
+                  </div>
+                </a>
+              </li>
               {/* PROFILE */}
               <li className={open ? "animate" : ""}>
                 <a>

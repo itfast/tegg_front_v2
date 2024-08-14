@@ -73,6 +73,8 @@ import { BringNumber } from '../pages/portRequests/component/BringNumber'
 import { ClientsDeleteds } from '../pages/clients/ClientsDeleteds'
 import { ChangeDocument } from '../pages/ChangeDocument/ChangeDocument'
 import { PortDoc } from '../components/PortDocs/PortDoc'
+import { Tutorials } from '../pages/tutorials/Tutorials'
+import { ManagerTutorial } from '../pages/tutorials/ManagerTutorial'
 
 export function Router() {
   const [deferredPrompt, setDeferredPrompt] = useState();
@@ -216,6 +218,8 @@ export function Router() {
               <Route path={'actions/changedocument'} element={<ChangeDocument />} />
               <Route path={'actions/portDoc'} element={<PortDoc />} />
               <Route path={'bringnumber'} element={<BringNumber />} />
+              <Route path={'tutorials'} element={<Tutorials />} />
+              <Route path={'tutorials/manager'} element={<ManagerTutorial />} />
             </Route>
           </Route>
         </Fragment>

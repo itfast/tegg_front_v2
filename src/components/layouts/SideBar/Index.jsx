@@ -753,6 +753,42 @@ export function SideBar({ open }) {
                 </ul>
               </li>
             </PermissionView>
+            {/* TUTORIAIS */}
+            <li
+              style={{
+                backgroundColor:
+                  // local.pathname === "/streaming" ||
+                  local.pathname === '/subscriptions' ||
+                  local.pathname === '/subscriptions/new/'
+                    ? '#00D959'
+                    : '',
+              }}
+            >
+              <div className='iocn-link' onClick={submenuAction}>
+                <a
+                  href='#'
+                  onClick={() => {
+                    navigate('/tutorials');
+                  }}
+                >
+                  <i className='bx bx-play-circle'></i>
+                  <span className='link_name'>Tutoriais</span>
+                </a>
+                <i className='bx bxs-chevron-down arrow'></i>
+              </div>
+              <ul className='sub-menu'>
+                <li>
+                  <a
+                    href='#'
+                    onClick={() => {
+                      navigate('/tutorials');
+                    }}
+                  >
+                    Tutoriais
+                  </a>
+                </li>
+              </ul>
+            </li>
             {/* PERFIL */}
             <li
               style={{

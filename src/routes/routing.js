@@ -5,6 +5,7 @@ const routing = {
 	userlegacy: "/userlegacy",
 	settings: "/settings",
 	client: "/client",
+	tutorials: "/video",
 	preregistration: "preregistration",
 	plan: "/plan",
 	iccid: "/iccid",

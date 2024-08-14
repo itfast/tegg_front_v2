@@ -907,8 +907,61 @@ class Api {
         }
       },
     };
+    this.tutorials = {
+      delete: async (Id) => {
+        try {
+          const response = await this.axios.delete(
+            `${apiRoutes.tutorials}/${Id}`
+          );
+          return response;
+        } catch (e) {
+          throwFormattedError(e);
+        }
+      },
+      getAll: async (pageNum, pageSize, status) => {
+        const query = status ? `&status=${status}` : ''
+        try {
+          const response = await this.axios.get(
+            `${apiRoutes.tutorials}?page=${pageNum}&limit=${pageSize}${query}`
+          );
+          return response;
+        } catch (e) {
+          throwFormattedError(e);
+        }
+      },
+      new: async (title, description, videoUrl) => {
+        try {
+          const response = await this.axios.post(`${apiRoutes.tutorials}`, {
+            Title: title,
+            Description: description,
+            URL: videoUrl,
+            Status: 'Publicado',
+          });
+          return response;
+        } catch (e) {
+          throwFormattedError(e);
+        }
+      },
+      edit: async (id, title, description, videoUrl, status) => {
+        console.log(id, title, description, videoUrl, status)
+        try {
+          const response = await this.axios.put(
+            `${apiRoutes.tutorials}/${id}`,
+            {
+              Title: title,
+              Description: description,
+              URL: videoUrl,
+              Status: status
+            }
+          );
+          return response;
+        } catch (e) {
+          throwFormattedError(e);
+        }
+      },
+    };
     this.client = {
-      delete:async (Id) => {
+      delete: async (Id) => {
         try {
           const response = await this.axios.delete(`${apiRoutes.client}/${Id}`);
           return response;
@@ -920,10 +973,10 @@ class Api {
         // console.log(
         //   `${apiRoutes.client}?page=${pageNum}&limit=${pageSize}&search=${search}&dealer=${dealer}`
         // );
-        let queryType = ''
-        if(type){
-          if(type?.value !== ''){
-            queryType = `&type=${type.value}`
+        let queryType = '';
+        if (type) {
+          if (type?.value !== '') {
+            queryType = `&type=${type.value}`;
           }
         }
         try {
@@ -946,13 +999,14 @@ class Api {
           throwFormattedError(e);
         }
       },
-      changeDoc: async (Msisdn, Document, Iccid)=>{
+      changeDoc: async (Msisdn, Document, Iccid) => {
         try {
           const response = await this.axios.post(
-            `${apiRoutes.iccid}/changelinedocument`,{
+            `${apiRoutes.iccid}/changelinedocument`,
+            {
               Msisdn,
               Document,
-              Iccid
+              Iccid,
             }
           );
           return response;
@@ -2349,7 +2403,7 @@ class Api {
       },
     };
     this.dealer = {
-      delete:async (Id) => {
+      delete: async (Id) => {
         try {
           const response = await this.axios.delete(`${apiRoutes.dealer}/${Id}`);
           return response;
