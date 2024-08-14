@@ -758,8 +758,8 @@ export function SideBar({ open }) {
               style={{
                 backgroundColor:
                   // local.pathname === "/streaming" ||
-                  local.pathname === '/subscriptions' ||
-                  local.pathname === '/subscriptions/new/'
+                  local.pathname === '/tutorials' ||
+                  local.pathname === '/tutorials/manager'
                     ? '#00D959'
                     : '',
               }}
