@@ -214,13 +214,13 @@ export const Activation = () => {
                   size={25}
                   style={{ cursor: 'pointer', color: 'white' }}
                   onClick={() => {
-                    setTmpActivate(r);
-                    if (api.currentUser.Type === 'TEGG' && !r?.AwardedSurfPlan) {
+                    // setTmpActivate(r);
+                    // if (api.currentUser.Type === 'TEGG' && !r?.AwardedSurfPlan) {
                       navigate('/activation/manual', {
                         state: { iccid: r?.Iccid, finalClientId: r?.FinalClientId, clientDocument: r?.FinalClient?.Type === 'PF' ?r?.FinalClient?.Cpf : r?.FinalClient?.Cnpj},
                       });
-                    }
-                    setShow(true);
+                    // }
+                    // setShow(true);
                   }}
                 />
               </div>

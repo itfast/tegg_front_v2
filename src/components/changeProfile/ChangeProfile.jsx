@@ -28,11 +28,11 @@ export const ChangeProfile = ({ setShowEditProfile, setLoading }) => {
     api.user
       .getUserSession(userId)
       .then((res) => {
+        console.log(res)
         navigate('/');
         api.mySession.set(res.data?.AccessToken).then(async () => {
           if (profile === 'DEALER') {
             setLoading(false);
-            // setShowEditProfile(false);
             window.location.reload();
           } else {
             changeClientProfile(profile);
@@ -52,6 +52,8 @@ export const ChangeProfile = ({ setShowEditProfile, setLoading }) => {
         api.currentUser.Type === 'AGENT'
       ) {
         if (profile === 'DEALER') {
+          console.log('DEALER')
+          console.log(api.currentUser.MyUserDealerId)
           newUserSession(api.currentUser.MyUserDealerId, profile);
         } else {
           changeClientProfile(profile);
@@ -63,7 +65,7 @@ export const ChangeProfile = ({ setShowEditProfile, setLoading }) => {
       toast.info('Perfil selecionado já é o perfil atual.');
     }
   };
-console.log(api.currentUser)
+
   return (
     <>
     {(api.currentUser.MyUserFinalClientId || api.currentUser.Type === 'AGENT' || api.currentUser.Type === 'CLIENT') &&<MenuItem disabled={api.currentUser.Type === 'CLIENT'} onClick={()=>handleChangeProfile('CLIENT')}>Cliente</MenuItem>}

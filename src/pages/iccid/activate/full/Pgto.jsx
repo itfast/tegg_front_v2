@@ -161,7 +161,6 @@ export const Pgto = ({
         }
       })
       .catch((err) => {
-        console.log(err.response);
         translateError(err);
       })
       .finally(() => {

@@ -43,7 +43,6 @@ export const BringNumber = () => {
         vlr / 10 === 0 ? 1 : vlr / 10 + 1,
         10
       );
-      console.log(response);
       const hasMore = response.data.meta.total > vlr && response.data.meta.total > 10;
       const lines = await response.data.iccids;
       const array = [];

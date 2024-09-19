@@ -87,16 +87,12 @@ export const LinesCLient = ({ line, getLines, pageNum, pageSize }) => {
 
   const getStatus = (myLine, idx) => {
     setStatusLoading(true);
-    // setStatusLoading([...statusLoading]);
     console.log(myLine);
     api.iccid
       .surfStatus(myLine.Iccid, 'status')
       .then((res) => {
-        // console.log("status", res.data.retStatus.resultado);
         setStatusInfo(res.data.retStatus.resultado);
         getService(myLine, idx);
-        // setServiceInfo(res.data.retStatus.resultado);
-        // setShowStatusInfo(true)
       })
       .catch((err) => {
         setStatusLoading(false);

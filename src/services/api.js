@@ -1073,6 +1073,7 @@ class Api {
         }
       },
       getAddress1: async (id) => {
+        console.log(id)
         try {
           const response = await this.axios.get(`${apiRoutes.client}/${id}`);
           return response;
@@ -1145,11 +1146,6 @@ class Api {
         }
       },
       newPreregistration: async (client, company, type, bank, Id, Password) => {
-        // console.log(client, company, type, bank, cleanNumber(company?.cnpj))
-        // console.log(cleanNumber(client?.cnpj))
-        // console.log(cleanNumber(client?.cnpj))
-        // console.log(client?.cnpj)
-        console.log(Id);
         try {
           const response = await this.axios.post(
             `${apiRoutes.preregistration}`,
@@ -2215,23 +2211,6 @@ class Api {
         Complement,
         State
       ) => {
-        console.log({
-          FinalClientId: isClient ? DealerId : null,
-          DealerId: !isClient ? DealerId : null,
-          Name,
-          Phone,
-          WhatsApp,
-          DocumentType,
-          DocumentNumber,
-          Country,
-          City,
-          StreetName,
-          StreetNumber,
-          District,
-          PostalCode,
-          Complement,
-          State,
-        });
         try {
           const response = await this.axios.post(`${apiRoutes.preorder}`, {
             FinalClientId: isClient ? DealerId : null,

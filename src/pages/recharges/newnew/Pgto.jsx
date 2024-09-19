@@ -161,17 +161,6 @@ export const Pgto = ({ goBackStep, plan, line, dueDate, orderId }) => {
         .finally(() => {
           setLoading(false);
         });
-      // api.order
-      //   .payPix(orderId, plan?.value?.Amount)
-      //   .then((res) => {
-      //     console.log(res);
-      //     let url = `data:image/png;base64,${res.data.QrCodePix.encodedImage}`;
-      //     setQrcode({ qrcode: url, copyPaste: res.data.QrCodePix.payload });
-      //   })
-      //   .catch((err) => console.log(err))
-      //   .finally(() => {
-      //     setLoading(false);
-      //   });
     } else {
       api.order
         .payCredit(
