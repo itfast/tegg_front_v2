@@ -2,6 +2,7 @@ import { Fragment, useEffect, useState } from 'react';
 import { Routes, Route /*, useLocation*/ } from 'react-router-dom';
 import PrivateRoute from './PrivateRoute';
 import { Login } from '../pages/login/Login';
+import { EasyLogin } from '../pages/easyLogin/easyLogin';
 import GlobalStyle from '../../globalStyles';
 import { AdminLayout } from '../components/layouts/AdminLayout';
 import { Resales } from '../pages/resales/Resales';
@@ -109,6 +110,7 @@ export function Router() {
       <Routes>
         <Fragment>
           <Route path={'/login'} element={<Login />} />
+          <Route path={'/easylogin'} element={<EasyLogin />} />
           <Route path={'/subscribe'} element={<PreRegister />} />
           <Route path={'/subscribe/:id'} element={<PreRegister />} />
           <Route path={'/subscribe/client/:id'} element={<PreRegister />} />
