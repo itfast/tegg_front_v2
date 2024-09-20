@@ -25,7 +25,7 @@ import { he } from "date-fns/locale";
 
 export const EasyLogin = () => {
   const { t } = useTranslation();
-  const [hovering, setHovering] = useState(false);
+  /*const [hovering, setHovering] = useState(false);
   const [typePass, setTypePass] = useState("password");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
@@ -37,7 +37,7 @@ export const EasyLogin = () => {
   const [singUp, setSingUp] = useState(false);
   const [flipped, setFlipped] = useState(true);
   const [language, setLanguage] = useState();
-  const [anchorEl, setAnchorEl] = useState(null);
+  const [anchorEl, setAnchorEl] = useState(null);*/
 
   return (
     <>

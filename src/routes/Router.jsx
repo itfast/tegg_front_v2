@@ -3,6 +3,7 @@ import { Routes, Route /*, useLocation*/ } from 'react-router-dom';
 import PrivateRoute from './PrivateRoute';
 import { Login } from '../pages/login/Login';
 import { EasyLogin } from '../pages/easyLogin/easyLogin';
+import { EasyLoginInfo } from '../pages/easyLogin/easyLoginInfo';
 import GlobalStyle from '../../globalStyles';
 import { AdminLayout } from '../components/layouts/AdminLayout';
 import { Resales } from '../pages/resales/Resales';
@@ -76,6 +77,7 @@ import { ChangeDocument } from '../pages/ChangeDocument/ChangeDocument'
 import { PortDoc } from '../components/PortDocs/PortDoc'
 import { Tutorials } from '../pages/tutorials/Tutorials'
 import { ManagerTutorial } from '../pages/tutorials/ManagerTutorial'
+import { AllBills } from '../pages/easyLogin/allBills';
 
 export function Router() {
   const [deferredPrompt, setDeferredPrompt] = useState();
@@ -111,6 +113,8 @@ export function Router() {
         <Fragment>
           <Route path={'/login'} element={<Login />} />
           <Route path={'/easylogin'} element={<EasyLogin />} />
+          <Route path={'/easylogininfo'} element={<EasyLoginInfo />} />
+          <Route path={'/allbills'} element={<AllBills />} />
           <Route path={'/subscribe'} element={<PreRegister />} />
           <Route path={'/subscribe/:id'} element={<PreRegister />} />
           <Route path={'/subscribe/client/:id'} element={<PreRegister />} />
