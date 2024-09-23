@@ -25,6 +25,7 @@ import { he } from "date-fns/locale";
 
 export const EasyLogin = () => {
   const { t } = useTranslation();
+  const navigate = useNavigate();
   /*const [hovering, setHovering] = useState(false);
   const [typePass, setTypePass] = useState("password");
   const [password, setPassword] = useState("");
@@ -97,18 +98,19 @@ export const EasyLogin = () => {
                   width: "100%",
                 }}
               />
-              <button
+              <Button
                 style={{
                   width: "100%",
-                  padding: "0.75rem",
-                  borderRadius: "8px",
-                  backgroundColor: "#4CAF50",
-                  color: "#fff",
-                  border: "none",
+                  display: "flex",
+                  justifyContent: "center",
+                  flexDirection: "row",
+                  alignItems: "center",
+                  gap: "10px",
                 }}
+                onClick={() => navigate("/easylogininfo")}
               >
                 Entrar
-              </button>
+              </Button>
             </ContainerFormLogin>
           </div>
           <h4
@@ -117,7 +119,7 @@ export const EasyLogin = () => {
               // margin: 10,
               textAlign: "center",
               color: "white",
-              marginBottom:"0.2rem"
+              marginBottom: "0.2rem",
             }}
           >
             Copyright © 2024 TEGG TECHNOLOGY LTDA – CNPJ: 45.435.783/0001-74 |{" "}
@@ -125,6 +127,88 @@ export const EasyLogin = () => {
           </h4>
         </ContainerBodyLogin>
       </ContainerWeb>
+      <ContainerMobile>
+        <ContainerBodyLogin
+          style={{
+            height: "100vh",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <div
+            style={{
+              height: "100vh",
+              width: "120vh",
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <img
+              src={"/assets/tegg-branco.png"}
+              alt="Logo Tegg"
+              style={{
+                width: "150px", // Tamanho ajustado do logo
+              }}
+            />
+            {/* Logo à esquerda */}
+            <div style={{ marginTop: "2rem" }}>
+              {" "}
+              {/* Espaço entre logo e formulário */}
+            </div>
+            <ContainerFormLogin style={{ width: "30%", height: "30%" }}>
+              <h3
+                style={{
+                  textAlign: "left",
+                  marginBottom: "1rem",
+                  fontWeight: "bold",
+                }}
+              >
+                Consulta fácil
+              </h3>
+
+              <p>Insira seu CPF:</p>
+              <InputLogin
+                type="text"
+                placeholder="CPF"
+                style={{
+                  marginBottom: "1rem",
+                  padding: "0.75rem",
+                  borderRadius: "8px",
+                  width: "100%",
+                }}
+              />
+              <Button
+                style={{
+                  width: "100%",
+                  display: "flex",
+                  justifyContent: "center",
+                  flexDirection: "row",
+                  alignItems: "center",
+                  gap: "10px",
+                }}
+                onClick={() => navigate("/easylogininfo")}
+              >
+                Entrar
+              </Button>
+            </ContainerFormLogin>
+          </div>
+          <h5
+            className="copyright-text"
+            style={{
+              // margin: 10,
+              textAlign: "center",
+              color: "white",
+              marginBottom: "0.2rem",
+            }}
+          >
+            Copyright © 2024 TEGG TECHNOLOGY LTDA – CNPJ: 45.435.783/0001-74 |{" "}
+            {t("Rights")}
+          </h5>
+        </ContainerBodyLogin>
+      </ContainerMobile>
     </>
   );
 };
