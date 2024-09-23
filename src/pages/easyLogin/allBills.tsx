@@ -32,7 +32,13 @@ import { FaRegCreditCard } from "react-icons/fa";
 import { FaInfoCircle } from "react-icons/fa";
 import { FaHouse } from "react-icons/fa6";
 import { RiBillFill } from "react-icons/ri";
-import { InfoBox } from "./easyLoginInfo";
+import {
+  InfoBox,
+  HeaderBar,
+  MainInfo,
+  NavButton,
+  BillInfo,
+} from "./easyLoginInfo";
 import { RiLogoutBoxLine } from "react-icons/ri";
 
 export const AllBills = () => {
@@ -43,12 +49,12 @@ export const AllBills = () => {
   const { t } = useTranslation();
   const [loading, setLoading] = useState(true);
 
-  const load = (() => {
-    setLoading(false)
-  })
+  const load = () => {
+    setLoading(false);
+  };
 
   useEffect(() => {
-    load()
+    load();
   }, []);
 
   const goExit = () => {
@@ -60,13 +66,13 @@ export const AllBills = () => {
     <>
       <Loading open={loading} msg="Buscando faturas..." />
       <ContainerWeb>
+        {/* Sidebar Section */}
         <div
           style={{
             height: "100vh",
             width: "400px",
             display: "flex",
             flexDirection: "column",
-            justifyContent: "left",
             alignItems: "center",
             backgroundColor: "#2B2B2B",
           }}
@@ -74,171 +80,291 @@ export const AllBills = () => {
           <img
             src={"/assets/tegg-branco.png"}
             alt="Logo Tegg"
-            style={{
-              width: "200px",
-              padding: "1rem",
-              marginTop: "1.5rem",
-            }}
+            style={{ width: "200px", padding: "1rem", marginTop: "1.5rem" }}
           />
           <br />
-          <Button
-            style={{
-              display: "flex",
-              width: "11rem",
-              height: "3rem",
-              justifyContent: "left",
-              alignItems: "center",
-              gap: "10px",
-            }}
-            onClick={() => navigate("/easylogininfo")}
-          >
+          <NavButton onClick={() => navigate("/easylogininfo")}>
             <FaHouse style={{ fontSize: "20px" }} />
             Início
-          </Button>
+          </NavButton>
           <br />
-          <Button
-            style={{
-              display: "flex",
-              width: "11rem",
-              height: "3rem",
-              justifyContent: "left",
-              alignItems: "center",
-              gap: "10px",
-            }}
-            onClick={() => navigate("/allbills")}
-          >
+          <NavButton>
             <RiBillFill style={{ fontSize: "20px" }} />
             Todas as faturas
-          </Button>
+          </NavButton>
         </div>
 
+        {/* Main Content Section */}
         <div
           style={{
             height: "100vh",
             width: "100%",
             display: "flex",
             flexDirection: "column",
-            justifyContent: "left",
-            alignItems: "left",
             padding: "3rem",
             gap: "30px",
           }}
         >
-          <h2>
-            <b style={{ fontWeight: "bold" }}>Todas as faturas</b>
-          </h2>
+          <h2 style={{ fontWeight: "bold" }}>Todas as faturas </h2>
           <h3>Faturas em aberto:</h3>
 
           <InfoBox>
-            <h3>Fatura1</h3>
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "center",
-                padding: "10px",
-                backgroundColor: "blue",
-                alignItems: "center",
-                gap: "10px",
-              }}
-            >
-              <h2>oi</h2>
-              <img
-                src={"/assets/tegg-branco.png"}
-                alt="Logo Tegg"
+            <MainInfo>
+              <BillInfo>
+                <h3 style={{ fontWeight: "bold" }}>R$100,00</h3>
+                {/*valor*/}
+                <h4>Vencida</h4>
+                {/*status*/}
+                <h4>23/09/2024</h4>
+                {/*data vencimento*/}
+              </BillInfo>
+
+              <div
                 style={{
-                  width: "80px",
+                  width: "50%",
                   padding: "1rem",
                 }}
-              />
-            </div>
+              >
+                <div
+                  style={{
+                    width: "90px",
+                    height: "90px",
+                    backgroundColor: "red",
+                  }}
+                ></div>
+              </div>
+            </MainInfo>
             <Button
               style={{
                 width: "100%",
+                height: "1rem",
+                padding: "1rem",
                 display: "flex",
                 justifyContent: "center",
-                flexDirection: "row",
                 alignItems: "center",
                 gap: "10px",
               }}
             >
-              <FaRegCreditCard
-                style={{
-                  fontSize: "20px",
-                }}
-              />
+              <FaRegCreditCard style={{ fontSize: "20px" }} />
               <h4>Botão pagar fatura</h4>
             </Button>
           </InfoBox>
+
           <h3>Faturas pagas:</h3>
 
           <InfoBox>
-            <h3>Fatura2</h3>
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "center",
-                padding: "10px",
-                backgroundColor: "blue",
-                alignItems: "center",
-                gap: "10px",
-              }}
-            >
-              <h2>oi</h2>
-              <img
-                src={"/assets/tegg-branco.png"}
-                alt="Logo Tegg"
+            <MainInfo>
+              <BillInfo>
+                <h3 style={{ fontWeight: "bold" }}>R$200,00</h3>
+                {/*valor*/}
+                <h4>Paga em:</h4>
+                {/*status*/}
+                <h4>22/09/2024</h4>
+                {/*data vencimento*/}
+              </BillInfo>
+
+              <div
                 style={{
-                  width: "80px",
+                  width: "50%",
                   padding: "1rem",
                 }}
-              />
-            </div>
+              >
+                <div
+                  style={{
+                    width: "90px",
+                    height: "90px",
+                    backgroundColor: "red",
+                  }}
+                ></div>
+              </div>
+            </MainInfo>
             <Button
               style={{
                 width: "100%",
+                height: "1rem",
+                padding: "1rem",
                 display: "flex",
                 justifyContent: "center",
-                flexDirection: "row",
                 alignItems: "center",
                 gap: "10px",
               }}
             >
-              <FaRegCreditCard
-                style={{
-                  fontSize: "20px",
-                }}
-              />
+              <FaRegCreditCard style={{ fontSize: "20px" }} />
               <h4>Botão pagar fatura</h4>
             </Button>
           </InfoBox>
         </div>
-        <div
-          style={{
-            padding: "3rem",
-            marginRight: "80px",
-          }}
-        >
+
+        {/* Footer Section */}
+        <div style={{ padding: "3rem", marginRight: "80px" }}>
           <Button
             style={{
               width: "100%",
               display: "flex",
               justifyContent: "center",
-              flexDirection: "row",
               alignItems: "center",
               gap: "10px",
             }}
+            onClick={goExit}
           >
-            <RiLogoutBoxLine
-              style={{
-                fontSize: "20px",
-              }}
-            />
-            <a href="#" onClick={goExit}>
-              {t("Menu.exit")}
-            </a>{" "}
+            <RiLogoutBoxLine style={{ fontSize: "20px" }} />
+            {t("Menu.exit")}
           </Button>
         </div>
       </ContainerWeb>
+
+      <ContainerMobile>
+        {/* Header for Mobile */}
+        <HeaderBar
+          isTop
+          style={{ justifyContent: "left", paddingLeft: "1rem" }}
+        >
+          <img
+            src={"/assets/tegg-branco.png"}
+            alt="Logo Tegg"
+            style={{ width: "120px", padding: "1rem" }}
+          />
+        </HeaderBar>
+
+        {/* Main Content for Mobile */}
+        <div
+          style={{
+            flexGrow: 1,
+            backgroundColor: "#FFFFFF",
+            paddingTop: "5rem",
+            paddingLeft: "1rem",
+            paddingRight: "1rem",
+          }}
+        >
+          <h2 style={{ fontWeight: "bold" }}>Todas as faturas</h2>
+          <br />
+          <h3>Faturas em aberto:</h3>
+          <br />
+
+          <div
+            style={{
+              alignItems: "center",
+              width: "100%",
+              display: "flex",
+              justifyContent: "center",
+            }}
+          >
+            <InfoBox>
+              <MainInfo>
+                <BillInfo>
+                  <h3 style={{ fontWeight: "bold" }}>R$100,00</h3>
+                  {/*valor*/}
+                  <h4>Vencida</h4>
+                  {/*status*/}
+                  <h4>23/09/2024</h4>
+                  {/*data vencimento*/}
+                </BillInfo>
+
+                <div
+                  style={{
+                    width: "50%",
+                    padding: "1rem",
+                  }}
+                >
+                  <div
+                    style={{
+                      width: "90px",
+                      height: "90px",
+                      backgroundColor: "red",
+                    }}
+                  ></div>
+                </div>
+              </MainInfo>
+              <Button
+                style={{
+                  width: "100%",
+                  height: "1rem",
+                  padding: "1rem",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  gap: "10px",
+                }}
+              >
+                <FaRegCreditCard style={{ fontSize: "20px" }} />
+                <h4>Botão pagar fatura</h4>
+              </Button>
+            </InfoBox>
+          </div>
+          <br />
+          <h3>Faturas pagas:</h3>
+          <br />
+          <div
+            style={{
+              alignItems: "center",
+              width: "100%",
+              display: "flex",
+              justifyContent: "center",
+            }}
+          >
+            <InfoBox>
+              <MainInfo>
+                <BillInfo>
+                  <h3 style={{ fontWeight: "bold" }}>R$200,00</h3>
+                  {/*valor*/}
+                  <h4>Paga em:</h4>
+                  {/*status*/}
+                  <h4>22/09/2024</h4>
+                  {/*data vencimento*/}
+                </BillInfo>
+
+                <div
+                  style={{
+                    width: "50%",
+                    padding: "1rem",
+                  }}
+                >
+                  <div
+                    style={{
+                      width: "90px",
+                      height: "90px",
+                      backgroundColor: "red",
+                    }}
+                  ></div>
+                </div>
+              </MainInfo>
+              <Button
+                style={{
+                  width: "100%",
+                  height: "1rem",
+                  padding: "1rem",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  gap: "10px",
+                }}
+              >
+                <FaRegCreditCard style={{ fontSize: "20px" }} />
+                <h4>Botão pagar fatura</h4>
+              </Button>
+            </InfoBox>
+          </div>
+        </div>
+
+        {/* Footer for Mobile */}
+        <HeaderBar isBottom>
+          <NavButton
+            style={{ width: "40%" }}
+            onClick={() => navigate("/easylogininfo")}
+          >
+            <FaHouse style={{ fontSize: "20px" }} />
+            Início
+          </NavButton>
+          <div style={{ marginLeft: "2rem" }}>
+            {" "}
+            {/* Espaço entre logo e formulário */}
+          </div>
+          <NavButton style={{ width: "40%" }}>
+            <RiBillFill style={{ fontSize: "20px" }} />
+            Todas as faturas
+          </NavButton>
+        </HeaderBar>
+      </ContainerMobile>
     </>
   );
 };
