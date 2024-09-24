@@ -84,13 +84,12 @@ export const EasyLoginInfo = () => {
 
   const goExit = () => {
     api.user.logout();
-    navigate("/login");
+    navigate("/easylogin");
   };
 
   return (
     <>
       <ContainerWeb>
-        {/* Sidebar Section */}
         <div
           style={{
             height: "100vh",
@@ -106,35 +105,44 @@ export const EasyLoginInfo = () => {
             alt="Logo Tegg"
             style={{ width: "200px", padding: "1rem", marginTop: "1.5rem" }}
           />
-          <br />
-          <NavButton>
-            <FaHouse style={{ fontSize: "20px" }} />
-            Início
-          </NavButton>
-          <br />
-          <NavButton onClick={() => navigate("/allbills")}>
-            <RiBillFill style={{ fontSize: "20px" }} />
-            Todas as faturas
-          </NavButton>
+          <div style={{
+            marginTop:"30rem",
+            marginLeft:"7rem"
+          }}>
+            <Button
+              style={{
+                backgroundColor: "transparent",
+                width: "100%",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                gap: "10px",
+              }}
+              onClick={goExit}
+            >
+              <RiLogoutBoxLine style={{ fontSize: "20px" }} />
+              {t("Menu.exit")}
+            </Button>
+          </div>
         </div>
-
-        {/* Main Content Section */}
         <div
           style={{
             height: "100vh",
             width: "100%",
             display: "flex",
             flexDirection: "column",
-            padding: "3rem",
-            gap: "30px",
+            paddingLeft: "2rem",
+            paddingTop: "2rem",
+
+            gap: "10px",
           }}
         >
           <div>
             <h3>Olá,</h3>
             <h2 style={{ fontWeight: "bold" }}>'nome'!</h2>
+            <br />
+            <h3>Faturas pendentes:</h3>
           </div>
-
-          <h3>Faturas pendentes:</h3>
 
           <InfoBox>
             <MainInfo>
@@ -174,7 +182,7 @@ export const EasyLoginInfo = () => {
               }}
             >
               <FaRegCreditCard style={{ fontSize: "20px" }} />
-              <h4>Botão pagar fatura</h4>
+              <h4>Pagar no cartão</h4>
             </Button>
           </InfoBox>
 
@@ -189,9 +197,7 @@ export const EasyLoginInfo = () => {
                   gap: "10px",
                 }}
               >
-                <h3>
-                  NomeDoPlanoNomeDoPlanoNomeDoPlanoNomeDoPlanoNomeDoPlanoNomeDoPlanoNomeDoPlano
-                </h3>
+                <h3>NomeDoPlanoNomeDoPlanoNomeDoPlano</h3>
                 <div style={{ paddingTop: "4px" }}>
                   <h4 style={{ fontWeight: "bold" }}>Pagamento:</h4>
                   <h5>MasterCard final 0000</h5>
@@ -212,41 +218,41 @@ export const EasyLoginInfo = () => {
               }}
             >
               <FaInfoCircle style={{ fontSize: "15px" }} />
-              <h4>Botão detalhes plano</h4>
+              <h4>Detalhes do plano</h4>
             </Button>
           </InfoBox>
         </div>
-
-        {/* Footer Section */}
-        <div style={{ padding: "3rem", marginRight: "80px" }}>
-          <Button
-            style={{
-              width: "100%",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              gap: "10px",
-            }}
-            onClick={goExit}
-          >
-            <RiLogoutBoxLine style={{ fontSize: "20px" }} />
-            {t("Menu.exit")}
-          </Button>
-        </div>
+        <div style={{ padding: "3rem", marginRight: "80px" }}></div>
       </ContainerWeb>
-      
+
       <ContainerMobile>
-        {/* Header for Mobile */}
-        <HeaderBar isTop style={{justifyContent:"left", paddingLeft:"1rem"}}>
+        <HeaderBar
+          isTop
+          style={{ justifyContent: "left", paddingLeft: "1rem" }}
+        >
           <img
             src={"/assets/tegg-branco.png"}
             alt="Logo Tegg"
             style={{ width: "120px", padding: "1rem" }}
           />
-
+          <div style={{ paddingLeft: "8rem" }}>
+            <Button
+              style={{
+                backgroundColor: "transparent",
+                width: "100%",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                gap: "10px",
+              }}
+              onClick={goExit}
+            >
+              <RiLogoutBoxLine style={{ fontSize: "20px" }} />
+              {t("Menu.exit")}
+            </Button>
+          </div>
         </HeaderBar>
 
-        {/* Main Content for Mobile */}
         <div
           style={{
             flexGrow: 1,
@@ -307,7 +313,7 @@ export const EasyLoginInfo = () => {
                 }}
               >
                 <FaRegCreditCard style={{ fontSize: "20px" }} />
-                <h4>Botão pagar fatura</h4>
+                <h4>Pagar no cartão</h4>
               </Button>
             </InfoBox>
           </div>
@@ -333,7 +339,7 @@ export const EasyLoginInfo = () => {
                   }}
                 >
                   <h3>
-                  NomeDoPlanoNomeDoPlanoNomeDoPlanoNomeDoPlanoNomeDoPlano
+                    NomeDoPlanoNomeDoPlanoNomeDoPlanoNomeDoPlanoNomeDoPlano
                   </h3>
                   <div style={{ paddingTop: "4px" }}>
                     <h4 style={{ fontWeight: "bold" }}>Pagamento:</h4>
@@ -355,30 +361,12 @@ export const EasyLoginInfo = () => {
                 }}
               >
                 <FaInfoCircle style={{ fontSize: "15px" }} />
-                <h4>Botão detalhes plano</h4>
+                <h4>Detalhes do plano</h4>
               </Button>
             </InfoBox>
           </div>
         </div>
-
-        {/* Footer for Mobile */}
-        <HeaderBar isBottom>
-          <NavButton style={{ width: "40%" }}>
-            <FaHouse style={{ fontSize: "20px" }} />
-            Início
-          </NavButton>
-          <div style={{ marginLeft: "2rem" }}>
-            {" "}
-            {/* Espaço entre logo e formulário */}
-          </div>
-          <NavButton
-            style={{ width: "40%" }}
-            onClick={() => navigate("/allbills")}
-          >
-            <RiBillFill style={{ fontSize: "20px" }} />
-            Todas as faturas
-          </NavButton>
-        </HeaderBar>
+        <HeaderBar isBottom />
       </ContainerMobile>
     </>
   );
