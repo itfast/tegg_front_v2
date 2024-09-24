@@ -2259,6 +2259,14 @@ class Api {
           throwFormattedError(e);
         }
       },
+      loginByCpf: async(Cpf) =>{
+        try{
+          const res = await this.axios.get(`${apiRoutes.client}/verify/${Cpf}`);
+          return res;
+        } catch (e) {
+          throwFormattedError(e);
+        }
+      },
       blockUnblock: async (Status, Id) => {
         console.log(Id);
         try {

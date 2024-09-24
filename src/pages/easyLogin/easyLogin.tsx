@@ -14,7 +14,7 @@ import { LiaEyeSolid, LiaEyeSlash } from "react-icons/lia";
 import { Button, ContainerMobile, ContainerWeb } from "../../../globalStyles";
 import api from "../../services/api";
 import { useNavigate } from "react-router-dom";
-import { translateError } from "../../services/util";
+import { translateError, validateDocument, documentFormat } from "../../services/util";
 import { toast } from "react-toastify";
 import { NewClientExtern } from "../clients/new/NewClientExtern";
 import ReactCardFlip from "react-card-flip";
@@ -22,23 +22,66 @@ import ReactCardFlip from "react-card-flip";
 import { useTranslation } from "react-i18next";
 import { Loading } from "../../components/loading/Loading";
 import { he } from "date-fns/locale";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
+import { useForm } from "react-hook-form";
+
+const schema = yup
+  .object({
+    CpfCnpj: yup
+      .string()
+      .required("CPF ou CNPJ deve ser informado.")
+      .test("test-invalid-document", "Documento inválido.", (CpfCnpj) =>
+        validateDocument(CpfCnpj || "")
+      ),
+  })
+  .required();
 
 export const EasyLogin = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  /*const [hovering, setHovering] = useState(false);
+  const [hovering, setHovering] = useState(false);
   const [typePass, setTypePass] = useState("password");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [loadingR, setLoadingR] = useState(false);
-  const [user, setUser] = useState("");
+  const [cpf, setCpf] = useState("");
   const [resetPassword, setResetPassword] = useState("");
   const [step, setStep] = useState(0);
-  const navigate = useNavigate();
   const [singUp, setSingUp] = useState(false);
   const [flipped, setFlipped] = useState(true);
   const [language, setLanguage] = useState();
-  const [anchorEl, setAnchorEl] = useState(null);*/
+  const [anchorEl, setAnchorEl] = useState(null);
+
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    watch,
+    formState: { errors }, // Para acessar os erros de validação
+  } = useForm({
+    resolver: yupResolver(schema), // Resolver usando Yup
+  });
+
+  const handleLoginCpf = async (data) => {
+    try {
+      setLoading(true); // Ativa o estado de carregamento
+      await api.user.loginByCpf(data.CpfCnpj); // Faz a chamada de API para login com CPF/CNPJ
+      navigate("/easylogininfo"); // Redireciona para a próxima página em caso de sucesso
+    } catch (err) {
+      console.log(err); // Exibe o erro no console
+    } finally {
+      setLoading(false); // Desativa o estado de carregamento
+    }
+  };
+
+  const vDocument = watch("CpfCnpj");
+
+  useEffect(() => {
+    if (vDocument) {
+      setValue("CpfCnpj", documentFormat(vDocument) || "");
+    }
+  }, [vDocument]);
 
   return (
     <>
@@ -87,30 +130,45 @@ export const EasyLogin = () => {
                 Consulta fácil
               </h1>
 
-              <p>Insira seu CPF:</p>
-              <InputLogin
-                type="text"
-                placeholder="CPF"
-                style={{
-                  marginBottom: "1rem",
-                  padding: "0.75rem",
-                  borderRadius: "8px",
-                  width: "100%",
-                }}
-              />
-              <Button
-                style={{
-                  width: "100%",
-                  display: "flex",
-                  justifyContent: "center",
-                  flexDirection: "row",
-                  alignItems: "center",
-                  gap: "10px",
-                }}
-                onClick={() => navigate("/easylogininfo")}
-              >
-                Entrar
-              </Button>
+              <p>Insira o CPF ou CNPJ:</p>
+              <form onSubmit={handleSubmit(handleLoginCpf)}>
+                <InputLogin
+                  type="text"
+                  id="CpfCnpj"
+                  placeholder="CPF/CNPJ"
+                  {...register("CpfCnpj")}
+                  value={cpf}
+                  onChange={(e) => setCpf(e.target.value)}
+                  style={{
+                    marginBottom: "1rem",
+                    padding: "0.75rem",
+                    borderRadius: "8px",
+                    width: "100%",
+                    borderColor: errors.CpfCnpj ? "red" : "",
+                  }}
+                />
+                {errors.CpfCnpj && (
+                  <span style={{ color: "red", marginBottom: "1rem", display:"block", textAlign:"center" }}>
+                    {errors.CpfCnpj.message}
+                  </span>
+                )}
+
+                <Button
+                  className="login_button"
+                  type="submit"
+                  style={{
+                    width: "100%",
+                    display: "flex",
+                    justifyContent: "center",
+                    flexDirection: "row",
+                    alignItems: "center",
+                    gap: "10px",
+                  }}
+                  disabled={loading}
+                >
+                  {loading ? "Carregando..." : "Entrar"}
+                </Button>
+              </form>
             </ContainerFormLogin>
           </div>
           <h4
@@ -169,10 +227,10 @@ export const EasyLogin = () => {
                 Consulta fácil
               </h3>
 
-              <p>Insira seu CPF:</p>
+              <p>Insira o CPF ou CNPJ:</p>
               <InputLogin
                 type="text"
-                placeholder="CPF"
+                placeholder="CPF/CNPJ"
                 style={{
                   marginBottom: "1rem",
                   padding: "0.75rem",
