@@ -2262,7 +2262,7 @@ class Api {
       loginByCpf: async(Cpf) =>{
         try{
           const res = await this.axios.get(`${apiRoutes.client}/verify/${Cpf}`);
-          return res;
+          return res
         } catch (e) {
           throwFormattedError(e);
         }

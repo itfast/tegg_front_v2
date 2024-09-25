@@ -14,7 +14,12 @@ import { LiaEyeSolid, LiaEyeSlash } from "react-icons/lia";
 import { Button, ContainerMobile, ContainerWeb } from "../../../globalStyles";
 import api from "../../services/api";
 import { useNavigate } from "react-router-dom";
-import { translateError, validateDocument, documentFormat } from "../../services/util";
+import {
+  translateError,
+  validateDocument,
+  documentFormat,
+  documentFormatV2,
+} from "../../services/util";
 import { toast } from "react-toastify";
 import { NewClientExtern } from "../clients/new/NewClientExtern";
 import ReactCardFlip from "react-card-flip";
@@ -45,9 +50,9 @@ export const EasyLogin = () => {
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [loadingR, setLoadingR] = useState(false);
-  const [cpf, setCpf] = useState("");
   const [resetPassword, setResetPassword] = useState("");
   const [step, setStep] = useState(0);
+  const [cpfCnpj, setCpfCnpj] = useState("");
   const [singUp, setSingUp] = useState(false);
   const [flipped, setFlipped] = useState(true);
   const [language, setLanguage] = useState();
@@ -58,28 +63,32 @@ export const EasyLogin = () => {
     handleSubmit,
     setValue,
     watch,
-    formState: { errors }, // Para acessar os erros de validação
+    formState: { errors },
   } = useForm({
-    resolver: yupResolver(schema), // Resolver usando Yup
+    resolver: yupResolver(schema),
   });
+
+  const clearCpfCnpj = (value) => {
+    return value.replace(/\D/g, ""); // remove . / -
+  };
 
   const handleLoginCpf = async (data) => {
     try {
-      setLoading(true); // Ativa o estado de carregamento
-      await api.user.loginByCpf(data.CpfCnpj); // Faz a chamada de API para login com CPF/CNPJ
-      navigate("/easylogininfo"); // Redireciona para a próxima página em caso de sucesso
+      setLoading(true);
+      await api.user.loginByCpf(clearCpfCnpj(data.CpfCnpj));
+      navigate("/easylogininfo");
     } catch (err) {
-      console.log(err); // Exibe o erro no console
+      console.log(err);
+      toast.error("CPF ou CNPJ não encontrado. Verifique e tente novamente.");
     } finally {
-      setLoading(false); // Desativa o estado de carregamento
+      setLoading(false);
     }
   };
-
   const vDocument = watch("CpfCnpj");
 
   useEffect(() => {
     if (vDocument) {
-      setValue("CpfCnpj", documentFormat(vDocument) || "");
+      setValue("CpfCnpj", documentFormatV2(vDocument) || "");
     }
   }, [vDocument]);
 
@@ -104,21 +113,15 @@ export const EasyLogin = () => {
               alignItems: "center",
             }}
           >
-            {/* Contêiner que engloba o logo e o formulário lado a lado */}
             <img
               src={"/assets/tegg-branco.png"}
               alt="Logo Tegg"
               style={{
-                width: "300px", // Tamanho ajustado do logo
+                width: "300px",
               }}
             />
-            {/* Logo à esquerda */}
-            <div style={{ marginRight: "2rem" }}>
-              {" "}
-              {/* Espaço entre logo e formulário */}
-            </div>
+            <div style={{ marginRight: "2rem" }}> </div>
 
-            {/* Formulário de login à direita */}
             <ContainerFormLogin style={{ width: "100%" }}>
               <h1
                 style={{
@@ -137,8 +140,6 @@ export const EasyLogin = () => {
                   id="CpfCnpj"
                   placeholder="CPF/CNPJ"
                   {...register("CpfCnpj")}
-                  value={cpf}
-                  onChange={(e) => setCpf(e.target.value)}
                   style={{
                     marginBottom: "1rem",
                     padding: "0.75rem",
@@ -148,7 +149,14 @@ export const EasyLogin = () => {
                   }}
                 />
                 {errors.CpfCnpj && (
-                  <span style={{ color: "red", marginBottom: "1rem", display:"block", textAlign:"center" }}>
+                  <span
+                    style={{
+                      color: "red",
+                      marginBottom: "1rem",
+                      display: "block",
+                      textAlign: "center",
+                    }}
+                  >
                     {errors.CpfCnpj.message}
                   </span>
                 )}
@@ -197,7 +205,7 @@ export const EasyLogin = () => {
           <div
             style={{
               height: "100vh",
-              width: "120vh",
+              width: "100vh",
               display: "flex",
               flexDirection: "column",
               justifyContent: "center",
@@ -208,14 +216,10 @@ export const EasyLogin = () => {
               src={"/assets/tegg-branco.png"}
               alt="Logo Tegg"
               style={{
-                width: "150px", // Tamanho ajustado do logo
+                width: "150px",
               }}
             />
-            {/* Logo à esquerda */}
-            <div style={{ marginTop: "2rem" }}>
-              {" "}
-              {/* Espaço entre logo e formulário */}
-            </div>
+            <div style={{ marginTop: "2rem" }}> </div>
             <ContainerFormLogin style={{ width: "30%", height: "30%" }}>
               <h3
                 style={{
@@ -228,35 +232,51 @@ export const EasyLogin = () => {
               </h3>
 
               <p>Insira o CPF ou CNPJ:</p>
-              <InputLogin
-                type="text"
-                placeholder="CPF/CNPJ"
-                style={{
-                  marginBottom: "1rem",
-                  padding: "0.75rem",
-                  borderRadius: "8px",
-                  width: "100%",
-                }}
-              />
-              <Button
-                style={{
-                  width: "100%",
-                  display: "flex",
-                  justifyContent: "center",
-                  flexDirection: "row",
-                  alignItems: "center",
-                  gap: "10px",
-                }}
-                onClick={() => navigate("/easylogininfo")}
-              >
-                Entrar
-              </Button>
+              <form onSubmit={handleSubmit(handleLoginCpf)}>
+                <InputLogin
+                  type="text"
+                  id="CpfCnpj"
+                  placeholder="CPF/CNPJ"
+                  {...register("CpfCnpj")}
+                  style={{
+                    marginBottom: "1rem",
+                    padding: "0.75rem",
+                    borderRadius: "8px",
+                    width: "100%",
+                    borderColor: errors.CpfCnpj ? "red" : "",
+                  }}
+                />
+                {errors.CpfCnpj && (
+                  <span
+                    style={{
+                      color: "red",
+                      marginBottom: "0.2rem",
+                      display: "block",
+                      textAlign: "center",
+                    }}
+                  >
+                    {errors.CpfCnpj.message}
+                  </span>
+                )}
+                <Button
+                  style={{
+                    width: "100%",
+                    display: "flex",
+                    justifyContent: "center",
+                    flexDirection: "row",
+                    alignItems: "center",
+                    gap: "10px",
+                  }}
+                  disabled={loading}
+                >
+                  {loading ? "Carregando..." : "Entrar"}
+                </Button>
+              </form>
             </ContainerFormLogin>
           </div>
           <h5
             className="copyright-text"
             style={{
-              // margin: 10,
               textAlign: "center",
               color: "white",
               marginBottom: "0.2rem",
