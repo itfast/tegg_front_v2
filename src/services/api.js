@@ -391,6 +391,7 @@ class Api {
           throwFormattedError(e);
         }
       },
+      //edit: async
       activate: async (iccid, plan, document, ddd) => {
         try {
           const response = await this.axios.post(

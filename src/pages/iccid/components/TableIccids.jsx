@@ -24,6 +24,7 @@ import api from '../../../services/api';
 import { Button } from '../../../../globalStyles';
 import { toast } from 'react-toastify';
 import _ from 'lodash'
+import { FormEditIccid } from './FormEditIccid';
 
 export const TableIccids = ({
   iccids,
@@ -37,15 +38,19 @@ export const TableIccids = ({
   const [showBlock, setShowBlock] = useState(false);
   const [showUnblock, setShowUnblock] = useState(false);
   const [showDelete, setShowDelete] = useState(false);
+  const [modalEdit, setModalEdit] = useState(false);
+  //const [infoIccid, setInfoIccid] = useState<FormDataIccid>();
   const [anchorEl, setAnchorEl] = useState(null);
   const [statusInfo, setStatusInfo] = useState({});
   const [showStatusInfo, setShowStatusInfo] = useState(false);
   const [tmp, setTmp] = useState();
   const open = Boolean(anchorEl);
+
   const handleClick = (event, iccid) => {
     setAnchorEl(event.currentTarget);
     setTmp(iccid);
   };
+
   const handleClose = () => {
     setAnchorEl(null);
   };
@@ -135,6 +140,7 @@ export const TableIccids = ({
   };
 
 
+
   const handleCheck = (e, iccid) => {
     if(e.target.checked){
       setCheckedArray([...checkedArray, {iccid: iccid.Iccid, status: iccid.Status}])
@@ -145,7 +151,6 @@ export const TableIccids = ({
       setCheckedArray(orig)
     }
   };
-
   return (
     <>
       <TableItens style={{ marginTop: '1rem' }}>
@@ -234,9 +239,16 @@ export const TableIccids = ({
       >
         <MenuItem
           onClick={() => {
-            setShowDelete(true);
-            handleClose();
+            setModalEdit(true)
+            handleClose()
           }}
+        >
+          Editar
+        </MenuItem>
+        <MenuItem
+          onClick={() => {
+            setShowDelete(true);
+            handleClose();          }}
         >
           Deletar
         </MenuItem>
@@ -415,6 +427,30 @@ export const TableIccids = ({
           </Button>
           <Button onClick={() => handleDelete()}>DELETAR</Button>
         </DialogActions>
+      </Dialog>
+      <Dialog
+      open={modalEdit}
+      onClose={() => {
+        handleSearch();
+        setModalEdit(false);
+      }}
+      >
+        <DialogTitle>Editar ICCID</DialogTitle>
+        <DialogContent>
+        <FormEditIccid
+            handleClose={() => setModalEdit(false)}
+            iccid={tmp}
+        />
+        </DialogContent>
+        <DialogActions>
+          <Button invert onClick={() => setModalEdit(false)}>
+            Cancelar
+          </Button>
+          <Button 
+          onClick={() => console.log('salvei')}>
+            Salvar
+          </Button>
+          </DialogActions>
       </Dialog>
     </>
   );
