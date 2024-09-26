@@ -30,6 +30,7 @@ import { he } from "date-fns/locale";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
+import styled from "styled-components";
 
 const schema = yup
   .object({
@@ -41,6 +42,15 @@ const schema = yup
       ),
   })
   .required();
+
+const Input = styled.input`
+  height: 40px;
+  border-radius: 8px;
+  padding: 5px;
+  /* text-align: center; */
+  border: 1px solid ${({ theme }) => theme.colors.inputBackgroundColor};
+  outline-color: ${({ theme }) => theme.colors.inputBorderRadius};
+`;
 
 export const EasyLogin = () => {
   const { t } = useTranslation();
@@ -84,6 +94,7 @@ export const EasyLogin = () => {
       setLoading(false);
     }
   };
+
   const vDocument = watch("CpfCnpj");
 
   useEffect(() => {
@@ -136,10 +147,14 @@ export const EasyLogin = () => {
               <p>Insira o CPF ou CNPJ:</p>
               <form onSubmit={handleSubmit(handleLoginCpf)}>
                 <InputLogin
-                  type="text"
+                  type="input"
                   id="CpfCnpj"
                   placeholder="CPF/CNPJ"
                   {...register("CpfCnpj")}
+                  onChange={(e) => {
+                    const inputValue = e.target.value;
+                    setValue("CpfCnpj", documentFormatV2(inputValue));
+                  }}
                   style={{
                     marginBottom: "1rem",
                     padding: "0.75rem",
@@ -162,8 +177,6 @@ export const EasyLogin = () => {
                 )}
 
                 <Button
-                  className="login_button"
-                  type="submit"
                   style={{
                     width: "100%",
                     display: "flex",

@@ -421,8 +421,6 @@ export const validateDocument = (value) => {
   )
     return false;
 
-  console.log("la");
-
   // Valida DVs
   let tamanho = data.length - 2;
   let numeros = data.substring(0, tamanho);
