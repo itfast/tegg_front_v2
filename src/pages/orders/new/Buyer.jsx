@@ -12,6 +12,8 @@ import { useNavigate } from 'react-router-dom';
 import { AsyncPaginate } from 'react-select-async-paginate';
 import { useTranslation } from 'react-i18next';
 
+
+
 export const Buyer = ({
   handleNextExt,
   stoke,
@@ -48,7 +50,6 @@ export const Buyer = ({
     setTypeClient(event.target.value);
   };
   
-
   const loadDealers = async (search, prevOptions) => {
     const vlr = prevOptions.length;
 
@@ -76,13 +77,13 @@ export const Buyer = ({
   const loadClients = async (search, prevOptions) => {
     const vlr = prevOptions.length;
     const list = [];
-
+  
     const response = await api.client.getSome(
       vlr / 10 === 0 ? 1 : vlr / 10 + 1,
       10,
       search
     );
-
+  
     response.data?.finalClients?.forEach((c) => {
       list.push({
         value: c.Id,
@@ -90,7 +91,7 @@ export const Buyer = ({
         type: 'client',
       });
     });
-
+  
     const hasMore = response.data.meta.total > vlr && response.data.meta.total > 10;
     return {
       options: list,

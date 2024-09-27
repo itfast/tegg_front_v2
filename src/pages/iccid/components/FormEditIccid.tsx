@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 /*import {
@@ -26,6 +27,9 @@ import { Loading } from "../../../components/loading/Loading";
 import Select from "react-select";
 import { toast } from "react-toastify";
 import React from "react";
+import { Buyer } from "../../orders/new/Buyer";
+import { AsyncPaginate } from "react-select-async-paginate";
+import { useTranslation } from "react-i18next";
 
 const schema = yup
   .object({
@@ -72,11 +76,10 @@ export const FormEditIccid = ({
   edit,
   iccid,
 }: FormEditIccidProps) => {
-  const [clientOpt, setClientOpt] = useState<Array<clientOpt>>([]);
-  const [sellerOpt, setSellerOpt] = useState<Array<clientOpt>>([]);
-  const [typeOpt, setTypeOpt] = useState<Array<clientOpt>>([]);
   const [loading, setLoading] = useState(false);
-  const [msg, setMsg] = useState("");
+  const { t } = useTranslation();
+  const [buyer, setBuyer] = useState();
+  const [seller, setSeller] = useState();
 
   const {
     handleSubmit,
@@ -92,28 +95,6 @@ export const FormEditIccid = ({
     resolver: yupResolver(schema),
   });
 
-  const searchClients = () => {
-    api.client
-      .getAll({ pageNum: 1, pageSize: 100 })
-      .then((res) => {
-        const list: Array<clientOpt> = [];
-        console.log("aaaaaaaaa", res.data.client);
-        res.data?.client?.forEach((s: any) => {
-          console.log(s);
-          if (s?.Tipo_Usuario == "SOFTWAREHOUSE") {
-            list.push({
-              value: s.Id,
-              label: s.Nome,
-            });
-          }
-        });
-        setClientOpt(list);
-      })
-      .catch((err) => {
-        console.log(err); // editar para translateError dpss
-      });
-  };
-
   const iccidTypes = [
     { label: "SimCard", value: "SimCard" },
     { label: "e-Sim", value: "e-Sim" },
@@ -122,55 +103,81 @@ export const FormEditIccid = ({
   const vType = watch("Tipo");
 
   useEffect(() => {
+    console.log(iccid);
     if (iccid) {
-      // Prepare the data to be in the correct format if necessary
-      console.log(iccid)
-      console.log(iccid.DealerId)
       reset({
         ...iccid,
-        Cliente: { value: iccid?.FinalClientId || "", label: iccid?.FinalClientId || "" }, // assuming this is the format needed for the select
-        Vendedor: { value: iccid?.Dealer?.Id, label: iccid.DealerId.Nome }, // format for vendedor
-        Lpa: iccid.LPAUrl, // Pre-fill LPA field
+        Cliente: {
+          value: iccid?.FinalClientId,
+          label: iccid?.FinalClient?.Name,
+        },
+        Vendedor: { value: iccid?.DealerId, label: iccid?.Dealer?.Name },
+        Tipo: {
+          value: iccid?.LPAUrl ? "e-Sim" : "SimCard",
+          label: iccid?.LPAUrl ? "e-Sim" : "SimCard",
+        },
+        Lpa: iccid?.LPAUrl,
+      });
+
+      setBuyer({
+        value: iccid?.FinalClientId,
+        label: iccid?.FinalClient?.Name,
+      });
+      
+      setSeller({
+        value: iccid?.DealerId,
+        label: iccid?.Dealer?.Name,
       });
     }
   }, [iccid, reset]);
 
-  const submit = (data: FormDataIccid) => {
-    if (edit) {
-      setMsg("Editando ICCID...");
-      setLoading(true);
-      /*api.iccid
-        .edit({
-          ...data,
-          Cpf_Cnpj: cleanNumber(data.CpfCnpj),
-          Rg_Ie: data.RgIe,
-          Nome: data.Nome,
-          Email_Principal: data.EmailPrincipal,
-          Email_Secundario: data.EmailSecundario,
-          Telefone: cleanNumber(data.Telefone),
-          Cep: cleanNumber(data.Cep),
-          Uf: data.Uf.value,
-          Cidade: data.Cidade,
-          Bairro: data.Bairro,
-          Endereco: data.Endereco,
-          Numero: data.Numero,
-          Complemento: data.Complemento || "",
-          UsuarioID: data.UsuarioId.value,
-        })
-        .then(() => {
-          toast.success("Empresa editada com sucesso");
-          if (searchSoftwareHouses) {
-            searchSoftwareHouses();
-          }
-          handleClose();
-        })
-        .catch((err) => {
-          console.log(err);
-          translateError(err);
-        })
-        .finally(() => setLoading(false));*/
-      setLoading(false); //tirar este setLoading dps
-    }
+  const loadClients = async (search, prevOptions) => {
+    const vlr = prevOptions.length;
+    const list:any = [];
+  
+    const response = await api.client.getSome(
+      vlr / 10 === 0 ? 1 : vlr / 10 + 1,
+      10,
+      search
+    );
+  
+    response?.data?.finalClients?.forEach((c) => {
+      list.push({
+        value: c.Id,
+        label: c.Name,
+        type: 'client',
+      });
+    });
+  
+    const hasMore = response?.data.meta.total > vlr && response?.data.meta.total > 10;
+    return {
+      options: list,
+      hasMore,
+    };
+  };
+
+  const loadDealers = async (search, prevOptions) => {
+    const vlr = prevOptions.length;
+  
+    const response = await api.dealer.getSome(
+      vlr / 10 === 0 ? 1 : vlr / 10 + 1,
+      10,
+      search
+    );
+    console.log(response);
+    const listD:any = [];
+    response?.data?.dealers?.forEach((d) => {
+      listD.push({
+        value: d.Id,
+        label: d.CompanyName || d.Name,
+        type: 'dealer',
+      });
+    });
+    const hasMoreD = response?.data.meta.total > vlr;
+    return {
+      options: listD,
+      hasMoreD,
+    };
   };
 
   return (
@@ -185,20 +192,22 @@ export const FormEditIccid = ({
               control={control}
               rules={{ required: true }}
               render={({ field }) => (
-                <Select
-                  menuPlacement="bottom"
-                  isSearchable={false}
-                  value={field.value}
-                  placeholder=""
-                  onChange={(e) => field.onChange(e)}
-                  //options={iccidTypes}
-                  menuPortalTarget={document.body}
-                  styles={{
-                    menuPortal: (base) => ({ ...base, zIndex: 9999 }),
-                  }}
-                />
+                  <AsyncPaginate
+                    placeholder={t("Order.new.buyer.placeHolder")}
+                    noOptionsMessage={() => t("Order.new.buyer.notClients")}
+                    value={buyer}
+                    loadOptions={loadClients}
+                    menuPortalTarget={document.body}
+                    styles={{
+                      menuPortal: (base) => ({ ...base, zIndex: 9999 }),
+                    }}
+                    menuPosition={"fixed"}
+                    onChange={(e) => {
+                      setBuyer(e);
+                    }}
+                  />
               )}
-            />
+            />{" "}
             {errors.Cliente && (
               <h5 style={{ color: "red" }}>{errors.Cliente.message}</h5>
             )}
@@ -211,16 +220,18 @@ export const FormEditIccid = ({
               control={control}
               rules={{ required: true }}
               render={({ field }) => (
-                <Select
-                  menuPlacement="bottom"
-                  isSearchable={false}
-                  value={field.value}
-                  placeholder=""
-                  onChange={(e) => field.onChange(e)}
-                  //options={iccidTypes}
+                <AsyncPaginate
+                  placeholder={t("Order.new.buyer.placeHolder")}
+                  noOptionsMessage={() => t("Order.new.buyer.notResales")}
+                  value={seller}
+                  loadOptions={loadDealers}
                   menuPortalTarget={document.body}
                   styles={{
                     menuPortal: (base) => ({ ...base, zIndex: 9999 }),
+                  }}
+                  menuPosition={"fixed"}
+                  onChange={(e) => {
+                    setSeller(e);
                   }}
                 />
               )}

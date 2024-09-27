@@ -435,7 +435,7 @@ export const TableIccids = ({
         setModalEdit(false);
       }}
       >
-        <DialogTitle>Editar ICCID</DialogTitle>
+        <DialogTitle>Editar ICCID {tmp?.Iccid}</DialogTitle>
         <DialogContent>
         <FormEditIccid
             handleClose={() => setModalEdit(false)}
