@@ -19,7 +19,7 @@ import {
 } from '../../../services/util';
 import { TableItens } from '../../orders/new/NewOrder.styles';
 import { IoMdMore } from 'react-icons/io';
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import api from '../../../services/api';
 import { Button } from '../../../../globalStyles';
 import { toast } from 'react-toastify';
@@ -44,6 +44,7 @@ export const TableIccids = ({
   const [statusInfo, setStatusInfo] = useState({});
   const [showStatusInfo, setShowStatusInfo] = useState(false);
   const [tmp, setTmp] = useState();
+  const btnSubmit = useRef({});
   const open = Boolean(anchorEl);
 
   const handleClick = (event, iccid) => {
@@ -438,6 +439,7 @@ export const TableIccids = ({
         <DialogTitle>Editar ICCID {tmp?.Iccid}</DialogTitle>
         <DialogContent>
         <FormEditIccid
+            btnSubmit={btnSubmit}
             handleClose={() => setModalEdit(false)}
             iccid={tmp}
         />
@@ -447,7 +449,7 @@ export const TableIccids = ({
             Cancelar
           </Button>
           <Button 
-          onClick={() => console.log('salvei')}>
+          onClick={() => btnSubmit.current?.click()}>
             Salvar
           </Button>
           </DialogActions>

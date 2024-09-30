@@ -142,7 +142,7 @@ export const ResalesDetails = () => {
     api.dealer
       .getById(api.currentUser.DealerId)
       .then((res) => {
-        // console.log(res.data);
+         console.log(res.data);
         setDealer(res.data);
       })
       .catch((err) => translateError(err));

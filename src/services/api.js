@@ -391,8 +391,19 @@ class Api {
           throwFormattedError(e);
         }
       },
-      //edit: async
-      activate: async (iccid, plan, document, ddd) => {
+      edit: async(iccid) =>{
+        try{
+          const res = await this.axios.put(`${apiRoutes.iccid}/${iccid}`, {
+            FinalClientId,
+            DealerId,
+            Type,
+            LPAUrl
+          });
+          return res
+        } catch (e) {
+          throwFormattedError(e);
+        }
+      },      activate: async (iccid, plan, document, ddd) => {
         try {
           const response = await this.axios.post(
             `${apiRoutes.iccid}/${iccid}/active`,

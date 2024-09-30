@@ -227,6 +227,7 @@ export const ClientInfo = ({ client, setLoading, setMsg, getClients }) => {
                       } else {
                         getInfo();
                       }
+                      console.log(userDetails)
                     }}
                   >
                     {t("Clients.table.buttonDetails")}

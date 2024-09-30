@@ -36,7 +36,7 @@ export const Resales = () => {
       .getAll(page, limit, search)
       .then((res) => {
         setTotalPages(res.data?.meta?.totalPages || 1);
-        console.log(res.data.dealers);
+        console.log(res.data);
         setDealer(res.data.dealers);
       })
       .catch((err) => console.log(err))
