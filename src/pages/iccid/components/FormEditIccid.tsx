@@ -4,7 +4,7 @@ import * as yup from "yup";
 import { translateError } from "../../../services/util";
 import { useForm, Controller } from "react-hook-form";
 import { Input } from "@mui/material";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import api from "../../../services/api";
 import { Loading } from "../../../components/loading/Loading";
 import Select from "react-select";
@@ -14,20 +14,21 @@ import { Buyer } from "../../orders/new/Buyer";
 import { AsyncPaginate } from "react-select-async-paginate";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
+import { Button } from "../../../../globalStyles";
 
 const schema = yup
   .object({
     Iccid: yup.string().optional(),
     Cliente: yup
       .object({
-        value: yup.string().required(),
-        label: yup.string().required(),
+        value: yup.string().optional(),
+        label: yup.string().optional(),
       })
       .required(),
     Vendedor: yup
       .object({
-        value: yup.string().required(),
-        label: yup.string().required(),
+        value: yup.string().optional(),
+        label: yup.string().optional(),
       })
       .required(),
     Tipo: yup
@@ -36,7 +37,7 @@ const schema = yup
         label: yup.string().required(),
       })
       .required("Tipo é obrigatório."),
-    Lpa: yup.string().required(),
+    Lpa: yup.string().optional(),
   })
   .required();
 
@@ -45,7 +46,6 @@ export type FormDataIccid = yup.InferType<typeof schema>;
 interface FormEditIccidProps {
   btnSubmit: any;
   handleClose: () => void;
-  edit?: boolean;
   iccid?: FormDataIccid;
 }
 
@@ -57,6 +57,7 @@ interface clientOpt {
 export const FormEditIccid = ({
   btnSubmit,
   handleClose,
+  handleSearch,
   iccid,
 }: FormEditIccidProps) => {
   const [loading, setLoading] = useState(false);
@@ -65,6 +66,7 @@ export const FormEditIccid = ({
   const [seller, setSeller] = useState();
   const navigate = useNavigate();
   const [msg, setMsg] = useState("");
+  const submitButtonRef = useRef();
 
   const {
     handleSubmit,
@@ -97,7 +99,14 @@ export const FormEditIccid = ({
     { label: "e-Sim", value: "e-Sim" },
   ];
 
+
   const vType = watch("Tipo");
+
+  useEffect(() => {
+    if (vType?.value == "SimCard") {
+      setValue("Lpa", "");
+    }
+  }, [vType, setValue]);
 
   useEffect(() => {
     console.log(iccid);
@@ -105,15 +114,18 @@ export const FormEditIccid = ({
       reset({
         ...iccid,
         Cliente: {
-          value: iccid?.FinalClientId,
-          label: iccid?.FinalClient?.Name,
+          value: iccid?.FinalClientId || "",
+          label: iccid?.FinalClient?.Name || "",
         },
-        Vendedor: { value: iccid?.DealerId, label: iccid?.Dealer?.Name },
+        Vendedor: {
+          value: iccid?.DealerId || "",
+          label: iccid?.Dealer?.Name || "",
+        },
         Tipo: {
           value: iccid?.LPAUrl ? "e-Sim" : "SimCard",
           label: iccid?.LPAUrl ? "e-Sim" : "SimCard",
         },
-        Lpa: iccid?.LPAUrl,
+        Lpa: iccid?.LPAUrl || "",
       });
 
       setBuyer({
@@ -146,10 +158,14 @@ export const FormEditIccid = ({
       });
     });
 
+    const nullOpt = { value: '', label: "Nenhum" };
+
+    const options = [nullOpt, ...list];
+
     const hasMore =
       response?.data.meta.total > vlr && response?.data.meta.total > 10;
     return {
-      options: list,
+      options,
       hasMore,
     };
   };
@@ -170,35 +186,47 @@ export const FormEditIccid = ({
         type: "dealer",
       });
     });
+
+    const nullOpt = { value: '', label: "Nenhum" };
+
+    const options = [nullOpt, ...listD];
+
     const hasMoreD = response?.data.meta.total > vlr;
+    console.log(listD)
     return {
-      options: listD,
+      options,
       hasMoreD,
     };
   };
 
   const submit = (data: FormDataIccid) => {
+    console.log("cheguei");
     setMsg("Editando ICCID...");
-    setLoading(true)
-    console.log(data)
+    setLoading(true);
+    console.log(data);
+
+    const finalClientId = data.Cliente.value? data.Cliente.value : null;
+    const dealerId = data.Vendedor.value? data.Vendedor.value : null;
+
     api.iccid
       .edit({
         ...data,
-        FinalClientId: data.Cliente.value || "",
-        DealerId: data.Vendedor.value || "",
+        FinalClientId: finalClientId,
+        DealerId: dealerId,
         Type: data.Tipo.value,
-        LPAUrl: data.Lpa || ""
+        LPAUrl: data.Lpa,
       })
       .then(() => {
         toast.success("ICCID editado com sucesso!");
         handleClose();
+        handleSearch();
       })
       .catch((err) => {
         console.log(err);
         translateError(err);
       })
       .finally(() => setLoading(false));
-  }
+  };
 
   return (
     <>
@@ -206,70 +234,9 @@ export const FormEditIccid = ({
       <form onSubmit={handleSubmit(submit)}>
         <div style={{ width: "500px" }}>
           <div
-            style={{ display: "flex", flexDirection: "column", gap: "15px" }}
-          >
-            <div style={{ width: "100%" }}>
-              <h5>Cliente</h5>
-              <Controller
-                name="Cliente"
-                control={control}
-                rules={{ required: true }}
-                render={({ field }) => (
-                  <AsyncPaginate
-                    placeholder={t("Order.new.buyer.placeHolder")}
-                    noOptionsMessage={() => t("Order.new.buyer.notClients")}
-                    value={buyer}
-                    loadOptions={loadClients}
-                    menuPortalTarget={document.body}
-                    styles={{
-                      menuPortal: (base) => ({ ...base, zIndex: 9999 }),
-                    }}
-                    menuPosition={"fixed"}
-                    onChange={(e) => {
-                      setBuyer(e);
-                    }}
-                  />
-                )}
-              />{" "}
-              {errors.Cliente && (
-                <h5 style={{ color: "red" }}>{errors.Cliente.message}</h5>
-              )}
-            </div>
-
-            <div style={{ width: "100%" }}>
-              <h5>Vendedor</h5>
-              <Controller
-                name="Vendedor"
-                control={control}
-                rules={{ required: true }}
-                render={({ field }) => (
-                  <AsyncPaginate
-                    placeholder={t("Order.new.buyer.placeHolder")}
-                    noOptionsMessage={() => t("Order.new.buyer.notResales")}
-                    value={seller}
-                    loadOptions={loadDealers}
-                    menuPortalTarget={document.body}
-                    styles={{
-                      menuPortal: (base) => ({ ...base, zIndex: 9999 }),
-                    }}
-                    menuPosition={"fixed"}
-                    onChange={(e) => {
-                      setSeller(e);
-                    }}
-                  />
-                )}
-              />{" "}
-              {errors.Vendedor && (
-                <h5 style={{ color: "red" }}>{errors.Vendedor.message}</h5>
-              )}
-            </div>
-          </div>
-
-          <div
             style={{
               display: "flex",
               flexDirection: "column",
-              marginTop: "15px",
               gap: "15px",
             }}
           >
@@ -309,7 +276,77 @@ export const FormEditIccid = ({
               </div>
             )}
           </div>
+
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              marginTop: "15px",
+              gap: "15px",
+            }}
+          >
+            <div style={{ width: "100%" }}>
+              <h5>Vendedor</h5>
+              <Controller
+                name="Vendedor"
+                control={control}
+                rules={{ required: true }}
+                render={({ field }) => (
+                  <AsyncPaginate
+                    placeholder={t("Order.new.buyer.placeHolder")}
+                    noOptionsMessage={() => t("Order.new.buyer.notResales")}
+                    value={seller}
+                    loadOptions={loadDealers}
+                    menuPortalTarget={document.body}
+                    styles={{
+                      menuPortal: (base) => ({ ...base, zIndex: 9999 }),
+                    }}
+                    menuPosition={"fixed"}
+                    onChange={(e) => {
+                      setSeller(e);
+                      field.onChange(e);
+                    }}
+                  />
+                )}
+              />{" "}
+              {errors.Vendedor && (
+                <h5 style={{ color: "red" }}>{errors.Vendedor.message}</h5>
+              )}
+            </div>
+
+            <div style={{ width: "100%" }}>
+              <h5>Cliente</h5>
+              <Controller
+                name="Cliente"
+                control={control}
+                rules={{ required: true }}
+                render={({ field }) => (
+                  <AsyncPaginate
+                    placeholder={t("Order.new.buyer.placeHolder")}
+                    noOptionsMessage={() => t("Order.new.buyer.notClients")}
+                    value={buyer}
+                    loadOptions={loadClients}
+                    menuPortalTarget={document.body}
+                    styles={{
+                      menuPortal: (base) => ({ ...base, zIndex: 9999 }),
+                    }}
+                    menuPosition={"fixed"}
+                    onChange={(e) => {
+                      setBuyer(e);
+                      field.onChange(e);
+                    }}
+                  />
+                )}
+              />{" "}
+              {errors.Cliente && (
+                <h5 style={{ color: "red" }}>{errors.Cliente.message}</h5>
+              )}
+            </div>
+          </div>
         </div>
+        <button style={{ display: "none" }} type="submit" ref={btnSubmit}>
+          ENVIAR
+        </button>
       </form>
     </>
   );

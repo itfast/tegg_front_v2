@@ -391,13 +391,14 @@ class Api {
           throwFormattedError(e);
         }
       },
-      edit: async(iccid) =>{
+      edit: async(Iccid) =>{
         try{
-          const res = await this.axios.put(`${apiRoutes.iccid}/${iccid}`, {
-            FinalClientId,
-            DealerId,
-            Type,
-            LPAUrl
+          console.log(Iccid, Iccid.FinalClientId)
+          const res = await this.axios.put(`${apiRoutes.iccid}/${Iccid.Iccid}`, {
+            FinalClientId: Iccid.FinalClientId || '',
+            DealerId: Iccid.DealerId || '',
+            Type: Iccid.Type,
+            LPAUrl: Iccid.LPAUrl || ''
           });
           return res
         } catch (e) {

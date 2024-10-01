@@ -25,6 +25,7 @@ import { Button } from '../../../../globalStyles';
 import { toast } from 'react-toastify';
 import _ from 'lodash'
 import { FormEditIccid } from './FormEditIccid';
+import React from 'react';
 
 export const TableIccids = ({
   iccids,
@@ -44,7 +45,7 @@ export const TableIccids = ({
   const [statusInfo, setStatusInfo] = useState({});
   const [showStatusInfo, setShowStatusInfo] = useState(false);
   const [tmp, setTmp] = useState();
-  const btnSubmit = useRef({});
+  const btnSubmit = useRef();
   const open = Boolean(anchorEl);
 
   const handleClick = (event, iccid) => {
@@ -140,7 +141,25 @@ export const TableIccids = ({
       });
   };
 
+  const handleEditIccid = (data) => {
+    console.log('cheguei')
+    setMsg('Editando...')
+    setLoadingAll(true)
+    console.log(tmp)
+    api.iccid
+      .edit(tmp?.Iccid)
+      .then(() => {
+        toast.success('Iccid editado com sucesso');
 
+        handleSearch();
+      })
+      .catch((err) => {
+        translateError(err);
+      })
+      .finally(() => {
+        setLoadingAll(false);
+      });
+  };
 
   const handleCheck = (e, iccid) => {
     if(e.target.checked){
@@ -441,11 +460,18 @@ export const TableIccids = ({
         <FormEditIccid
             btnSubmit={btnSubmit}
             handleClose={() => setModalEdit(false)}
+            handleSearch={() => handleSearch()}
             iccid={tmp}
         />
         </DialogContent>
         <DialogActions>
-          <Button invert onClick={() => setModalEdit(false)}>
+        <Button
+            invert
+            onClick={() => {
+              handleSearch();
+              setModalEdit(false);
+            }}
+          >
             Cancelar
           </Button>
           <Button 
