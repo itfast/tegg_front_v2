@@ -753,6 +753,27 @@ export function SideBar({ open }) {
                 </ul>
               </li>
             </PermissionView>
+            {/* NOTIFICACOES */}
+            <PermissionView role='TEGG,DEALER'>
+              <li
+                style={{
+                  backgroundColor:
+                    local.pathname === '/iccids' ? '#00D959' : '',
+                }}
+              >
+                <a href='#' onClick={() => navigate('/notifications')}>
+                  <i className='bx bxs-chip'></i>
+                  <span className='link_name'>Notificações</span>
+                </a>
+                <ul className='sub-menu blank'>
+                  <li>
+                    <a href='#' onClick={() => navigate('/notifications')}>
+                      {t('Menu.iccids')}
+                    </a>
+                  </li>
+                </ul>
+              </li>
+            </PermissionView>
             {/* TUTORIAIS */}
             <li
               style={{

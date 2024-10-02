@@ -283,7 +283,7 @@ export const Iccids = () => {
     <>
       <Loading open={loadingAll} msg={msg} />
       <PageLayout>
-        <PageTitles title='ICCIDs' />
+        <PageTitles title='ICCIDS' />
         <div style={{ display: screen.width > 768 && 'flex', gap: 15 }}>
           {api.currentUser.AccessTypes[0] === 'TEGG' && (
             <Button
