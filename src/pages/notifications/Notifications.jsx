@@ -20,6 +20,19 @@ import { Loading } from "../../components/loading/Loading";
 import { useTranslation } from "react-i18next";
 import { PageTitles } from "../../components/PageTitle/PageTitle";
 
+/*export const NewNotification = () => {
+  return(
+    <>
+      <form>
+        <div>
+          <h1>aaaa</h1>
+        </div>
+
+      </form>
+    </>
+  )
+}*/
+
 export const Notifications = () => {
   const navigate = useNavigate();
 
