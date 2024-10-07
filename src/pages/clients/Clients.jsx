@@ -52,6 +52,7 @@ export const Clients = () => {
     api.client
       .getAll(pageNum, pageSize, search, dealer, clientType)
       .then((res) => {
+        console.log(res.data)
         console.log(res.data.finalClients);
         setMaxPages(res.data?.meta?.totalPages || 1);
         setUsers(res.data.finalClients);
