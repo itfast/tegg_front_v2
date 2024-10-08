@@ -38,6 +38,8 @@ export const NewProducts = () => {
 	});
 
 	useEffect(() => {
+		console.log(location)
+
 		if (api.currentUser.AccessTypes[0] !== "TEGG") {
 			api.user
 				.logout()
@@ -49,7 +51,9 @@ export const NewProducts = () => {
 				});
 		}
 		if (location?.state?.product) {
+			console.log(location)
 			setProduct(location?.state?.product);
+			console.log(product)
 		}
 		if (location.pathname === "/products/info") {
 			setInfo(true);
