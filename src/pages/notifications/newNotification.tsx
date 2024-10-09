@@ -13,13 +13,15 @@ import "react-quill/dist/quill.snow.css";
 import * as yup from "yup";
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { toast } from "react-toastify";
+import { validateMsg, validateSubject } from "../../services/util";
 
 const schema = yup
   .object({
     Clientes: yup
       .array(
         yup.object({
-          value: yup.string().required(),
+          value: yup.string().optional(),
           label: yup.string().required(),
         })
       )
@@ -28,7 +30,7 @@ const schema = yup
     Vendedores: yup
       .array(
         yup.object({
-          value: yup.string().required(),
+          value: yup.string().optional(),
           label: yup.string().required(),
         })
       )
@@ -37,14 +39,24 @@ const schema = yup
     Representantes: yup
       .array(
         yup.object({
-          value: yup.string().required(),
+          value: yup.string().optional(),
           label: yup.string().required(),
         })
       )
       .min(1, "Selecione ao menos uma opção")
       .required("Seleção obrigatória"),
-    Assunto: yup.string().required("Assunto é obrigatório"),
-    Mensagem: yup.string().optional("Mensagem é obrigatória"),
+    Assunto: yup
+      .string()
+      .required("Assunto é obrigatório")
+      .test("test-invalid-subject", "Assunto inválido", (Assunto) =>
+        validateSubject(Assunto)
+      ),
+    Mensagem: yup
+      .string()
+      .required("Insira a mensagem")
+      .test("test-invalid-message", "Mensagem inválida", (Mensagem) =>
+        validateMsg(Mensagem)
+      )
   })
   .required();
 
@@ -82,7 +94,7 @@ export const NewNotification = ({
   });
 
   const handleClientChange = (newValue) => {
-    if (newValue.some((option) => option.value === "")) {
+    if (newValue.some((option) => option.value == "")) {
       setValue("Clientes", [{ value: "", label: "Nenhum" }]);
       setSelectedClients([{ value: "", label: "Nenhum" }]);
     } else {
@@ -111,11 +123,7 @@ export const NewNotification = ({
     }
   };
 
-  const handleMsgChange = (value) => {
-    console.log(value);
-    setValue("Mensagem", value);
-    console.log("ate aq");
-  };
+
 
   const tools = {
     toolbar: [
@@ -232,16 +240,14 @@ export const NewNotification = ({
     };
   };
 
-  /*const vMsg = watch("Mensagem");
-
-  useEffect(() => {
-    if (vMsg) {
-      setValue("Mensagem", vMsg || "");
-    }
-  }, [vMsg]);*/
-
   const submit = () => {
-    console.log("subimitei");
+    if (
+      selectedClients[0].value == "" &&
+      selectedDealers[0].value == "" &&
+      selectedAgents[0].value == ""
+    )
+      toast.error("Selecione ao menos um destinatário válido");
+    else console.log("Subimitei");
   };
 
   return (
@@ -261,7 +267,11 @@ export const NewNotification = ({
               <div style={{ width: "100%", marginRight: "1%" }}>
                 <label>Destinatário(s)</label>
                 <div
-                  style={{ display: "flex", flexDirection: "column", gap: 10 }}
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: 10,
+                  }}
                 >
                   <div>
                     <Controller
@@ -277,7 +287,6 @@ export const NewNotification = ({
                           onChange={(e) => {
                             field.onChange(e);
                             handleClientChange(e);
-                            console.log(field);
                           }}
                           menuPortalTarget={document.body}
                           isOptionDisabled={() =>
@@ -312,7 +321,6 @@ export const NewNotification = ({
                           onChange={(e) => {
                             field.onChange(e);
                             handleDealerChange(e);
-                            console.log(field);
                           }}
                           menuPortalTarget={document.body}
                           isOptionDisabled={() =>
@@ -347,7 +355,6 @@ export const NewNotification = ({
                           onChange={(e) => {
                             field.onChange(e);
                             handleAgentChange(e);
-                            console.log(field);
                           }}
                           menuPortalTarget={document.body}
                           isOptionDisabled={() =>
@@ -394,57 +401,52 @@ export const NewNotification = ({
             <div
               style={{
                 width: "100%",
+                height: "100%",
                 margin: "1rem",
                 display: "flex",
-                height: "8rem",
+                gap: 10,
               }}
             >
               <div
                 style={{
                   width: "100%",
                   marginRight: "1%",
-                  height: "100%",
-                  backgroundColor: "",
-                  display: "flex",
-                  flexDirection: "column",
-                  marginBottom: "1%",
                 }}
               >
                 <label>Mensagem</label>
-                <div
-                  style={{
-                    width: "100%",
-                    height: "100%",
-                  }}
-                >
-                  <Controller
-                    name="Mensagem"
-                    control={control}
-                    rules={{ required: true }}
-                    render={({ field }) => (
-                      <ReactQuill
-                        value={field.value}
-                        style={{ height: "100%" }}
-                        theme="snow"
-                        onChange={(e) => {
-                          field.onChange(e);
-                          handleMsgChange(e);
-                          console.log(field);
-                        }}
-                        modules={tools}
-                      />
-                    )}
-                  />
-                </div>
+                <Controller
+                  name="Mensagem"
+                  control={control}
+                  defaultValue=""
+                  rules={{ required: true }}
+                  render={({ field }) => (
+                    <ReactQuill
+                      value={field.value}
+                      onChange={(e) => {
+                        setValue("Mensagem", e)
+                        console.log(e)
+                        field.onChange(e);
+                      }}
+                      modules={tools}
+                    />
+                  )}
+                />
                 {errors.Mensagem && (
                   <h5 style={{ color: "red" }}>{errors.Mensagem.message}</h5>
                 )}
               </div>
             </div>
-            <Button type="submit">Salvei</Button>
-            <button type="submit" ref={btnSubmit}>
-              Salvarei 40
-            </button>
+            <div
+              style={{
+                width: "100%",
+                margin: "1rem",
+                textAlign: "right",
+              }}
+            >
+              <Button type="submit" style={{ marginRight: "2rem" }}>
+                Enviar mensagem
+              </Button>
+            </div>
           </form>
         </CardData>
       </PageLayout>

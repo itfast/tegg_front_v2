@@ -18,16 +18,17 @@ export const qtdChips = (plan) => {
 };
 
 export const translateTypeClient = (client) => {
-  switch(client){
-    case 'CLIENT':
-      return 'Cliente'
-    case 'AGENT':
-      return 'Representante'
-    case 'DEALER':
-    return 'Revenda'
-    default: return client
+  switch (client) {
+    case "CLIENT":
+      return "Cliente";
+    case "AGENT":
+      return "Representante";
+    case "DEALER":
+      return "Revenda";
+    default:
+      return client;
   }
-}
+};
 
 export const translateError = (err) => {
   if (err?.response?.data) {
@@ -499,23 +500,23 @@ export const documentFormat = (e) => {
 
 export const documentFormatV2 = (e) => {
   try {
-    if (!e) return '';
-    const data = e.replace(/\D/g, '');
+    if (!e) return "";
+    const data = e.replace(/\D/g, "");
     if (data.length > 11) {
       return data
-        .replace(/\D+/g, '') // não deixa ser digitado nenhuma letra
-        .replace(/(\d{2})(\d)/, '$1.$2') // captura 2 grupos de número o primeiro com 2 digitos e o segundo de com 3 digitos, apos capturar o primeiro grupo ele adiciona um ponto antes do segundo grupo de número
-        .replace(/(\d{3})(\d)/, '$1.$2')
-        .replace(/(\d{3})(\d)/, '$1/$2') // captura 2 grupos de número o primeiro e o segundo com 3 digitos, separados por /
-        .replace(/(\d{4})(\d)/, '$1-$2')
-        .replace(/(-\d{2})\d+?$/, '$1');
+        .replace(/\D+/g, "") // não deixa ser digitado nenhuma letra
+        .replace(/(\d{2})(\d)/, "$1.$2") // captura 2 grupos de número o primeiro com 2 digitos e o segundo de com 3 digitos, apos capturar o primeiro grupo ele adiciona um ponto antes do segundo grupo de número
+        .replace(/(\d{3})(\d)/, "$1.$2")
+        .replace(/(\d{3})(\d)/, "$1/$2") // captura 2 grupos de número o primeiro e o segundo com 3 digitos, separados por /
+        .replace(/(\d{4})(\d)/, "$1-$2")
+        .replace(/(-\d{2})\d+?$/, "$1");
     } else {
       return data
-        .replace(/\D/g, '')
-        .replace(/(\d{3})(\d)/, '$1.$2') // captura 2 grupos de numero o primeiro de 3 e o segundo de 1, apos capturar o primeiro grupo ele adiciona um ponto antes do segundo grupo de numero
-        .replace(/(\d{3})(\d)/, '$1.$2')
-        .replace(/(\d{3})(\d{1,2})/, '$1-$2')
-        .replace(/(-\d{2})\d+?$/, '$1');
+        .replace(/\D/g, "")
+        .replace(/(\d{3})(\d)/, "$1.$2") // captura 2 grupos de numero o primeiro de 3 e o segundo de 1, apos capturar o primeiro grupo ele adiciona um ponto antes do segundo grupo de numero
+        .replace(/(\d{3})(\d)/, "$1.$2")
+        .replace(/(\d{3})(\d{1,2})/, "$1-$2")
+        .replace(/(-\d{2})\d+?$/, "$1");
     }
   } catch (e) {
     console.log(e);
@@ -805,4 +806,31 @@ export const formatBalance = (str) => {
     const val = Math.floor(str);
     return val / 1000;
   }
+};
+
+export const validateMsg = (value) => {
+  console.log(value);
+  const regex = /<(p|em|ol|ul|h1|h2)>(.*?)<\/(h2|h1|ul|ol|em|p|)>/;
+  const match = value.match(regex);
+  console.log(match);
+  if (match) {
+    if (match[1] == "ul" || match[1] == "ol") {
+      const regex2 = /<li>(.*?)<\/li>/;
+      const match2 = value.match(regex2);
+
+      console.log(match2)
+      const content = match2[1].trim();
+      console.log(content)
+      return content != "" && content != "<br>"
+    } else {
+      const content2 = match[2].trim();
+      console.log(content2)
+      return content2 != "" && content2 != "<br>"
+    }
+  }
+  return false;
+};
+
+export const validateSubject = (value) => {
+  return value.trim().length > 0;
 };
