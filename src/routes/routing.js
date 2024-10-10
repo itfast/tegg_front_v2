@@ -16,7 +16,8 @@ const routing = {
 	preorder: '/preorder',
 	line: "/line",
 	nfe: "/nfe",
-	playHub: "/playhub"
+	playHub: "/playhub",
+	notifications: "/notifications"
 };
 
 export default routing;

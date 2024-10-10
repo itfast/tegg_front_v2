@@ -56,7 +56,7 @@ const schema = yup
       .required("Insira a mensagem")
       .test("test-invalid-message", "Mensagem inválida", (Mensagem) =>
         validateMsg(Mensagem)
-      )
+      ),
   })
   .required();
 
@@ -94,6 +94,7 @@ export const NewNotification = ({
   });
 
   const handleClientChange = (newValue) => {
+    console.log(newValue);
     if (newValue.some((option) => option.value == "")) {
       setValue("Clientes", [{ value: "", label: "Nenhum" }]);
       setSelectedClients([{ value: "", label: "Nenhum" }]);
@@ -104,6 +105,7 @@ export const NewNotification = ({
   };
 
   const handleDealerChange = (newValue) => {
+    console.log(newValue);
     if (newValue.some((option) => option.value === "")) {
       setValue("Vendedores", [{ value: "", label: "Nenhum" }]);
       setSelectedDealers([{ value: "", label: "Nenhum" }]);
@@ -114,6 +116,7 @@ export const NewNotification = ({
   };
 
   const handleAgentChange = (newValue) => {
+    console.log(newValue);
     if (newValue.some((option) => option.value === "")) {
       setValue("Representantes", [{ value: "", label: "Nenhum" }]);
       setSelectedAgents([{ value: "", label: "Nenhum" }]);
@@ -122,8 +125,6 @@ export const NewNotification = ({
       setSelectedAgents(newValue);
     }
   };
-
-
 
   const tools = {
     toolbar: [
@@ -243,11 +244,20 @@ export const NewNotification = ({
   const submit = () => {
     if (
       selectedClients[0].value == "" &&
+      selectedClients[0].label == "Nenhum" &&
       selectedDealers[0].value == "" &&
-      selectedAgents[0].value == ""
+      selectedDealers[0].label == "Nenhum" &&
+      selectedAgents[0].value == "" &&
+      selectedAgents[0].label == "Nenhum"
     )
       toast.error("Selecione ao menos um destinatário válido");
-    else console.log("Subimitei");
+    else {
+      console.log("Subimitei");
+      try {
+      } catch (e) {
+        console.log(e);
+      }
+    }
   };
 
   return (
@@ -423,8 +433,8 @@ export const NewNotification = ({
                     <ReactQuill
                       value={field.value}
                       onChange={(e) => {
-                        setValue("Mensagem", e)
-                        console.log(e)
+                        setValue("Mensagem", e);
+                        console.log(e);
                         field.onChange(e);
                       }}
                       modules={tools}
