@@ -762,7 +762,7 @@ export function SideBar({ open }) {
                 }}
               >
                 <a href='#' onClick={() => navigate('/notifications')}>
-                  <i className='bx bxs-chip'></i>
+                  <i className='bx bxs-message-detail'></i>
                   <span className='link_name'>Notificações</span>
                 </a>
                 <ul className='sub-menu blank'>

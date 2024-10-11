@@ -809,26 +809,10 @@ export const formatBalance = (str) => {
 };
 
 export const validateMsg = (value) => {
-  console.log(value);
-  const regex = /<(p|em|ol|ul|h1|h2)>(.*?)<\/(h2|h1|ul|ol|em|p|)>/;
-  const match = value.match(regex);
-  console.log(match);
-  if (match) {
-    if (match[1] == "ul" || match[1] == "ol") {
-      const regex2 = /<li>(.*?)<\/li>/;
-      const match2 = value.match(regex2);
+  const noTags = value.replace(/<[^>]*>/g, "");
+  const noBlank = noTags.trim();
 
-      console.log(match2)
-      const content = match2[1].trim();
-      console.log(content)
-      return content != "" && content != "<br>"
-    } else {
-      const content2 = match[2].trim();
-      console.log(content2)
-      return content2 != "" && content2 != "<br>"
-    }
-  }
-  return false;
+  return noBlank !== "";
 };
 
 export const validateSubject = (value) => {

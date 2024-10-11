@@ -3,7 +3,7 @@ const instance = {
 	// baseURL: "http://localhost:4000/undefined",
 	// baseURL: "https://teggtelecom.com/apihomolog",
 	// baseURL: "http://192.168.15.13:4000/api",
-	baseURL: "http://192.168.15.15:4000/api",
+	baseURL: "http://localhost:4000/api",
 	// baseURL: "http://localhost:4000/api",
 	// baseURL: import.meta.env.VITE_APP_URL,
 };

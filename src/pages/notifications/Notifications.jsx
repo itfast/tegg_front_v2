@@ -50,7 +50,6 @@ export const Notifications = () => {
             </Button>
           )}
         </div>
-        <h1>aaaa</h1>
       </PageLayout>
     </>
   );

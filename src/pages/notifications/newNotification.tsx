@@ -14,7 +14,7 @@ import * as yup from "yup";
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { toast } from "react-toastify";
-import { validateMsg, validateSubject } from "../../services/util";
+import { translateError, validateMsg, validateSubject } from "../../services/util";
 
 const schema = yup
   .object({
@@ -241,7 +241,7 @@ export const NewNotification = ({
     };
   };
 
-  const submit = () => {
+  const submit = (data) => {
     if (
       selectedClients[0].value == "" &&
       selectedClients[0].label == "Nenhum" &&
@@ -252,9 +252,21 @@ export const NewNotification = ({
     )
       toast.error("Selecione ao menos um destinatário válido");
     else {
-      toast.success("Notificação enviada com sucesso!")
-      console.log("Subimitei");
       try {
+        api.notification
+        .sendNotification(
+          data.Clientes,
+          data.Vendedores,
+          data.Representantes,
+          data.Assunto,
+          data.Mensagem
+        )
+        .then((res) =>{
+          console.log(res)
+          toast.success("Notificação enviada com sucesso!");
+          console.log("Subimitei");
+        })
+        .catch((e) => translateError(e))
       } catch (e) {
         console.log(e);
       }
@@ -435,7 +447,6 @@ export const NewNotification = ({
                       value={field.value}
                       onChange={(e) => {
                         setValue("Mensagem", e);
-                        console.log(e);
                         field.onChange(e);
                       }}
                       modules={tools}
