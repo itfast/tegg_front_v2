@@ -114,7 +114,7 @@ export function Router() {
       <Routes>
         <Fragment>
           <Route path={'/login'} element={<Login />} />
-          <Route path={'/easylogin'} element={<EasyLogin />} />
+          <Route path={'/minhasfaturas'} element={<EasyLogin />} />
           <Route path={'/easylogininfo'} element={<EasyLoginInfo />} />
           <Route path={'/allbills'} element={<AllBills />} />
           <Route path={'/subscribe'} element={<PreRegister />} />

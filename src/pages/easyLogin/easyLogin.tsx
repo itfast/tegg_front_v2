@@ -2,31 +2,17 @@ import React, { useEffect, useState } from "react";
 import {
   ContainerBodyLogin,
   ContainerFormLogin,
-  ContainerImageLogin,
-  ContainerImageText,
-  ContainerLogin,
-  FormLogin,
   InputLogin,
-  InputPassSignUp,
 } from "../login/Login.styles";
-import ReactLoading from "react-loading";
-import { LiaEyeSolid, LiaEyeSlash } from "react-icons/lia";
 import { Button, ContainerMobile, ContainerWeb } from "../../../globalStyles";
 import api from "../../services/api";
 import { useNavigate } from "react-router-dom";
 import {
   translateError,
   validateDocument,
-  documentFormat,
   documentFormatV2,
 } from "../../services/util";
-import { toast } from "react-toastify";
-import { NewClientExtern } from "../clients/new/NewClientExtern";
-import ReactCardFlip from "react-card-flip";
-// import { Avatar, Menu, MenuItem } from "@mui/material";
 import { useTranslation } from "react-i18next";
-import { Loading } from "../../components/loading/Loading";
-import { he } from "date-fns/locale";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
@@ -43,30 +29,10 @@ const schema = yup
   })
   .required();
 
-const Input = styled.input`
-  height: 40px;
-  border-radius: 8px;
-  padding: 5px;
-  /* text-align: center; */
-  border: 1px solid ${({ theme }) => theme.colors.inputBackgroundColor};
-  outline-color: ${({ theme }) => theme.colors.inputBorderRadius};
-`;
-
 export const EasyLogin = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const [hovering, setHovering] = useState(false);
-  const [typePass, setTypePass] = useState("password");
-  const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
-  const [loadingR, setLoadingR] = useState(false);
-  const [resetPassword, setResetPassword] = useState("");
-  const [step, setStep] = useState(0);
-  const [cpfCnpj, setCpfCnpj] = useState("");
-  const [singUp, setSingUp] = useState(false);
-  const [flipped, setFlipped] = useState(true);
-  const [language, setLanguage] = useState();
-  const [anchorEl, setAnchorEl] = useState(null);
 
   const {
     register,
@@ -83,16 +49,20 @@ export const EasyLogin = () => {
   };
 
   const handleLoginCpf = async (data) => {
-    try {
-      setLoading(true);
-      await api.user.loginByCpf(clearCpfCnpj(data.CpfCnpj));
-      navigate("/easylogininfo");
-    } catch (err) {
-      console.log(err);
-      toast.error("CPF ou CNPJ não encontrado. Verifique e tente novamente.");
-    } finally {
-      setLoading(false);
-    }
+    setLoading(true);
+    api.user
+      .loginByCpf(clearCpfCnpj(data.CpfCnpj))
+      .then((res) => {
+        console.log(res);
+        navigate("/easylogininfo", {
+          state: {
+            clientName: res?.data.user[0].Name,
+            invoices: res?.data.payments,
+          },
+        });
+      })
+      .catch((err) => translateError(err))
+      .finally(() => setLoading(false));
   };
 
   const vDocument = watch("CpfCnpj");
@@ -134,7 +104,7 @@ export const EasyLogin = () => {
             <div style={{ marginRight: "2rem" }}> </div>
 
             <ContainerFormLogin style={{ width: "100%" }}>
-              <h1
+              <h2
                 style={{
                   textAlign: "left",
                   marginBottom: "1rem",
@@ -142,10 +112,10 @@ export const EasyLogin = () => {
                 }}
               >
                 Consulta fácil
-              </h1>
+              </h2>
 
               <p>Insira o CPF ou CNPJ:</p>
-              <form onSubmit={handleSubmit(handleLoginCpf)}>
+              <form onSubmit={handleSubmit(handleLoginCpf)} style={{width: '80%'}}>
                 <InputLogin
                   type="input"
                   id="CpfCnpj"
@@ -209,85 +179,79 @@ export const EasyLogin = () => {
       <ContainerMobile>
         <ContainerBodyLogin
           style={{
-            height: "100vh",
-            display: "flex",
             justifyContent: "center",
             alignItems: "center",
           }}
         >
-          <div
+          <img
+            src={"/assets/tegg-branco.png"}
+            alt="Logo Tegg"
             style={{
-              height: "100vh",
-              width: "100vh",
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "center",
-              alignItems: "center",
+              width: "150px",
             }}
+          />
+          <div style={{ marginTop: "2rem" }}> </div>
+          <ContainerFormLogin
+            style={{ width: "90%", height: "30%", borderRadius: "4px" }}
           >
-            <img
-              src={"/assets/tegg-branco.png"}
-              alt="Logo Tegg"
+            <h3
               style={{
-                width: "150px",
+                marginBottom: "1rem",
+                fontWeight: "bold",
               }}
-            />
-            <div style={{ marginTop: "2rem" }}> </div>
-            <ContainerFormLogin style={{ width: "30%", height: "30%" }}>
-              <h3
-                style={{
-                  textAlign: "left",
-                  marginBottom: "1rem",
-                  fontWeight: "bold",
-                }}
-              >
-                Consulta fácil
-              </h3>
+            >
+              Consulta fácil
+            </h3>
 
-              <p>Insira o CPF ou CNPJ:</p>
-              <form onSubmit={handleSubmit(handleLoginCpf)}>
-                <InputLogin
-                  type="text"
-                  id="CpfCnpj"
-                  placeholder="CPF/CNPJ"
-                  {...register("CpfCnpj")}
+            <p>Insira o CPF ou CNPJ:</p>
+            <form
+              onSubmit={handleSubmit(handleLoginCpf)}
+              style={{
+                width: "100%",
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+              }}
+            >
+              <InputLogin
+                type="text"
+                id="CpfCnpj"
+                placeholder="CPF/CNPJ"
+                {...register("CpfCnpj")}
+                style={{
+                  marginBottom: "1rem",
+                  borderColor: errors.CpfCnpj ? "red" : "",
+                }}
+              />
+              {errors.CpfCnpj && (
+                <span
                   style={{
-                    marginBottom: "1rem",
-                    padding: "0.75rem",
-                    borderRadius: "8px",
-                    width: "100%",
-                    borderColor: errors.CpfCnpj ? "red" : "",
+                    color: "red",
+                    marginBottom: "0.2rem",
+                    display: "block",
+                    textAlign: "center",
                   }}
-                />
-                {errors.CpfCnpj && (
-                  <span
-                    style={{
-                      color: "red",
-                      marginBottom: "0.2rem",
-                      display: "block",
-                      textAlign: "center",
-                    }}
-                  >
-                    {errors.CpfCnpj.message}
-                  </span>
-                )}
-                <Button
-                  style={{
-                    width: "100%",
-                    display: "flex",
-                    justifyContent: "center",
-                    flexDirection: "row",
-                    alignItems: "center",
-                    gap: "10px",
-                  }}
-                  disabled={loading}
                 >
-                  {loading ? "Carregando..." : "Entrar"}
-                </Button>
-              </form>
-            </ContainerFormLogin>
-          </div>
-          <h5
+                  {errors.CpfCnpj.message}
+                </span>
+              )}
+              <Button
+                style={{
+                  width: "100%",
+                  display: "flex",
+                  justifyContent: "center",
+                  flexDirection: "row",
+                  alignItems: "center",
+                  // gap: "10px",
+                }}
+                disabled={loading}
+              >
+                {loading ? "Carregando..." : "Entrar"}
+              </Button>
+            </form>
+          </ContainerFormLogin>
+          {/* </div> */}
+          {/* <h5
             className="copyright-text"
             style={{
               textAlign: "center",
@@ -297,7 +261,7 @@ export const EasyLogin = () => {
           >
             Copyright © 2024 TEGG TECHNOLOGY LTDA – CNPJ: 45.435.783/0001-74 |{" "}
             {t("Rights")}
-          </h5>
+          </h5> */}
         </ContainerBodyLogin>
       </ContainerMobile>
     </>
