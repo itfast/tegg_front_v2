@@ -13,7 +13,7 @@ interface HeaderBarProps {
   isTop?: boolean;
   isBottom?: boolean;
 }
-// Styled Components for reusability
+
 export const InfoBox = styled.div`
   border: 1px solid #ccc;
   border-radius: 8px;
@@ -78,7 +78,7 @@ export const EasyLoginInfo = () => {
   };
 
   useEffect(() => {
-    if(!location?.state?.clientName){
+    if (!location?.state?.clientName) {
       navigate("/minhasfaturas");
     }
   }, []);
@@ -87,37 +87,36 @@ export const EasyLoginInfo = () => {
       <ContainerWeb>
         <div
           style={{
-            height: "100vh",
-            width: "400px",
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            backgroundColor: "#2B2B2B",
+            width: "20%",
+            backgroundColor: "#00d959",
+            height: "100vh", // altura fixa para 100% da janela
+            position: "fixed", // sidebar fixa
+            top: "0", // fixada ao topo
+            left: "0", // fixada à esquerda
+            zIndex: 1000, // garante que fique acima dos outros elementos
           }}
         >
-          <img
-            src={"/assets/tegg-branco.png"}
-            alt="Logo Tegg"
-            style={{ width: "200px", padding: "1rem", marginTop: "1.5rem" }}
-          />
           <div
             style={{
-              marginTop: "30rem",
-              marginLeft: "7rem",
+              textAlign: "center",
             }}
           >
-            <Button
-              style={{
-                backgroundColor: "transparent",
-                width: "100%",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                gap: "10px",
-              }}
-              onClick={goExit}
-            >
-              <RiLogoutBoxLine style={{ fontSize: "20px" }} />
+            <img
+              src={"/assets/tegg-branco.png"}
+              alt="Logo Tegg"
+              style={{ width: "70%", marginTop: "15%" }}
+            />
+          </div>
+          <div
+            style={{
+              width:"40%",
+              position: "absolute",
+              bottom: "5vh",
+              left: "1vw",
+            }}
+          >
+            <Button style={{ width: "100%", display:"flex", justifyContent:"center", alignItems:"center", gap: "5%" }} onClick={goExit}>
+              <RiLogoutBoxLine style={{ fontSize: "1.3vw" }} />
               {t("Menu.exit")}
             </Button>
           </div>
@@ -125,7 +124,8 @@ export const EasyLoginInfo = () => {
         <div
           style={{
             height: "100vh",
-            width: "100%",
+            width: "80%",
+            marginLeft:"20%",
             display: "flex",
             flexDirection: "column",
             paddingLeft: "2rem",
@@ -136,26 +136,39 @@ export const EasyLoginInfo = () => {
         >
           <div>
             <h3>Olá,</h3>
-            <h2 style={{ fontWeight: "bold" }}>{location?.state?.clientName}!</h2>
+            <h2 style={{ fontWeight: "bold" }}>
+              {location?.state?.clientName}!
+            </h2>
             <br />
             <h3>Faturas pendentes:</h3>
           </div>
 
           {location?.state?.invoices.lenght === 0 ? (
-              <InfoBox>
-                <h3 style={{ textAlign: "center" }}>
-                  Você não possuí faturas pendentes
-                </h3>
-              </InfoBox>
-            ) : (
-              <div style={{display: 'flex', gap: 20, width: '100%', flexWrap: 'wrap'}}>
+            <InfoBox>
+              <h3 style={{ textAlign: "center" }}>
+                Você não possuí faturas pendentes
+              </h3>
+            </InfoBox>
+          ) : (
+            <div
+              style={{
+                display: "flex",
+                gap: 20,
+                width: "100%",
+                flexWrap: "wrap",
+              }}
+            >
               {location?.state?.invoices.map((i) => (
                 <InfoBox key={i.Id}>
                   <MainInfo>
-                    <BillInfo style={{width: '100%', textAlign: 'center'}}>
-                      <h3 style={{ fontWeight: "bold" }}>{translateValue(i.Amount)}</h3>
+                    <BillInfo style={{ width: "100%", textAlign: "center" }}>
+                      <h3 style={{ fontWeight: "bold" }}>
+                        {translateValue(i.Amount)}
+                      </h3>
                       <h4>{translateStatus(i.Status)}</h4>
-                      <h4>{i.DueDate && moment(i.DueDate).format('DD/MM/YYYY')}</h4>
+                      <h4>
+                        {i.DueDate && moment(i.DueDate).format("DD/MM/YYYY")}
+                      </h4>
                     </BillInfo>
                   </MainInfo>
                   <Button
@@ -168,15 +181,15 @@ export const EasyLoginInfo = () => {
                       alignItems: "center",
                       gap: "10px",
                     }}
-                    onClick={() => window.open(i.InvoiceUrl, '_black') }
+                    onClick={() => window.open(i.InvoiceUrl, "_black")}
                   >
                     <FaRegCreditCard style={{ fontSize: "20px" }} />
                     <h4>Pagar</h4>
                   </Button>
                 </InfoBox>
               ))}
-              </div>
-            )}
+            </div>
+          )}
         </div>
         <div style={{ padding: "3rem", marginRight: "80px" }}></div>
       </ContainerWeb>
@@ -238,33 +251,37 @@ export const EasyLoginInfo = () => {
                 </h3>
               </InfoBox>
             ) : (
-              <div style={{display: 'flex', flexDirection: 'column'}}>
-              {location?.state?.invoices.map((i) => (
-                <InfoBox key={i.Id}>
-                  <MainInfo>
-                    <BillInfo style={{width: '100%', textAlign: 'center'}}>
-                      <h3 style={{ fontWeight: "bold" }}>{translateValue(i.Amount)}</h3>
-                      <h4>{translateStatus(i.Status)}</h4>
-                      <h4>{i.DueDate && moment(i.DueDate).format('DD/MM/YYYY')}</h4>
-                    </BillInfo>
-                  </MainInfo>
-                  <Button
-                    style={{
-                      width: "100%",
-                      height: "1rem",
-                      padding: "1rem",
-                      display: "flex",
-                      justifyContent: "center",
-                      alignItems: "center",
-                      gap: "10px",
-                    }}
-                    onClick={() => window.open(i.InvoiceUrl, '_black') }
-                  >
-                    <FaRegCreditCard style={{ fontSize: "20px" }} />
-                    <h4>Pagar</h4>
-                  </Button>
-                </InfoBox>
-              ))}
+              <div style={{ display: "flex", flexDirection: "column" }}>
+                {location?.state?.invoices.map((i) => (
+                  <InfoBox key={i.Id}>
+                    <MainInfo>
+                      <BillInfo style={{ width: "100%", textAlign: "center" }}>
+                        <h3 style={{ fontWeight: "bold" }}>
+                          {translateValue(i.Amount)}
+                        </h3>
+                        <h4>{translateStatus(i.Status)}</h4>
+                        <h4>
+                          {i.DueDate && moment(i.DueDate).format("DD/MM/YYYY")}
+                        </h4>
+                      </BillInfo>
+                    </MainInfo>
+                    <Button
+                      style={{
+                        width: "100%",
+                        height: "1rem",
+                        padding: "1rem",
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                        gap: "10px",
+                      }}
+                      onClick={() => window.open(i.InvoiceUrl, "_black")}
+                    >
+                      <FaRegCreditCard style={{ fontSize: "20px" }} />
+                      <h4>Pagar</h4>
+                    </Button>
+                  </InfoBox>
+                ))}
               </div>
             )}
           </div>

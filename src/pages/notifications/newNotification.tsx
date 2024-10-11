@@ -252,6 +252,7 @@ export const NewNotification = ({
     )
       toast.error("Selecione ao menos um destinatário válido");
     else {
+      toast.success("Notificação enviada com sucesso!")
       console.log("Subimitei");
       try {
       } catch (e) {
@@ -454,7 +455,7 @@ export const NewNotification = ({
               }}
             >
               <Button type="submit" style={{ marginRight: "2rem" }}>
-                Enviar mensagem
+                Enviar notificação
               </Button>
             </div>
           </form>
