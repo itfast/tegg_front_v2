@@ -1,8 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
   Button,
-  ContainerMobile,
-  ContainerWeb,
   PageLayout,
 } from "../../../globalStyles";
 import api from "../../services/api";
@@ -14,7 +12,11 @@ import * as yup from "yup";
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { toast } from "react-toastify";
-import { translateError, validateMsg, validateSubject } from "../../services/util";
+import {
+  translateError,
+  validateMsg,
+  validateSubject,
+} from "../../services/util";
 
 const schema = yup
   .object({
@@ -63,7 +65,6 @@ const schema = yup
 export type FormDataNotification = yup.InferType<typeof schema>;
 
 interface FormCreateNotificationProps {
-  btnSubmit: any;
   notification?: FormDataNotification;
 }
 
@@ -73,7 +74,6 @@ interface optProps {
 }
 
 export const NewNotification = ({
-  btnSubmit,
   notification,
 }: FormCreateNotificationProps) => {
   const [message, setMessage] = useState("");
@@ -254,19 +254,19 @@ export const NewNotification = ({
     else {
       try {
         api.notification
-        .sendNotification(
-          data.Clientes,
-          data.Vendedores,
-          data.Representantes,
-          data.Assunto,
-          data.Mensagem
-        )
-        .then((res) =>{
-          console.log(res)
-          toast.success("Notificação enviada com sucesso!");
-          console.log("Subimitei");
-        })
-        .catch((e) => translateError(e))
+          .sendNotification(
+            data.Clientes,
+            data.Vendedores,
+            data.Representantes,
+            data.Assunto,
+            data.Mensagem
+          )
+          .then((res) => {
+            console.log(res);
+            toast.success("Notificação enviada com sucesso!");
+            console.log("Subimitei");
+          })
+          .catch((e) => translateError(e));
       } catch (e) {
         console.log(e);
       }
@@ -319,6 +319,13 @@ export const NewNotification = ({
                           }
                           styles={{
                             menuPortal: (base) => ({ ...base, zIndex: 9999 }),
+                            control: (base) => ({
+                              ...base,
+                              border: "1px solid #00D959",
+                              borderRadius: "8px",
+                              height: "40px",
+                              boxShadow: "none",
+                            }),
                           }}
                           menuPosition={"fixed"}
                         />
@@ -353,6 +360,13 @@ export const NewNotification = ({
                           }
                           styles={{
                             menuPortal: (base) => ({ ...base, zIndex: 9999 }),
+                            control: (base) => ({
+                              ...base,
+                              border: "1px solid #00D959",
+                              borderRadius: "8px",
+                              height: "40px",
+                              boxShadow: "none",
+                            }),
                           }}
                           menuPosition={"fixed"}
                         />
@@ -385,6 +399,13 @@ export const NewNotification = ({
                           }
                           styles={{
                             menuPortal: (base) => ({ ...base, zIndex: 9999 }),
+                            control: (base) => ({
+                              ...base,
+                              border: "1px solid #00D959",
+                              borderRadius: "8px",
+                              height: "40px",
+                              boxShadow: "none",
+                            }),
                           }}
                           menuPosition={"fixed"}
                         />
@@ -450,6 +471,10 @@ export const NewNotification = ({
                         field.onChange(e);
                       }}
                       modules={tools}
+                      style={{
+                        border: "1px solid #00D959",
+                        borderRadius: "2px",
+                      }}
                     />
                   )}
                 />

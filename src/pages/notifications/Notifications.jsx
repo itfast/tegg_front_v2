@@ -10,7 +10,6 @@ import { useNavigate } from "react-router-dom";
 import api from "../../services/api";
 import { translateError } from "../../services/util";
 import { InputData } from "../resales/Resales.styles";
-// import { TableItens } from '../clients/clientNew/NewOrder.styles';
 import Select from "react-select";
 import { ModalMessage } from "../../components/ModalMessage/ModalMessage";
 import { toast } from "react-toastify";
@@ -19,19 +18,6 @@ import Stack from "@mui/material/Stack";
 import { Loading } from "../../components/loading/Loading";
 import { useTranslation } from "react-i18next";
 import { PageTitles } from "../../components/PageTitle/PageTitle";
-
-/*export const NewNotification = () => {
-  return(
-    <>
-      <form>
-        <div>
-          <h1>aaaa</h1>
-        </div>
-
-      </form>
-    </>
-  )
-}*/
 
 export const Notifications = () => {
   const navigate = useNavigate();
