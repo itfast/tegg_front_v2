@@ -61,7 +61,7 @@ import { ActivationManualClient } from '../pages/iccid/activate/ActivatetionManu
 // import { Streaming } from '../pages/streaming/Streaming';
 import { StreamingManagement } from '../pages/streaming/StreamingManagement';
 import { Actions } from '../pages/actions/Actions';
-import { Notifications } from '../pages/notifications/notifications';
+import { Notifications } from '../pages/notifications/Notifications';
 import { NewNotification } from '../pages/notifications/newNotification';
 import { ConsumInf } from '../pages/actions/components/ConsumInf'
 import { ChangePlan } from '../pages/actions/components/ChangePlan'

@@ -2264,23 +2264,43 @@ class Api {
     };
 
     this.notification = {
-      sendNotification: async(
+      getAll: async (page, limit, search) => {
+        try {
+          const res = await this.axios.get(
+            `${apiRoutes.notifications}?page=${page}&limit=${limit}&search=${search}`
+          );
+          return res;
+        } catch (e) {
+          throwFormattedError(e);
+        }
+      },
+      getInfo: async (id) => {
+        try {
+          const res = await this.axios.get(
+            `${apiRoutes.notifications}/details/${id}`
+          );
+          return res;
+        } catch (e) {
+          throwFormattedError(e);
+        }
+      },
+      sendNotification: async (
         Clientes,
         Vendedores,
         Representantes,
         Assunto,
         Mensagem
       ) => {
-        try{
+        try {
           const res = await this.axios.post(`${apiRoutes.notifications}`, {
             Clientes,
             Vendedores,
             Representantes,
             Assunto,
-            Mensagem
+            Mensagem,
           });
           return res;
-        }catch(e){
+        } catch (e) {
           throwFormattedError(e);
         }
       },
