@@ -17,6 +17,7 @@ import {
   validateMsg,
   validateSubject,
 } from "../../services/util";
+import { useNavigate } from "react-router-dom";
 
 const schema = yup
   .object({
@@ -76,16 +77,15 @@ interface optProps {
 export const NewNotification = ({
   notification,
 }: FormCreateNotificationProps) => {
-  const [message, setMessage] = useState("");
   const [selectedClients, setSelectedClients] = useState<Array<optProps>>([]);
   const [selectedDealers, setSelectedDealers] = useState<Array<optProps>>([]);
   const [selectedAgents, setSelectedAgents] = useState<Array<optProps>>([]);
+  const navigate = useNavigate();
 
   const {
     handleSubmit,
     register,
     control,
-    watch,
     setValue,
     formState: { errors },
   } = useForm<FormDataNotification>({
@@ -144,12 +144,16 @@ export const NewNotification = ({
       search
     );
 
+    console.log(response?.data)
     response?.data?.finalClients?.forEach((c) => {
-      listC.push({
-        value: c.Id,
-        label: c.Name,
-        type: "client",
-      });
+      if(c?.User?.Type=="CLIENT"){
+
+        listC.push({
+          value: c.Id,
+          label: c.Name,
+          type: "client",
+        });
+      }
     });
 
     const nullOptExists = prevOptions.some((option) => option.value === "");
@@ -219,7 +223,7 @@ export const NewNotification = ({
       listA.push({
         value: c.Id,
         label: c.Name,
-        type: "representative",
+        type: "agent",
       });
     });
 
@@ -264,6 +268,7 @@ export const NewNotification = ({
           .then((res) => {
             console.log(res);
             toast.success("Notificação enviada com sucesso!");
+            navigate("/notifications")
             console.log("Subimitei");
           })
           .catch((e) => translateError(e));

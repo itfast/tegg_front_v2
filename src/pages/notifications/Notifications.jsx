@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import ReactLoading from "react-loading";
 import {
   Button,
   ContainerMobile,
@@ -10,13 +9,9 @@ import { useNavigate } from "react-router-dom";
 import api from "../../services/api";
 import { translateError } from "../../services/util";
 import { InputData } from "../resales/Resales.styles";
-import Select from "react-select";
-import { ModalMessage } from "../../components/ModalMessage/ModalMessage";
-import { toast } from "react-toastify";
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
 import { Loading } from "../../components/loading/Loading";
-import { useTranslation } from "react-i18next";
 import { PageTitles } from "../../components/PageTitle/PageTitle";
 import { TableItens } from "../orders/clientNew/NewOrder.styles";
 import { NotificationInfo } from "./NotificationInfo";
@@ -27,26 +22,34 @@ export const Notifications = () => {
   const [loadingDetails, setLoadingDetails] = useState(true);
   const [notifications, setNotifications] = useState([]);
   const [search, setSearch] = useState("");
-  const [limit, setLimit] = useState(10);
+  const [pageLimit, setPageLimit] = useState(10);
   const [page, setPage] = useState(1);
   const [msg, setMsg] = useState("Buscando notificações");
-  const [totalPages, setTotalPages] = useState(1);
+  const [maxPages, setMaxPages] = useState(1);
 
   const getNotifications = () => {
     setLoading(true);
     api.notification
-      .getAll(page, limit, search)
+      .getAll(page, pageLimit, search)
       .then((res) => {
-        console.log(res.data);
-        setTotalPages(res.data?.meta?.totalPages || 1);
-        setNotifications(res.data.notifications)
+        console.log(res?.data);
+        setMaxPages(res?.data?.meta?.totalPages || 1);
+        setNotifications(res?.data?.notifications)
       })
-      .catch((err) => console.log(err))
+      .catch((err) => translateError(err))
       .finally(() => {
         setLoading(false);
         setLoadingDetails(false)
       });
   }
+
+  const handlePageChange = (event, value) => {
+    setPage(value);
+  };
+
+  const handlePageLimitChange = (e) => {
+    setPageLimit(e.target.value);
+  };
 
   useEffect(() => {
     if (api.currentUser.AccessTypes[0] !== "TEGG") {
@@ -60,7 +63,7 @@ export const Notifications = () => {
         });
     }
     getNotifications()
-  }, [page, limit, search]);
+  }, [page, pageLimit, search]);
 
   return (
     <div style={{ display: screen.width > 768 && "flex", gap: 15 }}>
@@ -122,12 +125,49 @@ export const Notifications = () => {
                     setMsg={setMsg}
                     key={n.Id}
                     notification={n}
-                    getNotification={getNotifications}
                     />
                   ))}
                 </>
               </TableItens>
             </ContainerWeb>
+
+            <br />
+        {!loading && (
+          <div style={{ display: 'flex', justifyContent: 'center' }}>
+            <Stack
+              spacing={2}
+              style={{
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+              }}
+            >
+              <Pagination
+                count={maxPages}
+                page={page}
+                onChange={handlePageChange}
+                variant='outlined'
+                shape='rounded'
+              />
+              <div style={{ display: 'flex', gap: 5 }}>
+                <p>Itens por página:</p>
+                <select
+                  name='pages'
+                  id='page-select'
+                  value={pageLimit}
+                  onChange={(e) => {
+                    handlePageLimitChange(e);
+                  }}
+                >
+                  <option value={5}>5</option>
+                  <option value={10}>10</option>
+                  <option value={30}>30</option>
+                  <option value={50}>50</option>
+                </select>
+              </div>
+            </Stack>
+          </div>
+        )}
           </PageLayout>
         </>
       )}

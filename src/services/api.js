@@ -2264,10 +2264,10 @@ class Api {
     };
 
     this.notification = {
-      getAll: async (page, limit, search) => {
+      getAll: async (page, pageLimit, search) => {
         try {
           const res = await this.axios.get(
-            `${apiRoutes.notifications}?page=${page}&limit=${limit}&search=${search}`
+            `${apiRoutes.notifications}?page=${page}&limit=${pageLimit}&search=${search}`
           );
           return res;
         } catch (e) {

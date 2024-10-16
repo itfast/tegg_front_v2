@@ -1,44 +1,27 @@
-/* eslint-disable react/prop-types */
-import { useNavigate } from "react-router-dom";
 import { IoMdMore } from "react-icons/io";
 import {
   Dialog,
   DialogActions,
   DialogContent,
-  DialogContentText,
-  DialogTitle,
   IconButton,
   Menu,
   MenuItem,
 } from "@mui/material";
 import { useState, useEffect } from "react";
 import { Button } from "../../../globalStyles";
-import ReactLoading from "react-loading";
-import { LiaEyeSolid, LiaEyeSlash } from "react-icons/lia";
-import { InputPassSignUp } from "../login/Login.styles";
 import api from "../../services/api";
-import { translateError, translateStatus } from "../../services/util";
-import { toast } from "react-toastify";
-import { useTranslation } from "react-i18next";
+import { translateError } from "../../services/util";
 
 export const NotificationInfo = ({
   notification,
-  getNotification,
   setLoading,
   setMsg,
 }) => {
-  const { t } = useTranslation();
-  // const [loading, setLoading] = useState(false);
   const [showModal, setShowModal] = useState(false);
-  const [showModalReset, setShowModalReset] = useState(false);
-  const [password, setPassword] = useState("");
-  const [typePass, setTypePass] = useState("password");
-  const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
-  const [excludClient, setExcludClient] = useState(false);
-  const [disableClient, setDisableClient] = useState(false);
   const [recipientsClient, setRecipientsClient] = useState([]);
+  const [recipientsAgent, setRecipientsAgent] = useState([]);
   const [recipientsDealer, setRecipientsDealer] = useState([]);
   const [notificationDetails, setNotificationDetails] = useState({});
 
@@ -65,13 +48,18 @@ export const NotificationInfo = ({
       .then((res) => {
         console.log("detalheeees", res);
         res.data.NotificationsRecipients.map((r) => {
-          if (r.FinalClient) {
-            finalClients.push(r.FinalClient.Name);
-          } else if (r.Dealer) {
-            dealers.push(r.Dealer.Name);
+          if (r?.FinalClient) {
+            if (r?.FinalClient?.User?.Type == "AGENT") {
+              agents.push({name: r?.FinalClient?.Name, email: r?.FinalClient?.Email});
+            } else {
+              finalClients.push({name: r?.FinalClient?.Name, email: r?.FinalClient?.Email});
+            }
+          } else if (r?.Dealer) {
+            dealers.push({name: r?.Dealer?.Name, email: r?.Dealer?.Email});
           }
         });
         setRecipientsClient(finalClients);
+        setRecipientsAgent(agents);
         setRecipientsDealer(dealers);
         setNotificationDetails(res.data);
       })
@@ -121,7 +109,6 @@ export const NotificationInfo = ({
                   aria-haspopup="true"
                   onClick={handleClick}
                 >
-                  {/* <MoreVertIcon /> */}
                   <IoMdMore />
                 </IconButton>
                 <Menu
@@ -178,14 +165,74 @@ export const NotificationInfo = ({
                   </p>
                 </div>
               </div>
+              <hr className="margin_half" />
+              <div className="info_title">
+                <p className="bold">DESTINATÁRIOS</p>
+              </div>
               <div className="info_line">
-                <div className="info_item_2">
+                <div className="info_item_2" style={{width:"100%"}}>
                   <label className="bold">Clientes</label>
-                  <p>{recipientsClient}</p>
+                  <p>
+                    {recipientsClient.length >= 1
+                      ? recipientsClient.map((client) => (
+                          <div>
+                            {client.name}
+                            {` <${client.email}>`}
+                          </div>
+                        ))
+                      : "Nenhum"}
+                  </p>
                 </div>
-                <div className="info_item_2">
+              </div>
+              <br />
+              <div className="info_line">
+                <div className="info_item_2" style={{width:"100%"}}>
+                  <label className="bold">Representantes</label>
+                  <p>
+                    {recipientsAgent.length >= 1
+                      ? recipientsAgent.map((agent) => (
+                          <div>
+                            {agent.name}
+                            {` <${agent.email}>`}
+                          </div>
+                        ))
+                      : "Nenhum"}
+                  </p>
+                </div>
+              </div>
+              <br />
+              <div className="info_line">
+                <div className="info_item_2" style={{width:"100%"}}>
                   <label className="bold">Vendedores</label>
-                  <p>{recipientsDealer}</p>
+                  <p>
+                    {recipientsDealer.length >= 1
+                      ? recipientsDealer.map((dealer) => (
+                          <div>
+                            {dealer.name}
+                            {` <${dealer.email}>`}
+                          </div>
+                        ))
+                      : "Nenhum"}
+                  </p>
+                </div>
+              </div>
+              <hr className="margin_half" />
+              <div className="info_title">
+                <p className="bold">MENSAGEM</p>
+              </div>
+              <div className="info_line">
+                <div
+                  className="info_item_2"
+                  style={{
+                    width: "100%",
+                  }}
+                >
+                  <div
+                    style={{ marginLeft: "20px" }}
+                    dangerouslySetInnerHTML={{
+                      __html: notificationDetails?.Message,
+                    }}
+                  ></div>
                 </div>
               </div>
             </div>

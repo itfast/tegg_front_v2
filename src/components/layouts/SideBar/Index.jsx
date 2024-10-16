@@ -758,7 +758,7 @@ export function SideBar({ open }) {
               <li
                 style={{
                   backgroundColor:
-                    local.pathname === '/iccids' ? '#00D959' : '',
+                    local.pathname === '/notifications' ? '#00D959' : '',
                 }}
               >
                 <a href='#' onClick={() => navigate('/notifications')}>
@@ -768,7 +768,7 @@ export function SideBar({ open }) {
                 <ul className='sub-menu blank'>
                   <li>
                     <a href='#' onClick={() => navigate('/notifications')}>
-                      {t('Menu.iccids')}
+                      Notificações
                     </a>
                   </li>
                 </ul>
