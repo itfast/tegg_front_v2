@@ -274,7 +274,7 @@ export const ActionsTable = ({ line, setLoading, setMsg }) => {
               onClick={() =>
                 line?.Status !== 'INVALID' &&
                 navigate('/actions/invoices', {
-                  state: { line: line, client: line?.FinalClient?.Name },
+                  state: { line: line, client: line?.Iccid },
                 })
               }
             />

@@ -36,8 +36,8 @@ export const Invoices = () => {
   useEffect(() => {
     if(location.state.line){
       const {line} = location.state
-      console.log(line?.FinalClient?.Id)
-      search(line?.FinalClient?.Id)
+      console.log(line?.Iccid)
+      search(line?.Iccid)
     }
 
   },[limit, page])

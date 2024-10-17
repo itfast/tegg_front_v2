@@ -1348,13 +1348,13 @@ class Api {
       },
     };
     this.order = {
-      getAll: async (pageNum, pageSize, search, status, mfreight) => {
+      getAll: async (pageNum, pageSize, search, iccid, status, mfreight) => {
         const query = status === "" ? "" : `&status=${status}`;
         const freight = mfreight === "" ? "" : `&freight=${mfreight}`;
         const searchh = search === "" ? "" : `&search=${search}`;
         try {
           const response = await this.axios.get(
-            `${apiRoutes.order}?page=${pageNum}&limit=${pageSize}${searchh}${query}${freight}`
+            `${apiRoutes.order}?page=${pageNum}&limit=${pageSize}${searchh}${iccidd}${query}${freight}`
           );
           return response;
         } catch (e) {
@@ -1367,14 +1367,14 @@ class Api {
         search,
         status,
         mfreight,
-        FinalClientId
+        IccidId
       ) => {
         const query = status === "" ? "" : `&status=${status}`;
         const freight = mfreight === "" ? "" : `&freight=${mfreight}`;
         const searchh = search === "" ? "" : `&search=${search}`;
         try {
           const response = await this.axios.get(
-            `${apiRoutes.order}/root/${FinalClientId}?page=${pageNum}&limit=${pageSize}${searchh}${query}${freight}`
+            `${apiRoutes.order}/root/${IccidId}?page=${pageNum}&limit=${pageSize}${searchh}${query}${freight}`
           );
           return response;
         } catch (e) {
