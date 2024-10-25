@@ -50,11 +50,11 @@ export const Iccids = () => {
     },
     {
       value: 'CREATED',
-      label: 'Aguardando status surf',
+      label: 'Aguardando status',
     },
     {
       value: 'NOT USED',
-      label: 'Não ativo SURF',
+      label: 'Não ativo',
     },
     {
       value: 'AVAILABLE',
@@ -110,9 +110,9 @@ export const Iccids = () => {
   const translateStatus = (str) => {
     switch (str) {
       case 'CREATED':
-        return 'Aguardando status SURF';
+        return 'Aguardando status';
       case 'NOT USED':
-        return 'Não ativo na SURF';
+        return 'Não ativo';
       case 'SENT':
         return 'Enviado';
       case 'ACTIVE':
@@ -382,7 +382,7 @@ export const Iccids = () => {
                   <ReactLoading type={'bars'} color={'#fff'} />
                 </div>
               ) : (
-                'Checar status SURF'
+                'Checar status'
               )}
             </Button>
 
@@ -441,7 +441,7 @@ export const Iccids = () => {
                 <th>Vendedor</th>
                 <th>Cliente</th>
                 <th>Status</th>
-                <th>Checar Surf</th>
+                <th>Checar</th>
                 <th>Deletar</th>
               </tr>
             </thead>
@@ -536,9 +536,8 @@ export const Iccids = () => {
           <br />
           <br />
           <p>
-            <span style={{ fontWeight: 'bold' }}>Aguardando status SURF:</span>{' '}
-            O ICCID foi cadastrado e está esperando seu status ser checado na
-            SURF.
+            <span style={{ fontWeight: 'bold' }}>Aguardando status:</span>{' '}
+            O ICCID foi cadastrado e está esperando seu status ser checado.
           </p>
           <br />
           <p>

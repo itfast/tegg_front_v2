@@ -248,7 +248,6 @@ export const Lines = () => {
                   {/* {api.currentUser.AccessTypes[0] !== 'TEGG' && (
                       <th>Saldo</th>
                     )}
-                    <th>Status SURF</th> */}
                   {/* <th>Recarga</th> */}
                   {/* {api.currentUser.AccessTypes[0] !== 'TEGG' && (
                       <th>Trocar plano</th>

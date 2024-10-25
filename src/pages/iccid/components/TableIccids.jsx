@@ -180,8 +180,6 @@ export const TableIccids = ({
           <th>Vendedor</th>
           <th>Cliente</th>
           <th>Status</th>
-          {/* <th>Checar SURF</th>
-        <th>Deletar</th> */}
         </tr>
         {iccids.map((i) => (
           <tr key={i.Iccid}>
@@ -278,7 +276,7 @@ export const TableIccids = ({
             handleClose();
           }}
         >
-          Status surf
+          Status
         </MenuItem>
       </Menu>
 

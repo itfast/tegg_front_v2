@@ -44,9 +44,9 @@ export const IccidInfo = ({
   const translateChipStatus = (str) => {
     switch (str) {
       case 'CREATED':
-        return 'Aguardando status SURF';
+        return 'Aguardando status';
       case 'NOT USED':
-        return 'Não ativo na SURF';
+        return 'Não ativo';
       case 'SENT':
         return 'Enviado';
       case 'ACTIVE':

@@ -61,8 +61,8 @@ import { ActivationManualClient } from '../pages/iccid/activate/ActivatetionManu
 // import { Streaming } from '../pages/streaming/Streaming';
 import { StreamingManagement } from '../pages/streaming/StreamingManagement';
 import { Actions } from '../pages/actions/Actions';
-import { Notifications } from '../pages/notifications/Notifications';
-import { NewNotification } from '../pages/notifications/newNotification';
+// import { Notifications } from '../pages/notifications/Notifications';
+// import { NewNotification } from '../pages/notifications/newNotification';
 import { ConsumInf } from '../pages/actions/components/ConsumInf'
 import { ChangePlan } from '../pages/actions/components/ChangePlan'
 import { RechargeAction } from '../pages/actions/components/Recharge';
@@ -217,8 +217,8 @@ export function Router() {
               <Route path={'comissions'} element={<Comissions />} />
               <Route path={'statement'} element={<Statement />} />
               <Route path={'actions'} element={<Actions />} />
-              <Route path={'notifications'} element={<Notifications/>} />
-              <Route path={'notifications/new'} element={<NewNotification/>} />
+              {/* <Route path={'notifications'} element={<Notifications/>} />
+              <Route path={'notifications/new'} element={<NewNotification/>} /> */}
               <Route path={'actions/consum'} element={<ConsumInf />} />
               <Route path={'actions/changeplan'} element={<ChangePlan />} />
               <Route path={'actions/recharge'} element={<RechargeAction />} />

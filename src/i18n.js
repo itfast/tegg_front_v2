@@ -410,7 +410,7 @@ const resources = {
         valueRequired: "Valor *",
         idPlayHub: "ID Plano PlayHub",
         placeHolderPlayHub: "ID Playhub",
-        idSurf: "ID Plano Surf",
+        idSurf: "ID Plano",
         cfop: "CFOP",
         cfopRequired: "CFOP *",
         ean: "EAN",
@@ -485,7 +485,7 @@ const resources = {
         linkIccid: "Associar Iccids",
         checkStatusMsgWarning:
           "Selecione ao menos um ICCID para realizar a operação.",
-        buttonCheckStatus: "Checar status SURF",
+        buttonCheckStatus: "Checar status",
         buttonDelete: "Deletar",
         deleteMsgWarning:
           "ICCIDs que possuam uma linha ativa não podem ser deletados, por favor desmarque o ICCID errado antes de prosseguir.",
@@ -507,9 +507,9 @@ const resources = {
         deleteMsg:
           "DESEJA REALMENTE APAGAR MÚLTIPLOS ICCIDS? ESSA AÇÃO NÃO PODERÁ SER DESFEITA!",
         infMsgs: {
-          awaitingStatus: "Aguardando status SURF:",
+          awaitingStatus: "Aguardando status:",
           awaitingStatusResult:
-            " O ICCID foi cadastrado e está esperando seu status ser checado na SURF.",
+            " O ICCID foi cadastrado e está esperando seu status ser checado.",
           available: "Disponível:",
           availableResult:
             "Disponível:O ICCID está disponível para ser ativado por um usuário",
@@ -636,8 +636,8 @@ const resources = {
       },
       Status: {
         all: "Todos",
-        awaiting: "Aguardando status surf",
-        notActive: "Não ativo SURF",
+        awaiting: "Aguardando status",
+        notActive: "Não ativo",
         available: "Disponível para venda",
         sent: "Enviado",
         active: "Ativado",
@@ -1606,7 +1606,7 @@ const resources = {
         valueRequired: "Valor *",
         idPlayHub: "ID Plano PlayHub",
         placeHolderPlayHub: "ID Playhub",
-        idSurf: "ID Plano Surf",
+        idSurf: "ID Plano",
         cfop: "CFOP",
         cfopRequired: "CFOP *",
         ean: "EAN",
@@ -1681,7 +1681,7 @@ const resources = {
         linkIccid: "Associar Iccids",
         checkStatusMsgWarning:
           "Selecione ao menos um ICCID para realizar a operação.",
-        buttonCheckStatus: "Checar status SURF",
+        buttonCheckStatus: "Checar status",
         buttonDelete: "Deletar",
         deleteMsgWarning:
           "ICCIDs que possuam uma linha ativa não podem ser deletados, por favor desmarque o ICCID errado antes de prosseguir.",
@@ -1703,9 +1703,9 @@ const resources = {
         deleteMsg:
           "DESEJA REALMENTE APAGAR MÚLTIPLOS ICCIDS? ESSA AÇÃO NÃO PODERÁ SER DESFEITA!",
         infMsgs: {
-          awaitingStatus: "Aguardando status SURF:",
+          awaitingStatus: "Aguardando status:",
           awaitingStatusResult:
-            " O ICCID foi cadastrado e está esperando seu status ser checado na SURF.",
+            " O ICCID foi cadastrado e está esperando seu status ser checado.",
           available: "Disponível:",
           availableResult:
             "Disponível:O ICCID está disponível para ser ativado por um usuário",
@@ -1832,8 +1832,8 @@ const resources = {
       },
       Status: {
         all: "Todos",
-        awaiting: "Aguardando status surf",
-        notActive: "Não ativo SURF",
+        awaiting: "Aguardando status",
+        notActive: "Não ativo",
         available: "Disponível para venda",
         sent: "Enviado",
         active: "Ativado",
@@ -2802,7 +2802,7 @@ const resources = {
         valueRequired: "Valor *",
         idPlayHub: "ID Plano PlayHub",
         placeHolderPlayHub: "ID Playhub",
-        idSurf: "ID Plano Surf",
+        idSurf: "ID Plano",
         cfop: "CFOP",
         cfopRequired: "CFOP *",
         ean: "EAN",
@@ -2877,7 +2877,7 @@ const resources = {
         linkIccid: "Associar Iccids",
         checkStatusMsgWarning:
           "Selecione ao menos um ICCID para realizar a operação.",
-        buttonCheckStatus: "Checar status SURF",
+        buttonCheckStatus: "Checar status",
         buttonDelete: "Deletar",
         deleteMsgWarning:
           "ICCIDs que possuam uma linha ativa não podem ser deletados, por favor desmarque o ICCID errado antes de prosseguir.",
@@ -2899,9 +2899,9 @@ const resources = {
         deleteMsg:
           "DESEJA REALMENTE APAGAR MÚLTIPLOS ICCIDS? ESSA AÇÃO NÃO PODERÁ SER DESFEITA!",
         infMsgs: {
-          awaitingStatus: "Aguardando status SURF:",
+          awaitingStatus: "Aguardando status:",
           awaitingStatusResult:
-            " O ICCID foi cadastrado e está esperando seu status ser checado na SURF.",
+            " O ICCID foi cadastrado e está esperando seu status ser checado.",
           available: "Disponível:",
           availableResult:
             "Disponível:O ICCID está disponível para ser ativado por um usuário",
@@ -3028,8 +3028,8 @@ const resources = {
       },
       Status: {
         all: "Todos",
-        awaiting: "Aguardando status surf",
-        notActive: "Não ativo SURF",
+        awaiting: "Aguardando status",
+        notActive: "Não ativo",
         available: "Disponível para venda",
         sent: "Enviado",
         active: "Ativado",

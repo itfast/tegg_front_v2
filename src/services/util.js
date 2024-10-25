@@ -741,9 +741,9 @@ export const translateChipStatus = (str) => {
     case "ACTIVE":
       return "Ativado";
     case "CREATED":
-      return "Aguardando status SURF";
+      return "Aguardando status";
     case "NOT USED":
-      return "Não ativo na SURF";
+      return "Não ativo";
     case "SENT":
       return "Enviado";
     case "GRACE1":
@@ -767,8 +767,6 @@ export const translateChipStatus = (str) => {
 
 export const optChipStatus = [
   { label: "Ativado", value: "ACTIVE" },
-  // {label: 'Aguardando status SURF', value: 'CREATED'},
-  // {label: 'Não ativo na SURF', value: 'NOT USED'},
   // {label: 'Enviado', value: 'SENT'},
   { label: "Recarga atrasada 5 dias", value: "GRACE1" },
   { label: "Recarga atrasada 45 dias", value: "GRACE2" },

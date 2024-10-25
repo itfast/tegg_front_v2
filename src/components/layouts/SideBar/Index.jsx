@@ -754,7 +754,7 @@ export function SideBar({ open }) {
               </li>
             </PermissionView>
             {/* NOTIFICACOES */}
-            <PermissionView role='TEGG,DEALER'>
+            {/* <PermissionView role='TEGG,DEALER'>
               <li
                 style={{
                   backgroundColor:
@@ -773,7 +773,7 @@ export function SideBar({ open }) {
                   </li>
                 </ul>
               </li>
-            </PermissionView>
+            </PermissionView> */}
             {/* TUTORIAIS */}
             <li
               style={{

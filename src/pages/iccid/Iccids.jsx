@@ -396,7 +396,7 @@ export const Iccids = () => {
             <div style={{ display: screen.width > 768 && 'flex', gap: 10 }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
                 <div style={{ width: screen.width < 768 && '25%' }}>
-                  <p>{t('Iccids.buttonDelete')}:</p>
+                  <p>{t('Iccids.type')}:</p>
                 </div>
                 <div style={{ width: screen.width < 768 && '100%' }}>
                   <Select
