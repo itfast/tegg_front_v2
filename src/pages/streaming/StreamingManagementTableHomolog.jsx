@@ -118,7 +118,6 @@ export const StreamingManagementTableHomolog = ({
               }
             });
           });
-          console.log(list);
           setPlanGeneral(list);
         }
       })

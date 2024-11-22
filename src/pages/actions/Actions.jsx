@@ -101,7 +101,7 @@ export const Actions = () => {
 
   useEffect(() => {
     getLines();
-  }, [search, pageNum, pageSize]);
+  }, [ pageNum, pageSize]);
 
   return (
     <>
@@ -148,6 +148,12 @@ export const Actions = () => {
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
               />
+              <Button
+                style={{ width: screen.width < 768 && "100%" }}
+                onClick={getLines}
+              >
+                Buscar
+              </Button>
             </div>
 
             {/* <AsyncSelect

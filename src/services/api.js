@@ -1350,8 +1350,10 @@ class Api {
     this.order = {
       getAll: async (pageNum, pageSize, search, iccid, status, mfreight) => {
         const query = status === "" ? "" : `&status=${status}`;
-        const freight = mfreight === "" ? "" : `&freight=${mfreight}`;
+        const freight = mfreight === "" || typeof mfreight === "undefined" ? "" : `&freight=${mfreight}`;
         const searchh = search === "" ? "" : `&search=${search}`;
+        const iccidd = iccid === "" ? "" : `&iccid=${iccid}`
+        console.log( `${apiRoutes.order}?page=${pageNum}&limit=${pageSize}${searchh}${iccidd}${query}${freight}`)
         try {
           const response = await this.axios.get(
             `${apiRoutes.order}?page=${pageNum}&limit=${pageSize}${searchh}${iccidd}${query}${freight}`

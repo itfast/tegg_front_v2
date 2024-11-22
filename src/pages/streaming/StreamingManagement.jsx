@@ -7,8 +7,6 @@ import {
   DialogContent,
   DialogContentText,
   DialogTitle,
-  Pagination,
-  Stack,
   // FormControlLabel,
   // FormGroup,
 } from "@mui/material";
@@ -52,13 +50,15 @@ export const StreamingManagement = () => {
   const [phone, setPhone] = useState();
   const [open, setOpen] = useState(false);
   const [client, setClient] = useState();
-  const [page, setPage] = useState(1)
-  const [limit, setLimit] = useState(200)
-  const [maxPages, setMaxPages] = useState(1);
+  // const [page, setPage] = useState(1)
+  // const [limit, setLimit] = useState(200)
+  const page = 1
+  const limit = 200
+  // const [maxPages, setMaxPages] = useState(1);
 
   const [streamers, setStreamers] = useState([1]);
   const [search, setSearch] = useState("");
-  const [planOptAdd, setPlanOptAdd] = useState([]);
+  // const [planOptAdd, setPlanOptAdd] = useState([]);
 
   const handleTypePass = () => {
     setTypePass(typePass === "password" ? "text" : "password");
@@ -74,8 +74,7 @@ export const StreamingManagement = () => {
     api.streaming
       .getAll(search, page, limit)
       .then((res) => {
-        console.log(res)
-        setMaxPages(res.data?.meta?.totalPages || 1);
+        // setMaxPages(res.data?.meta?.totalPages || 1);
         setStreamers(res.data);
       })
       .catch((err) => translateError(err))
@@ -114,7 +113,7 @@ export const StreamingManagement = () => {
             });
           });
 
-          setPlanOptAdd(list);
+          // setPlanOptAdd(list);
         }
       })
       .catch((err) => console.log(err));
@@ -129,8 +128,6 @@ export const StreamingManagement = () => {
     if (api.currentUser.AccessTypes[0] !== "CLIENT") {
       const responseC = await api.client.getSome(1, 15, search);
       const clients = await responseC.data.finalClients;
-
-      console.log(clients);
 
       const array = [];
       if (clients.length !== 0) {
@@ -385,7 +382,6 @@ export const StreamingManagement = () => {
               menuPosition={"fixed"}
               value={client}
               onChange={(e) => {
-                console.log(e);
                 setClient(e);
                 setUser(e?.all?.Email);
                 setEmail(e?.all?.Email);

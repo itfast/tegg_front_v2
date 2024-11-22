@@ -118,7 +118,6 @@ export const StreamingManagementMobile = ({
               }
             });
           });
-          console.log(list);
           setPlanGeneral(list);
         }
       })
