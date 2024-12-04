@@ -96,7 +96,7 @@ export const SideBarMobile = ({ open, setHas, setOpen }) => {
                   </div>
                 </a>
               </li>
-              <PermissionView role="TEGG">
+              {/* <PermissionView role="TEGG">
                 <li className={open ? "animate" : ""}>
                   <a>
                     <div
@@ -122,8 +122,8 @@ export const SideBarMobile = ({ open, setHas, setOpen }) => {
                     </div>
                   </a>
                 </li>
-              </PermissionView>
-              <PermissionView role="CLIENT,AGENT">
+              </PermissionView> */}
+              {/* <PermissionView role="CLIENT,AGENT">
                 <li className={open ? "animate" : ""}>
                   <a>
                     <div
@@ -149,7 +149,7 @@ export const SideBarMobile = ({ open, setHas, setOpen }) => {
                     </div>
                   </a>
                 </li>
-              </PermissionView>
+              </PermissionView> */}
               {/* PLANOS */}
               <PermissionView role="TEGG">
                 <li className={open ? "animate" : ""}>

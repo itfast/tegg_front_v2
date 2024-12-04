@@ -64,7 +64,7 @@ export const RechargeCard = ({
           }}
         >
           <h5 style={{ color: 'black', fontWeight: 'bold' }}>
-            Ligações ilimitadas
+            {comments}
           </h5>
           <br />
           <div style={{ display: 'flex', flexDirection: 'column' }}>
@@ -78,9 +78,9 @@ export const RechargeCard = ({
               <span style={{ fontWeight: 'bold' }}>{extraPortIn}</span> de
               portabilidade
             </h5>}
-            {comments &&(
+            {/* {comments &&(
               <h6>{comments}</h6>
-            )}
+            )} */}
           </div>
           <br />
           <div

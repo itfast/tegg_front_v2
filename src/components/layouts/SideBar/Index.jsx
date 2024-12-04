@@ -71,7 +71,7 @@ export function SideBar({ open }) {
               </ul>
             </li>
             {/* TEGG TV */}
-            <PermissionView role='CLIENT,AGENT'>
+            {/* <PermissionView role='CLIENT,AGENT'>
               <li
                 style={{
                   backgroundColor:
@@ -94,8 +94,8 @@ export function SideBar({ open }) {
                   </li>
                 </ul>
               </li>
-            </PermissionView>
-            <PermissionView role='TEGG'>
+            </PermissionView> */}
+            {/* <PermissionView role='TEGG'>
               <li
                 style={{
                   backgroundColor:
@@ -118,7 +118,7 @@ export function SideBar({ open }) {
                   </li>
                 </ul>
               </li>
-            </PermissionView>
+            </PermissionView> */}
             {/* PLANOS */}
             <PermissionView role='TEGG'>
               <li

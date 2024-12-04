@@ -284,7 +284,7 @@ export const ConsumptionChart = ({ lineMetrics }) => {
 
   const getLines = () => {
     api.line
-      .myLines(1, 20)
+      .myLines(1, 500)
       .then((res) => {
         // console.log(res.data);
         const array = [];

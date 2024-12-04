@@ -155,7 +155,6 @@ export const ActionsTable = ({ line, setLoading, setMsg }) => {
         </td>
         <td>{line?.Status && translateChipStatus(line?.Status)}</td>
         <td>
-          {console.log(line?.Status)}
           <div
             style={{
               display: 'flex',

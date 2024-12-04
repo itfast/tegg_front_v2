@@ -59,7 +59,7 @@ import { ConfirmRegister } from '../pages/login/ConfirmRegister';
 import { ActivationManual } from '../pages/iccid/activate/ActivatetionManual';
 import { ActivationManualClient } from '../pages/iccid/activate/ActivatetionManualClient';
 // import { Streaming } from '../pages/streaming/Streaming';
-import { StreamingManagement } from '../pages/streaming/StreamingManagement';
+// import { StreamingManagement } from '../pages/streaming/StreamingManagement';
 import { Actions } from '../pages/actions/Actions';
 // import { Notifications } from '../pages/notifications/Notifications';
 // import { NewNotification } from '../pages/notifications/newNotification';
@@ -68,7 +68,7 @@ import { ChangePlan } from '../pages/actions/components/ChangePlan'
 import { RechargeAction } from '../pages/actions/components/Recharge';
 import { PorInAction } from '../pages/actions/components/PortInAction';
 import { Invoices } from '../pages/actions/components/Invoices'
-import { NewStreaming } from '../pages/streaming/NewStreaming';
+// import { NewStreaming } from '../pages/streaming/NewStreaming';
 import { PreRegister } from '../pages/preRegister/PreRegister';
 import { PreOrder } from '../pages/preRegister/PreOrder';
 // import { element } from 'prop-types';
@@ -127,9 +127,9 @@ export function Router() {
           <Route path={'orders/pay/credit/:id'} element={<PayOrderCredit />} />
 
           {/* USUÁRIO TEGG, REVENDA E CLIENTE */}
-          <Route path='/*' element={<PrivateRoute />}>
+          <Route path='/' element={<PrivateRoute />}>
             <Route
-              path=''
+              path='/'
               element={
                 <AdminLayout
                   installApp={installApp}
@@ -139,7 +139,7 @@ export function Router() {
               }
             >
               <Route
-                path={''}
+                path={'/'}
                 element={<DashBoard installApp={installApp} />}
               />
               <Route path={'orders'} element={<Orders />} />
@@ -168,8 +168,8 @@ export function Router() {
               <Route path={'activation/manual'} element={<ActivationManual />} />
               <Route path={'activation/client/manual'} element={<ActivationManualClient />} />
               <Route path={'profile'} element={<Profile />} />
-              <Route path={'streaming'} element={<NewStreaming />} />
-              <Route path={'management/streaming'} element={<StreamingManagement/>} />
+              {/* <Route path={'streaming'} element={<NewStreaming />} /> */}
+              {/* <Route path={'management/streaming'} element={<StreamingManagement/>} /> */}
               <Route path={'recharge'} element={<Recharges />} />
               <Route path={'recharge/new'} element={<NewRecharge />} />
               <Route

@@ -43,6 +43,7 @@ export const ChangePlan = () => {
             value: myPlan,
           });
         }
+        console.log(filtered)
         setPlanOpt(filtered);
       })
       .catch((err) => {

@@ -331,8 +331,8 @@ export const StreamingManagementTable = ({setLoading, setMsg}) => {
                     type={typePassR}
                     placeholder=""
                     value={repeatPass}
-                    id="passwordr"
-                    name="password"
+                    id="passwordConfirm"
+                    name="passwordConfirm"
                     onChange={(e) => setRepeatPass(e.target.value)}
                   />
                   {repeatPass &&

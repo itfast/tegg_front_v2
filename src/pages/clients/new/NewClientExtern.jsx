@@ -27,7 +27,7 @@ import { toast } from "react-toastify";
 import api from "../../../services/api";
 import { BankAccountExtern } from "../../resales/new/BankAccountExtern";
 import { useLocation } from "react-router-dom";
-import { Loading } from "../../../components/loading/Loading";
+// import { Loading } from "../../../components/loading/Loading";
 import { useTranslation } from "react-i18next";
 
 export const NewClientExtern = ({ setSingUp, data, loading, setLoading }) => {
@@ -571,7 +571,7 @@ export const NewClientExtern = ({ setSingUp, data, loading, setLoading }) => {
               <div style={{ width: "100%" }}>
                 <h5>{t("Register.name")}</h5>
                 <InputData
-                  id="companyName"
+                  // id="companyName"
                   name="companyName"
                   type="text"
                   placeholder={t("Register.name")}
@@ -588,7 +588,7 @@ export const NewClientExtern = ({ setSingUp, data, loading, setLoading }) => {
                 <h5>{t("Register.cnpj")}</h5>
                 <InputData
                   style={{ width: "100%" }}
-                  id="companyCNPJ"
+                  // id="companyCNPJ"
                   name="companyCNPJ"
                   type="text"
                   placeholder={t("Register.cnpj")}
@@ -603,7 +603,7 @@ export const NewClientExtern = ({ setSingUp, data, loading, setLoading }) => {
                 <h5>{t("Register.ie")}</h5>
                 <InputData
                   style={{ width: "100%" }}
-                  id="companyIE"
+                  // id="companyIE"
                   name="companyIE"
                   // type="number"
                   placeholder={t("Register.ie")}
@@ -659,7 +659,7 @@ export const NewClientExtern = ({ setSingUp, data, loading, setLoading }) => {
                 <h5>{t("Register.email")}</h5>
                 <InputData
                   style={{ width: "100%" }}
-                  id="companyEmail"
+                  // id="companyEmail"
                   name="companyEmail"
                   type="text"
                   placeholder={t("Register.email")}
@@ -674,7 +674,7 @@ export const NewClientExtern = ({ setSingUp, data, loading, setLoading }) => {
                 <h5>{t("Register.phone")}</h5>
                 <InputData
                   style={{ width: "100%" }}
-                  id="companyPhone"
+                  // id="companyPhone"
                   name="companyPhone"
                   placeholder={t("Register.phone")}
                   className="input_2"
@@ -696,7 +696,7 @@ export const NewClientExtern = ({ setSingUp, data, loading, setLoading }) => {
                   style={{ width: "100%" }}
                   ref={cepInput}
                   type="text"
-                  id="companyCep"
+                  // id="companyCep"
                   name="companyCep"
                   placeholder={t("Register.cep")}
                   value={company.cep}
@@ -709,7 +709,7 @@ export const NewClientExtern = ({ setSingUp, data, loading, setLoading }) => {
                 <InputData
                   style={{ width: "100%" }}
                   type="text"
-                  id="companyAddress"
+                  // id="companyAddress"
                   name="companyAddress"
                   placeholder={'Endereço'}
                   value={company.address}
@@ -725,7 +725,7 @@ export const NewClientExtern = ({ setSingUp, data, loading, setLoading }) => {
                 <h5>Complemento</h5>
                 <InputData
                   style={{ width: "100%" }}
-                  id="companyComplement"
+                  // id="companyComplement"
                   name="companyComplement"
                   type="text"
                   placeholder={'Complemento'}
@@ -741,7 +741,7 @@ export const NewClientExtern = ({ setSingUp, data, loading, setLoading }) => {
                 <InputData
                   style={{ width: "100%" }}
                   type="number"
-                  id="companyNumber"
+                  // id="companyNumber"
                   name="companyNumber"
                   placeholder={'Número'}
                   className="input_20"
@@ -758,7 +758,7 @@ export const NewClientExtern = ({ setSingUp, data, loading, setLoading }) => {
                 <InputData
                   style={{ width: "100%" }}
                   type="text"
-                  id="companyDistrict"
+                  // id="companyDistrict"
                   name="companyDistrict"
                   placeholder={'Bairro'}
                   value={company.district}
@@ -773,7 +773,7 @@ export const NewClientExtern = ({ setSingUp, data, loading, setLoading }) => {
                 <InputData
                   style={{ width: "100%" }}
                   type="text"
-                  id="companyCity"
+                  // id="companyCity"
                   name="companyCity"
                   placeholder={'Cidade'}
                   value={company.city}
@@ -788,7 +788,7 @@ export const NewClientExtern = ({ setSingUp, data, loading, setLoading }) => {
                 <SelectUfs
                   style={{ height: "40px",  width: "100%"  }}
                   name="companyUf"
-                  id="companyUf"
+                  // id="companyUf"
                   placeholder={t("Register.uf")}
                   value={company.uf}
                   onChange={(e) =>
@@ -821,7 +821,7 @@ export const NewClientExtern = ({ setSingUp, data, loading, setLoading }) => {
           <div style={{ width: "100%" }}>
             <h5>Nome completo</h5>
             <InputData
-              id="clientName"
+              // id="clientName"
               name="clientName"
               type="text"
               placeholder={t("Register.name")}
@@ -837,7 +837,7 @@ export const NewClientExtern = ({ setSingUp, data, loading, setLoading }) => {
               <h5>CNPJ</h5>
               <InputData
                 style={{ width: "100%" }}
-                id="clientCNPJ"
+                // id="clientCNPJ"
                 name="clientCNPJ"
                 type="text"
                 placeholder={t("Register.cnpj")}
@@ -851,7 +851,7 @@ export const NewClientExtern = ({ setSingUp, data, loading, setLoading }) => {
               <h5>CPF</h5>
               <InputData
                 style={{ width: "100%" }}
-                id="clientCPF"
+                // id="clientCPF"
                 name="clientCPF"
                 type="text"
                 placeholder={t("Register.cpf")}
@@ -866,7 +866,7 @@ export const NewClientExtern = ({ setSingUp, data, loading, setLoading }) => {
               <h5>IE</h5>
               <InputData
                 style={{ width: "100%" }}
-                id="clientIE"
+                // id="clientIE"
                 name="clientIE"
                 // type="number"
                 placeholder={t("Register.ie")}
@@ -880,7 +880,7 @@ export const NewClientExtern = ({ setSingUp, data, loading, setLoading }) => {
               <h5>RG</h5>
               <InputData
                 style={{ width: "100%" }}
-                id="clientRG"
+                // id="clientRG"
                 name="clientRG"
                 type="text"
                 placeholder={t("Register.rg")}
@@ -944,7 +944,7 @@ export const NewClientExtern = ({ setSingUp, data, loading, setLoading }) => {
             <h5>E-mail</h5>
             <InputData
               style={{ width: "100%" }}
-              id="clientEmail"
+              // id="clientEmail"
               name="clientEmail"
               type="text"
               placeholder={t("Register.email")}
@@ -959,7 +959,7 @@ export const NewClientExtern = ({ setSingUp, data, loading, setLoading }) => {
               <h5>{t("Register.emailResale1")}</h5>
               <InputData
                 style={{ width: "100%" }}
-                id="emailResale1"
+                // id="emailResale1"
                 name="emailResale1"
                 type="text"
                 placeholder={t("Register.emailResale1")}
@@ -975,7 +975,7 @@ export const NewClientExtern = ({ setSingUp, data, loading, setLoading }) => {
             <h5>{t("Register.secondMail")}</h5>
             <InputData
               style={{ width: "100%" }}
-              id="clientSecondEmail"
+              // id="clientSecondEmail"
               name="clientSecondEmail"
               type="text"
               placeholder={t("Register.secondMail")}
@@ -992,7 +992,7 @@ export const NewClientExtern = ({ setSingUp, data, loading, setLoading }) => {
             <h5>{t("Register.phone")}</h5>
             <InputData
               style={{ width: "100%" }}
-              id="clientPhone"
+              // id="clientPhone"
               name="clientPhone"
               placeholder={t("Register.phone")}
               className="input_2"
@@ -1009,7 +1009,7 @@ export const NewClientExtern = ({ setSingUp, data, loading, setLoading }) => {
             <h5>{t("Register.whatsapp")}</h5>
             <InputData
               style={{ width: "100%" }}
-              id="clientWhatsapp"
+              // id="clientWhatsapp"
               name="clientWhatsapp"
               placeholder={t("Register.whatsapp")}
               className="input_2"
@@ -1031,7 +1031,7 @@ export const NewClientExtern = ({ setSingUp, data, loading, setLoading }) => {
               style={{ width: "100%" }}
               ref={cepInput}
               type="text"
-              id="cep"
+              // id="cep"
               name="cep"
               placeholder={t("Register.cep")}
               value={user.cep}
@@ -1044,7 +1044,7 @@ export const NewClientExtern = ({ setSingUp, data, loading, setLoading }) => {
             <InputData
               style={{ width: "100%" }}
               type="text"
-              id="address"
+              // id="address"
               name="address"
               placeholder={'Endereço'}
               value={user.address}
@@ -1070,7 +1070,7 @@ export const NewClientExtern = ({ setSingUp, data, loading, setLoading }) => {
             <InputData
               style={{ width: "100%" }}
               type="number"
-              id="number"
+              // id="number"
               placeholder={t("Register.number")}
               className="input_20"
               value={user.number}
@@ -1084,7 +1084,7 @@ export const NewClientExtern = ({ setSingUp, data, loading, setLoading }) => {
             <InputData
               style={{ width: "100%" }}
               type="text"
-              id="district"
+              // id="district"
               placeholder={'Bairro'}
               value={user.district}
               onChange={(e) => setUser({ ...user, district: e.target.value })}
@@ -1096,7 +1096,7 @@ export const NewClientExtern = ({ setSingUp, data, loading, setLoading }) => {
             <InputData
               style={{ width: "100%" }}
               type="text"
-              id="city"
+              // id="city"
               placeholder={'Cidade'}
               value={user.city}
               onChange={(e) => setUser({ ...user, city: e.target.value })}
@@ -1108,7 +1108,7 @@ export const NewClientExtern = ({ setSingUp, data, loading, setLoading }) => {
             <SelectUfs
               style={{ height: "40px", width: "100%" }}
               name="UF"
-              id="uf"
+              // id="uf"
               placeholder={t("Register.uf")}
               value={user.uf}
               onChange={(e) => setUser({ ...user, uf: e.target.value })}
@@ -1145,7 +1145,7 @@ export const NewClientExtern = ({ setSingUp, data, loading, setLoading }) => {
                 type={typePass}
                 placeholder={t("Register.password")}
                 value={newPass}
-                id="password"
+                // id="password"
                 name="password"
                 onChange={(e) => setNewPass(e.target.value)}
               />
@@ -1173,7 +1173,7 @@ export const NewClientExtern = ({ setSingUp, data, loading, setLoading }) => {
                 type={typePassConfirm}
                 placeholder={t("Register.repeatPassword")}
                 value={confirmNewPass}
-                id="secondpassword"
+                // id="secondpassword"
                 name="secondpassword"
                 onChange={(e) => setConfirmNewPass(e.target.value)}
               />

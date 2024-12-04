@@ -1133,8 +1133,8 @@ export const NewClientExtern = ({ setSingUp, data }) => {
               type={typePassConfirm}
               placeholder={t("Register.repeatPassword")}
               value={confirmNewPass}
-              id="password"
-              name="password"
+              id="passwordConfirm"
+              name="passwordConfirm"
               onChange={(e) => setConfirmNewPass(e.target.value)}
             />
             {confirmNewPass &&

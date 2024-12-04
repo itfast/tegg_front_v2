@@ -29,45 +29,45 @@ import { Loading } from "../../../components/loading/Loading";
 import { useTranslation } from "react-i18next";
 
 
-import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
-import { useForm } from "react-hook-form";
+// import { yupResolver } from "@hookform/resolvers/yup";
+// import * as yup from "yup";
+// import { useForm } from "react-hook-form";
 
-const [bank, setBank] = useState({
-  type: "",
-  pixType: "",
-  pixKey: "",
-  bankName: "",
-  ag: "",
-  agDigit: "",
-  account: "",
-  accountDigit: "",
-  op: "",
-});
+// const [bank, setBank] = useState({
+//   type: "",
+//   pixType: "",
+//   pixKey: "",
+//   bankName: "",
+//   ag: "",
+//   agDigit: "",
+//   account: "",
+//   accountDigit: "",
+//   op: "",
+// });
 
-const schema = yup
-  .object({
-    bank: yup.object({
-      type: yup.string().optional(),
-      pixType: yup.string().optional(),
-      pixKey: yup.string().optional(),
-      bankName: yup.string().optional(),
-      ag: yup.number().optional(),
-      agDigit: yup.string().optional(),
-      account: yup.string().optional(),
-      accountDigit: yup.string().optional(),
-      op: yup.string().optional(),
-    }),
-    name: yup.string().required("Nome deve ser informado"),
-    phone: yup.string().required("Telefone deve ser informado"),
-    oldIccid: yup.string().required("ICCID antigo deve ser informado"),
-    newIccid: yup.string(),
-    cpf: yup
-      .string()
-      .test("test-invalid-cpf", "CPF inválido", (cpf) => validateDocument(cpf))
-      .required("CPF deve ser informado"),
-  })
-  .required();
+// const schema = yup
+//   .object({
+//     bank: yup.object({
+//       type: yup.string().optional(),
+//       pixType: yup.string().optional(),
+//       pixKey: yup.string().optional(),
+//       bankName: yup.string().optional(),
+//       ag: yup.number().optional(),
+//       agDigit: yup.string().optional(),
+//       account: yup.string().optional(),
+//       accountDigit: yup.string().optional(),
+//       op: yup.string().optional(),
+//     }),
+//     name: yup.string().required("Nome deve ser informado"),
+//     phone: yup.string().required("Telefone deve ser informado"),
+//     oldIccid: yup.string().required("ICCID antigo deve ser informado"),
+//     newIccid: yup.string(),
+//     cpf: yup
+//       .string()
+//       .test("test-invalid-cpf", "CPF inválido", (cpf) => validateDocument(cpf))
+//       .required("CPF deve ser informado"),
+//   })
+//   .required();
 
 export const NewClientExtern = ({ setSingUp, data }) => {
   const { t } = useTranslation();
@@ -1090,8 +1090,8 @@ export const NewClientExtern = ({ setSingUp, data }) => {
               type={typePassConfirm}
               placeholder={t("Register.repeatPassword")}
               value={confirmNewPass}
-              id="password"
-              name="password"
+              id="passwordConfirm"
+              name="passwordConfirm"
               onChange={(e) => setConfirmNewPass(e.target.value)}
             />
             {confirmNewPass &&

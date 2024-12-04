@@ -36,17 +36,17 @@ export const Login = () => {
   const [resetPassword, setResetPassword] = useState("");
   const [step, setStep] = useState(0);
   const navigate = useNavigate();
-  const [singUp, setSingUp] = useState(false);
+  // const [singUp, setSingUp] = useState(false);
   const [flipped, setFlipped] = useState(true);
-  const [language, setLanguage] = useState();
-  const [anchorEl, setAnchorEl] = useState(null);
+  // const [language, setLanguage] = useState();
+  // const [anchorEl, setAnchorEl] = useState(null);
 
   // const userLocale = navigator?.languages?.length
   // ? navigator.languages[0]
   // : navigator.language;
 
   useEffect(() => {
-    setLanguage("pt");
+    // setLanguage("pt");
     api.language.set("pt");
     // api.language
     //   .get()
@@ -104,16 +104,16 @@ export const Login = () => {
   //   setAnchorEl(event.currentTarget);
   // };
 
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
+  // const handleClose = () => {
+  //   setAnchorEl(null);
+  // };
 
-  const handleLanguage = (lng) => {
-    api.language.set(lng);
-    // i18n.changeLanguage(lng);
-    window.location.reload();
-    handleClose();
-  };
+  // const handleLanguage = (lng) => {
+  //   api.language.set(lng);
+  //   // i18n.changeLanguage(lng);
+  //   window.location.reload();
+  //   handleClose();
+  // };
 
   const returnStep = () => {
     switch (step) {
@@ -132,7 +132,7 @@ export const Login = () => {
               <form onSubmit={handleLogin} style={{ width: "100%" }}>
                 <InputLogin
                   type="text"
-                  id="user"
+                  // id="user"
                   name="user"
                   placeholder={t("Login")}
                   value={user}
@@ -144,7 +144,7 @@ export const Login = () => {
                     type={typePass}
                     placeholder={t("Password")}
                     value={password}
-                    id="password"
+                    // id="password"
                     name="password"
                     onChange={(e) => setPassword(e.target.value)}
                   />
@@ -198,7 +198,7 @@ export const Login = () => {
                 </Button>
                 <h5
                   onClick={() => {
-                    setSingUp(true);
+                    // setSingUp(true);
                     setFlipped(false);
                   }}
                   style={{

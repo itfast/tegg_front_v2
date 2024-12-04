@@ -72,6 +72,7 @@ function storeSessionData(token) {
 
 function throwFormattedError(error) {
   if (error.response) {
+    // eslint-disable-next-line no-unused-vars
     const { data, status } = error.response;
     // console.log("data", data);
     // console.log("status", status);
@@ -1374,6 +1375,7 @@ class Api {
         const query = status === "" ? "" : `&status=${status}`;
         const freight = mfreight === "" ? "" : `&freight=${mfreight}`;
         const searchh = search === "" ? "" : `&search=${search}`;
+        console.log(`${apiRoutes.order}/root/${IccidId}?page=${pageNum}&limit=${pageSize}${searchh}${query}${freight}`)
         try {
           const response = await this.axios.get(
             `${apiRoutes.order}/root/${IccidId}?page=${pageNum}&limit=${pageSize}${searchh}${query}${freight}`
