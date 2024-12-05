@@ -122,7 +122,7 @@ export const TeggMetrics = ({
             <hr />
             <div className="card_content">
               {/* <hr style={{ width: '50%' }} /> */}
-              <h1>
+              <h1 style={{wordBreak: 'break-word'}}>
                 {!loadingMetrics ? (
                   translateValue(
                     orderMetrics.Recharges.Total.ConfirmedOrders +
@@ -149,7 +149,7 @@ export const TeggMetrics = ({
             <hr />
             <div className="card_content">
               {/* <hr style={{ width: '50%' }} /> */}
-              <h1>
+              <h1 style={{wordBreak: 'break-word'}}>
                 {!loadingMetrics ? (
                   translateValue(
                     orderMetrics.Recharges.Month.ConfirmedOrders +

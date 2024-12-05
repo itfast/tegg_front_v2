@@ -8,6 +8,7 @@ import { MapsData } from '../../components/myMaps/MapsData';
 import api from '../../services/api';
 import { translateError } from '../../services/util';
 import { useTranslation } from 'react-i18next';
+import { DatePicker } from '@mui/x-date-pickers';
 // import { toast } from 'react-toastify';
 
 const UFS = [
@@ -48,6 +49,7 @@ export const DashBoard = ({ installApp }) => {
   const [totalActive, setTotalActive] = useState(0);
   const [markers, setMarkers] = useState([]);
   const navigate = useNavigate();
+  const [dateSearch, setDateSearch] = useState(null);
   // const location = useLocation();
   // const [hasSearch, setHasSearch] = useState(false);
 
@@ -86,7 +88,7 @@ export const DashBoard = ({ installApp }) => {
       api.currentUser.AccessTypes[0] !== 'AGENT'
     ) {
       api.client
-        .getTotals()
+        .getTotals(dateSearch)
         .then((res) => {
           let total = 0;
           let created = 0;
@@ -174,10 +176,8 @@ export const DashBoard = ({ installApp }) => {
               : 0
           );
           if (!hasSearch) {
-            console.log('Syncar');
             syncMyLines();
           } else {
-            console.log('Syncado', hasSearch);
             setLoadingLines(false);
           }
         })
@@ -191,7 +191,7 @@ export const DashBoard = ({ installApp }) => {
   const getDealers = () => {
     if (api.currentUser.AccessTypes[0] === 'TEGG') {
       api.dealer
-        .getTotals()
+        .getTotals(dateSearch)
         .then((res) => {
           let total = 0;
           res.data.TotalDealers.forEach((state) => {
@@ -211,7 +211,7 @@ export const DashBoard = ({ installApp }) => {
   const getMetrics = () => {
     if (api.currentUser.AccessTypes[0] === 'TEGG') {
       api.order
-        .getAllMetrics()
+        .getAllMetrics(dateSearch)
         .then((res) => {
           setOrdermetrics(res.data);
         })
@@ -251,7 +251,7 @@ export const DashBoard = ({ installApp }) => {
   const getIccidInfo = () => {
     if (api.currentUser.AccessTypes[0] === 'TEGG') {
       api.iccid
-        .getTotals()
+        .getTotals(dateSearch)
         .then((res) => {
           setIccidInfo(res.data);
         })
@@ -305,7 +305,7 @@ export const DashBoard = ({ installApp }) => {
     getMetrics();
     getLines();
     getIccidInfo();
-  }, []);
+  }, [dateSearch]);
 
   const lineMetrics = (e) => {
     console.log('line metrics', e);
@@ -313,33 +313,59 @@ export const DashBoard = ({ installApp }) => {
 
   return (
     <PageLayout style={{ padding: window.innerWidth < 768 && 0 }}>
+      {api.currentUser.Type === 'TEGG' && <div style={{ display: 'flex', justifyContent: 'end', paddingRight: '1rem', paddingTop: '0.2rem' }}>
+        <DatePicker
+          underlineStyle={{ display: "none" }}
+          size={"small"}
+          views={['month', 'year']}
+          label=''
+          disableFuture
+          // label={data?.Cnpj ? "DATA FUNDAÇÃO" : "DATA NASCIMENTO"}
+          slotProps={{
+            textField: {
+              fullWidth: false,
+              variant: "standard",
+              sx: {
+                px: 2,
+                border: "1px solid #00D959",
+                borderRadius: "8px",
+                // height: "40px",
+                // svg: { marginTop: "-15px" },
+              },
+              InputProps: { disableUnderline: true },
+            },
+          }}
+          value={dateSearch}
+          onChange={setDateSearch}
+        />
+      </div>}
       <>
         {(api.currentUser.Type === 'CLIENT' ||
           api.currentUser.Type === 'AGENT') && (
-          <div
-            style={{
-              margin:
-                window.innerWidth < 768 ? '1rem 1rem 0 1rem' : '0 0 0 1rem',
-              gap: 10,
-              display: 'flex',
-              justifyContent:
-                window.innerWidth < 768 ? 'space-around' : 'start',
-            }}
-          >
-            <Button
-              style={{ minWidth: 153 }}
-              onClick={() => navigate('/activation/client/manual')}
+            <div
+              style={{
+                margin:
+                  window.innerWidth < 768 ? '1rem 1rem 0 1rem' : '0 0 0 1rem',
+                gap: 10,
+                display: 'flex',
+                justifyContent:
+                  window.innerWidth < 768 ? 'space-around' : 'start',
+              }}
             >
-              Ativar nova linha
-            </Button>
-            <Button
-              style={{ minWidth: 153 }}
-              onClick={() => navigate('/recharge')}
-            >
-              Recargas
-            </Button>
-          </div>
-        )}
+              <Button
+                style={{ minWidth: 153 }}
+                onClick={() => navigate('/activation/client/manual')}
+              >
+                Ativar nova linha
+              </Button>
+              <Button
+                style={{ minWidth: 153 }}
+                onClick={() => navigate('/recharge')}
+              >
+                Recargas
+              </Button>
+            </div>
+          )}
         <TeggMetrics
           totalClients={totalClients}
           totalCreated={totalCreated}

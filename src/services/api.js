@@ -609,9 +609,10 @@ class Api {
           throwFormattedError(e);
         }
       },
-      getTotals: async () => {
+      getTotals: async (date) => {
+         const query = date ? `?date=${date.toISOString()}` : ''
         try {
-          const response = await this.axios.get(`${apiRoutes.iccid}/totals`);
+          const response = await this.axios.get(`${apiRoutes.iccid}/totals${query}`);
           return response;
         } catch (e) {
           // console.log(e);
@@ -1109,9 +1110,10 @@ class Api {
           throwFormattedError(e);
         }
       },
-      getTotals: async () => {
+      getTotals: async (date) => {
         try {
-          const response = await this.axios.get(`${apiRoutes.client}/totals`);
+           const query = date ? `?date=${date.toISOString()}` : ''
+          const response = await this.axios.get(`${apiRoutes.client}/totals${query}`);
           return response;
         } catch (e) {
           throwFormattedError(e);
@@ -1393,10 +1395,11 @@ class Api {
           throwFormattedError(e);
         }
       },
-      getAllMetrics: async () => {
+      getAllMetrics: async (date) => {
         try {
+          const query = date ? `?date=${date.toISOString()}` : ''
           const response = await this.axios.get(
-            `${apiRoutes.order}/get/metrics`
+            `${apiRoutes.order}/get/metrics${query}`
           );
           return response;
         } catch (e) {
@@ -2492,9 +2495,10 @@ class Api {
           throwFormattedError(e);
         }
       },
-      getTotals: async () => {
+      getTotals: async (date) => {
         try {
-          const response = await this.axios.get(`${apiRoutes.dealer}/totals`);
+          const query = date ? `?date=${date.toISOString()}` : ''
+          const response = await this.axios.get(`${apiRoutes.dealer}/totals${query}`);
           return response;
         } catch (e) {
           throwFormattedError(e);
